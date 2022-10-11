@@ -9,7 +9,7 @@ ${reset}
 --main-background-color: #fff;
 --main-color: #FFF7F2;
 
---tab-background-color: #4b557c;
+--tab-background-color: #448CCB;
 --tab-color: #29141A;
 
 --color-gray0: #c9c9c9;
