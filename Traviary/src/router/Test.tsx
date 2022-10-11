@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import styled from "styled-components";
+import Global from '../assets/Globalstyles'
 
 const Div2 = styled.div `
-	background-color:#448CCB;
+	background-color: var(--tab-bgcolor)
 	color:#FFF7F2;
 	font-size:30px;
 	margin-top: 5px;

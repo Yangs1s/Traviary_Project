@@ -6,10 +6,10 @@ ${reset}
 :root {
   /* Color styles */
 
---main-background-color: #fff;
+--main-bgcolor: #fff;
 --main-color: #FFF7F2;
 
---tab-background-color: #448CCB;
+--tab-bgcolor:linear-gradient(#ff0063, #c71967);
 --tab-color: #29141A;
 
 --color-gray0: #c9c9c9;
