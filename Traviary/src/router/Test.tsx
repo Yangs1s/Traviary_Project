@@ -1,30 +1,34 @@
 import React, { useState } from "react"
-import reactLogo from "../assets/react.svg"
-import "../App.css"
+import styled from "styled-components";
+
+const Div2 = styled.div `
+	background-color:#448CCB;
+	color:#FFF7F2;
+	font-size:30px;
+	margin-top: 5px;
+	width:200px;
+	height:30px;
+	padding:10px;
+	font-weight:600;
+`
+const Font = styled.h1`
+	color:#29141A;
+`
+const Cont = styled.main`
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 2rem;
+	text-align: center;
+`
 
 export default function Test() {
 	const [count, setCount] = useState(0)
-
+	
 	return (
-		<div className="App">
-			<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src="/vite.svg" className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://reactjs.org" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
+		<Cont className="App">
+			<Div2>Traviray</Div2>
 			<h1>Traviray</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> 굿
-				</p>
-			</div>
-			<p className="read-the-docs">hihihi</p>
-		</div>
+			<Font>Traviary</Font>
+		</Cont>
 	)
 }
