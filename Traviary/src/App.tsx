@@ -1,9 +1,9 @@
-import Test from "./router/Test"
+import Router from "./router/Router"
 
 function App() {
 	return (
 		<>
-			<Test />
+			<Router />
 		</>
 	)
 }
