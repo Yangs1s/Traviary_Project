@@ -18,6 +18,7 @@ ${reset}
 --color-gray3: #515151;
 --base-size: 10px;
 --font-family-main: Inter, Avenir, Helvetica, Arial, sans-serif;
+--font-lobster:Lobster;
 
 }
 html {

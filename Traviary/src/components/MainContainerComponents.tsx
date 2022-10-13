@@ -1,5 +1,11 @@
-import React from "react"
+
+
+import React from "react";
 
 export default function MainContainerComponents() {
-	return <div>MainContainerComponents</div>
+  return (
+    <div>
+      <h1>MainContainerComponents</h1>
+    </div>
+  );
 }
