@@ -13,15 +13,7 @@ import { MdPostAdd } from "react-icons/md"
 
 import { Link } from "react-router-dom";
 
-const IconWrapper = styled.div`
-  width: 20%;
-  display: flex;
-  .icon {
-    font-size: calc(var(--base-size) * 4);
-    margin-right: 30px;
-    color: var(--main-color);
-  }
-`;
+
 export default function HeaderComponents() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -37,7 +29,7 @@ export default function HeaderComponents() {
           </Link>
         </Title>
       </LogoWrapper>
-
+		
       {isLoggedIn ? (
         <>
           <IconWrapper>
@@ -62,6 +54,7 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+   
 `;
 
 const LogoWrapper = styled.div`
@@ -88,3 +81,15 @@ const Shadow = styled.div`
   background: var(--main-color);
   border-radius: 100%;
 `;
+const IconWrapper = styled.div`
+  width: 20%;
+  display: flex;
+  .icon {
+    font-size: calc(var(--base-size) * 4);
+    margin-right: 30px;
+    color: var(--main-color);
+  }
+  @media screen and (max-width:991px){
+    width:50%;  
+    
+  }`
