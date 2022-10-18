@@ -5,9 +5,14 @@ import {
 } from "firebase/auth"
 import React, { useState } from "react"
 import { authService } from "../fbase"
+import styled from "styled-components"
+import { GiArchiveRegister } from "react-icons/gi"
+import { BiLogIn } from "react-icons/bi"
+import { BiLogOut } from "react-icons/bi"
+import { MdPostAdd } from "react-icons/md"
 
 const SocialLogin = () => {
-	const onSocialClick = (event: any) => {
+	const onSocialClick = async (event: any) => {
 		const {
 			target: { name },
 		} = event
@@ -17,19 +22,46 @@ const SocialLogin = () => {
 		} else if (name === "github") {
 			provider = new GithubAuthProvider()
 		}
-		const data = signInWithPopup(authService, provider)
+		const data = await signInWithPopup(authService, provider)
 		console.log(data)
 	}
 	return (
 		<>
-			<button onClick={onSocialClick} name="google">
-				Continue with Google
-			</button>
-			<button onClick={onSocialClick} name="github">
-				Continue with Github
-			</button>
+			<IconWrapper>
+				<BiLogIn
+					type="button"
+					className="icon"
+					onClick={onSocialClick}
+					name="google"
+				/>
+				<GiArchiveRegister
+					type="button"
+					className="icon"
+					onClick={onSocialClick}
+					name="github"
+				/>
+				<button onClick={onSocialClick} name="google">
+					Continue with Google
+				</button>
+				<button onClick={onSocialClick} name="github">
+					Continue with Github
+				</button>
+			</IconWrapper>
 		</>
 	)
 }
 
 export default SocialLogin
+
+const IconWrapper = styled.div`
+	width: 20%;
+	display: flex;
+	.icon {
+		font-size: calc(var(--base-size) * 4);
+		margin-right: 30px;
+		color: var(--main-color);
+	}
+	@media screen and (max-width: 991px) {
+		width: 50%;
+	}
+`
