@@ -3,14 +3,14 @@ import {
 	GoogleAuthProvider,
 	signInWithPopup,
 } from "firebase/auth"
-import React, { useState } from "react"
 import { authService } from "../fbase"
-import styled from "styled-components"
-import { GiArchiveRegister } from "react-icons/gi"
-import { BiLogIn } from "react-icons/bi"
-import { BiLogOut } from "react-icons/bi"
-import { MdPostAdd } from "react-icons/md"
+
+import React, { useState } from "react"
 import { useNavigate } from "react-router"
+
+import GoogleLogo from "../assets/Google_Logo.png"
+import GitHubLogo from "../assets/Github_Logo.png"
+import styled from "styled-components"
 
 const SocialLogin = () => {
 	const navigate = useNavigate()
@@ -25,23 +25,17 @@ const SocialLogin = () => {
 			provider = new GithubAuthProvider()
 		}
 		const data = await signInWithPopup(authService, provider)
-		navigate('/main')
+		navigate("/main")
 		console.log(data)
 	}
 	return (
 		<>
 			<IconWrapper>
-				<BiLogIn
-					type="button"
-					className="icon"
-					onClick={onSocialClick}
-					name="google"
-				/>
 				<button onClick={onSocialClick} name="google">
-					Continue with Google
+					구글
 				</button>
 				<button onClick={onSocialClick} name="github">
-					Continue with Github
+					깃헙
 				</button>
 			</IconWrapper>
 		</>
@@ -53,12 +47,13 @@ export default SocialLogin
 const IconWrapper = styled.div`
 	width: 20%;
 	display: flex;
-	.icon {
-		font-size: calc(var(--base-size) * 4);
-		margin-right: 30px;
-		color: var(--main-color);
-	}
 	@media screen and (max-width: 991px) {
 		width: 50%;
 	}
+`
+
+const Img = styled.img`
+	box-sizing: border-box;
+	width: 30px;
+	background-color: #ff0063;
 `
