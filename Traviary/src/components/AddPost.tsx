@@ -6,6 +6,11 @@ import styled from "styled-components"
 
 import { AiOutlineFileAdd } from "react-icons/ai"
 
+type PostType = {
+	isModalOpen: boolean
+	setIsModalOpen: any
+}
+
 const AddPost = ({
 	isModalOpen,
 	setIsModalOpen,
