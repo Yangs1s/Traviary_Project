@@ -10,8 +10,10 @@ import { GiArchiveRegister } from "react-icons/gi"
 import { BiLogIn } from "react-icons/bi"
 import { BiLogOut } from "react-icons/bi"
 import { MdPostAdd } from "react-icons/md"
+import { useNavigate } from "react-router"
 
 const SocialLogin = () => {
+	const navigate = useNavigate()
 	const onSocialClick = async (event: any) => {
 		const {
 			target: { name },
@@ -23,6 +25,7 @@ const SocialLogin = () => {
 			provider = new GithubAuthProvider()
 		}
 		const data = await signInWithPopup(authService, provider)
+		navigate('/main')
 		console.log(data)
 	}
 	return (
@@ -33,12 +36,6 @@ const SocialLogin = () => {
 					className="icon"
 					onClick={onSocialClick}
 					name="google"
-				/>
-				<GiArchiveRegister
-					type="button"
-					className="icon"
-					onClick={onSocialClick}
-					name="github"
 				/>
 				<button onClick={onSocialClick} name="google">
 					Continue with Google

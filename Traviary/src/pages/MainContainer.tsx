@@ -1,9 +1,10 @@
 import MainContainerComponents from "../components/MainContainerComponents"
 
-export default function MainContainer() {
+export default function MainContainer({isOpen}:{isOpen:boolean}) {
+	
 	return (
 		<>
-			<MainContainerComponents />
+			<MainContainerComponents isOpen={isOpen}/>
 		</>
 	)
 }
