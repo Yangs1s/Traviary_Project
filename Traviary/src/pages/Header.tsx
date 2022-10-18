@@ -5,7 +5,7 @@ export default function Header() {
 	return (
 		<>
 			<HeaderComponents />
-			<Link to="MainContainer">링크</Link>
+			<Link to="main">링크</Link>
 			<Outlet />
 		</>
 	)

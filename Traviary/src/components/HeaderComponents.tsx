@@ -11,12 +11,13 @@ import { BiLogIn } from "react-icons/bi"
 import { BiLogOut } from "react-icons/bi"
 import { MdPostAdd } from "react-icons/md"
 
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { authService } from "../fbase"
 
 export default function HeaderComponents() {
 	const [init, setInit] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const navigate = useNavigate();
 	useEffect(() => {
 		authService.onAuthStateChanged((user) => {
 			if (user) {
@@ -27,7 +28,12 @@ export default function HeaderComponents() {
 			setInit(true)
 		})
 	})
-
+	console.log(isLoggedIn)
+	const Logout = () => { 
+		authService.signOut();
+	
+		navigate('/')
+	}
 	return (
 		<Header>
 			<GlobalStyle />
@@ -41,7 +47,7 @@ export default function HeaderComponents() {
 				</Title>
 			</LogoWrapper>
 
-			{isLoggedIn ? (
+			{!isLoggedIn ? (
 				<>
 					<IconWrapper>
 						<BiLogIn className="icon" />
@@ -52,7 +58,7 @@ export default function HeaderComponents() {
 				<>
 					<IconWrapper>
 						<MdPostAdd className="icon" />
-						<BiLogOut className="icon" />
+						<BiLogOut className="icon" onClick={Logout}/>
 					</IconWrapper>
 				</>
 			)}

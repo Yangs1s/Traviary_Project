@@ -5,7 +5,7 @@ import {
 } from "firebase/auth"
 import React, { useState } from "react"
 import { authService } from "../fbase"
-
+import {FcGoogle} from 'react-icons/fc'
 const SocialLogin = () => {
 	const onSocialClick = (event: any) => {
 		const {
@@ -21,9 +21,9 @@ const SocialLogin = () => {
 		console.log(data)
 	}
 	return (
-		<>
+		<>			
 			<button onClick={onSocialClick} name="google">
-				Continue with Google
+			Continue with Github
 			</button>
 			<button onClick={onSocialClick} name="github">
 				Continue with Github
