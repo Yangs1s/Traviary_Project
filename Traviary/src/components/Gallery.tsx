@@ -4,12 +4,11 @@ import React, { useEffect, useState } from "react";
 import Test from "../mock_data/Img_test.json";
 import styled from "styled-components";
 
-const Gallery = ({ imgsrc}:{imgsrc:string}) => {
-  const [images, setImages] = useState<any[]>([]);
+const Gallery = ({ imgsrc,id }:{id:string, imgsrc:string}) => {
 
   return (
       <ImgItem>
-        <Image src={imgsrc} alt="게시글이미지" />
+        <Image key={id} src={imgsrc} alt="게시글이미지" />
       </ImgItem>
   );
 };

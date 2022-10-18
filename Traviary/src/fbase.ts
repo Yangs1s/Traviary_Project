@@ -7,8 +7,9 @@ const {
 	VITE_FIREBASE_DATABASE_URL,
 	VITE_FIREBASE_PROJECT_ID,
 	VITE_FIREBASE_STORAGE_BUCKET,
-	VITE_FIREBASE_MEASUREMENT_ID,
-	VITE_FIREBASE_APP_ID,
+	VITE_FIREBASE_SENDER_ID,
+	VITE_FIREBASE_APP_ID
+
 } = import.meta.env
 
 const firebaseConfig = {
@@ -18,7 +19,7 @@ const firebaseConfig = {
 	storageBucket: VITE_FIREBASE_STORAGE_BUCKET,
 	databaseURL: VITE_FIREBASE_DATABASE_URL,
 	appId: VITE_FIREBASE_APP_ID,
-	measurementId: VITE_FIREBASE_MEASUREMENT_ID,
+	massaginSenderId:VITE_FIREBASE_SENDER_ID
 }
 
 export const app = initializeApp(firebaseConfig)

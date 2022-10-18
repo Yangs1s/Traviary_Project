@@ -29,6 +29,8 @@ html {
 *::after {
   box-sizing: border-box;
   list-style: none;
+  margin:0;
+  padding:0;
 }
 body {
   font: 1.6rem/1.15 var(--font-family-lato);
