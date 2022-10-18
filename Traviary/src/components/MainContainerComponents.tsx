@@ -53,25 +53,21 @@ const GridContainer = styled.div`
   margin: 10px 30px;
   border-radius: 15px;
 
-  @media screen and (max-width: 901px) {
+  @media screen and (max-width: 1100px) {
     -webkit-column-count: 3;
     -moz-column-count: 3;
     column-count: 3;
 	column-width:100%;
   }
-  @media screen and (max-width: 501px) {
+  @media screen and (max-width: 900px) {
     -webkit-column-count: 2;
     -moz-column-count: 2;
     column-count: 2;
+	-moz-column-width: 100%;
+	-webkit-column-width: 100%;
+	column-width: 100%;
   }
-  @media screen and (max-widh: 400px) {
-    -webkit-column-count: 1;
-    -moz-column-count: 1;
-    column-count: 1;
-    -webkit-column-width: 100%;
-    -moz-column-width: 100%;
-    column-width: 100%;
-  }
+
 `;
 
 // const ModalContainer = styled.div`

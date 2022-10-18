@@ -6,22 +6,27 @@ import styled from "styled-components";
 
 import { AiOutlineFileAdd } from "react-icons/ai";
 
+type PostType = {
+  isModalOpen: boolean;
+  setIsModalOpen: any;
+}
+
+
 const AddPost = ({
   isModalOpen,
   setIsModalOpen,
-}: {
-  isModalOpen: boolean;
-  setIsModalOpen: any;
-}) => {
+}:PostType) => {
 
-  
+
   const modalRef:any = useRef();
-
   const animation:any = useSpring({
-    left: isModalOpen ? window.innerWidth-610 : window.innerWidth,
+    config:{
+      duration:250
+    },
+    transform: isModalOpen ? `translateX(233%)`:`translateX(400%)`,
     position:"absolute",
     top:0,
-    width:"600px",
+    width:"30vw",
     height:"100%"
   });
 
@@ -73,26 +78,15 @@ const Background = styled.div`
 const Container = styled.div`
   background: #fff;
   display: flex;
-  
-  width: 23vw;
+  position:absolute;
+  right:0;
+  width: 30vw;
   height: 92%;
   border: 2px solid #000;
   margin-left: auto;
   border-radius: 20px;
   z-index: 9999;
 
-  @media screen and (max-width: 900px) {
-    width: 100%;
-    height: 100%;
-  }
-  @media screen and (max-width: 500px) {
-    width: 100%;
-    height: 100%;
-  }
-  @media screen and (max-width: 400px) {
-    width: 100%;
-    height: 100%;
-  }
 `;
 const Wrapper = styled.div`
 
