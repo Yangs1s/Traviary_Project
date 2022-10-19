@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, ImgHTMLAttributes } from "react"
 import Test from "../mock_data/Img_test.json"
 import styled from "styled-components"
 import Gallery from "./Gallery"

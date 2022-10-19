@@ -1,14 +1,39 @@
 /** @format */
 
-import React, { useState, useRef } from "react"
+import React, {
+	useState,
+	useRef,
+	ImgHTMLAttributes,
+	useEffect,
+	FormEvent,
+	ChangeEvent,
+} from "react"
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components"
+
+import {
+	addDoc,
+	collection,
+	onSnapshot,
+	orderBy,
+	query,
+	Timestamp,
+} from "firebase/firestore"
+import { dbService } from "../fbase"
 
 import { AiOutlineFileAdd } from "react-icons/ai"
 
 type PostType = {
 	isModalOpen: boolean
 	setIsModalOpen: any
+}
+
+interface TraviType {
+	id?: string
+	text?: string
+	creatAt?: Timestamp
+	createdId?: string
+	image?: ImgHTMLAttributes<HTMLImageElement>
 }
 
 const AddPost = ({
@@ -32,6 +57,41 @@ const AddPost = ({
 		if (modalRef.current === e.target) {
 			setIsModalOpen((prev: any) => !prev)
 		}
+	}
+
+	const [info, setInfo] = useState("")
+	const [img, setImg] = useState(null)
+	const [travi, setTravi] = useState<TraviType[]>([])
+
+	useEffect(() => {
+		const queries = query(
+			collection(dbService, "traviDB"),
+			orderBy("createdAt", "desc")
+		)
+		onSnapshot(queries, (snapshot) => {
+			const traviArr = snapshot.docs.map((docs) => ({
+				id: docs.id,
+				...docs.data(),
+			}))
+			setTravi(traviArr)
+		})
+	}, [])
+
+	const onSubmit = async (event: FormEvent) => {
+		event.preventDefault()
+		await addDoc(collection(dbService, "traviDB"), {
+			text: info,
+			createdAt: Date.now(),
+			// createdId:
+		})
+		setInfo("")
+	}
+
+	const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const {
+			target: { value },
+		} = event
+		setInfo(value)
 	}
 
 	return (
@@ -72,6 +132,7 @@ const Background = styled.div`
 	background: rgba(0, 0, 0, 0.8);
 	position: fixed;
 	display: flex;
+	overflow: hidden;
 `
 const Container = styled.div`
 	background: #fff;

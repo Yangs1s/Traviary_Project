@@ -8,8 +8,6 @@ import { authService } from "../fbase"
 import React, { useState } from "react"
 import { useNavigate } from "react-router"
 
-import GoogleLogo from "../assets/Google_Logo.png"
-import GitHubLogo from "../assets/Github_Logo.png"
 import styled from "styled-components"
 
 const SocialLogin = () => {
