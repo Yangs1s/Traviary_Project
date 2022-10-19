@@ -10,7 +10,6 @@ import React, {
 } from "react"
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components"
-
 import {
 	addDoc,
 	collection,
@@ -19,9 +18,9 @@ import {
 	query,
 	Timestamp,
 } from "firebase/firestore"
-import { dbService } from "../fbase"
-
+// import { dbService } from "../fbase"
 import { AiOutlineFileAdd } from "react-icons/ai"
+
 
 type PostType = {
 	isModalOpen: boolean
@@ -73,7 +72,7 @@ const AddPost = ({
               <Wrapper>
                 <PhotoContainer>
                   <ImageInput type="file" accept="image/*" onChange={onFileChange}/>
-                    {/* <AiOutlineFileAdd size={50} /> */}
+
                   <PhotoList>
                     <li>photo</li>
                     <li>photo2</li>
