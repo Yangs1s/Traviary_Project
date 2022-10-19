@@ -72,7 +72,6 @@ const AddPost = ({
               <Wrapper>
                 <PhotoContainer>
                   <ImageInput type="file" accept="image/*" onChange={onFileChange}/>
-
                   <PhotoList>
                     <li>photo</li>
                     <li>photo2</li>
@@ -94,6 +93,20 @@ const AddPost = ({
 };
 
 export default AddPost;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -258,9 +271,3 @@ const Button = styled.button`
 	}
 `
 
-const ContainerHide = styled.section`
-	display: none;
-	width: 40%;
-	height: 50%;
-	border: 2px solid #000;
-`

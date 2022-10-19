@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import App from "./App"
 import "./assets/font/font.css"
 
+const queryClient = new QueryClient()
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
 		<App />
