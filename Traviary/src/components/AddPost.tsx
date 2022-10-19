@@ -18,9 +18,8 @@ import {
 	query,
 	Timestamp,
 } from "firebase/firestore"
-// import { dbService } from "../fbase"
+import { dbService } from "../fbase"
 import { AiOutlineFileAdd } from "react-icons/ai"
-
 
 type PostType = {
 	isModalOpen: boolean
@@ -35,88 +34,121 @@ interface TraviType {
 	image?: ImgHTMLAttributes<HTMLImageElement>
 }
 
-const AddPost = ({
-  isModalOpen,
-  setIsModalOpen,
-}:PostType) => {
+const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
+	const [textarea, setTextarea] = useState("")
+	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
 
+	useEffect(() => {
+		const queries = query(
+			collection(dbService, "TraviDB"),
+			orderBy("createdAt", "desc")
+		)
+		onSnapshot(queries, (snapshot) => {
+			const traviArr = snapshot.docs.map((dosc) => ({
+				id: dosc.id,
+				...dosc.data(),
+			}))
+			setInfoTravi(traviArr)
+		})
+	}, [])
 
-  const modalRef:any = useRef();
-  const animation:any = useSpring({
-    config:{
-      duration:250
-    },
-    transform: isModalOpen ? `translateX(233%)`:`translateX(400%)`,
-    position:"absolute",
-    top:0,
-    width:"30vw",
-    height:"100%"
-  });
+	const onSubmit = async (event: FormEvent) => {
+		event.preventDefault()
+		await addDoc(collection(dbService, "TraviDB"), {
+			text: textarea,
+			createAt: Date.now(),
+			// createdId: userObj.uid,
+		})
+		setTextarea("")
+	}
 
-  const onClose = (e:any) => {
-    if(modalRef.current === e.target){
-      setIsModalOpen((prev: any) => !prev);
-    }
-  };
-  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget.value)
-  }
+	const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+		const {
+			target: { value },
+		} = event
+		setTextarea(value)
+	}
 
+	const modalRef: any = useRef()
+	const animation: any = useSpring({
+		config: {
+			duration: 250,
+		},
+		transform: isModalOpen ? `translateX(233%)` : `translateX(400%)`,
+		position: "absolute",
+		top: 0,
+		width: "30vw",
+		height: "100%",
+	})
 
-  return (
-    <>
-      {isModalOpen ? (
-        <Background ref={modalRef} onClick={onClose}>
-            <animated.div style={animation}>
-            <Container >
-              <Wrapper>
-                <PhotoContainer>
-                  <ImageInput type="file" accept="image/*" onChange={onFileChange}/>
+	const onClose = (e: any) => {
+		if (modalRef.current === e.target) {
+			setIsModalOpen((prev: any) => !prev)
+		}
+	}
+	const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		console.log(event.currentTarget.value)
+	}
 
-                  <PhotoList>
-                    <li>photo</li>
-                    <li>photo2</li>
-                    <li>photo3</li>
-                  </PhotoList>
-                </PhotoContainer>
-                <MapContainer>map</MapContainer>
-                <TextContainer>
-                  <TextArea></TextArea>
-                  <Button type="submit">작성완료</Button>
-                </TextContainer>
-              </Wrapper>
-            </Container>
-            </animated.div>
-        </Background>
-      ) : null}
-    </>
-  );
-};
+	return (
+		<>
+			{isModalOpen ? (
+				<Background ref={modalRef} onClick={onClose}>
+					<animated.div style={animation}>
+						<Container onSubmit={onSubmit}>
+							<Wrapper>
+								<PhotoContainer>
+									<ImageInput
+										type="file"
+										accept="image/*"
+										onChange={onFileChange}
+									/>
 
-export default AddPost;
+									<PhotoList>
+										<li>photo</li>
+										<li>photo2</li>
+										<li>photo3</li>
+									</PhotoList>
+								</PhotoContainer>
+								<MapContainer>여기다 이미지가 나오게끔??</MapContainer>
+								<TextContainer>
+									<TextArea
+										value={textarea}
+										onChange={onChange}
+										name="text"
+									></TextArea>
+									<Button type="submit" value="확인!!" />
+								</TextContainer>
+							</Wrapper>
+						</Container>
+					</animated.div>
+				</Background>
+			) : null}
+		</>
+	)
+}
 
-
+export default AddPost
 
 const Background = styled.div`
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  position: fixed;
-  display: flex;
-`;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	position: fixed;
+	display: flex;
+`
 const Container = styled.form`
-  background: #fff;
-  display: flex;
-  position:absolute;
-  right:0;
-  width: 30vw;
-  height: 92%;
-  border: 2px solid #000;
-  margin-left: auto;
-  border-radius: 20px;
-  z-index: 9999;
-
-`;
+	background: #fff;
+	display: flex;
+	position: absolute;
+	right: 0;
+	width: 30vw;
+	height: 92%;
+	border: 2px solid #000;
+	margin-left: auto;
+	border-radius: 20px;
+	z-index: 9999;
+`
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -242,12 +274,12 @@ const TextContainer = styled.div`
 	}
 `
 const TextArea = styled.textarea`
-  width: 100%;
-  height: 90%;
-  resize: none;
-  border: 2px solid #000;
-  border-radius:20px;
-`;
+	width: 100%;
+	height: 90%;
+	resize: none;
+	border: 2px solid #000;
+	border-radius: 20px;
+`
 
 const Button = styled.button`
 	width: 30%;
