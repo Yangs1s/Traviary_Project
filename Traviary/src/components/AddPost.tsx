@@ -35,6 +35,10 @@ const AddPost = ({
       setIsModalOpen((prev: any) => !prev);
     }
   };
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.currentTarget.value)
+  }
+
 
   return (
     <>
@@ -44,9 +48,8 @@ const AddPost = ({
             <Container >
               <Wrapper>
                 <PhotoContainer>
-                  <AddPhoto>
-                    <AiOutlineFileAdd size={50} />
-                  </AddPhoto>
+                  <ImageInput type="file" accept="image/*" onChange={onFileChange}/>
+                    {/* <AiOutlineFileAdd size={50} /> */}
                   <PhotoList>
                     <li>photo</li>
                     <li>photo2</li>
@@ -68,6 +71,9 @@ const AddPost = ({
 };
 
 export default AddPost;
+
+
+
 const Background = styled.div`
   width: 100%;
   height: 100%;
@@ -75,7 +81,7 @@ const Background = styled.div`
   position: fixed;
   display: flex;
 `;
-const Container = styled.div`
+const Container = styled.form`
   background: #fff;
   display: flex;
   position:absolute;
@@ -134,7 +140,7 @@ const PhotoContainer = styled.div`
   }
 `;
 
-const AddPhoto = styled.div`
+const ImageInput = styled.input`
     width:79%;
     height:100%
     font-size: 50px;
@@ -216,6 +222,8 @@ const TextArea = styled.textarea`
   width: 100%;
   height: 90%;
   resize: none;
+  border: 2px solid #000;
+  border-radius:20px;
 `;
 const Button = styled.button`
   width: 30%;
