@@ -37,127 +37,88 @@ interface TraviType {
 }
 
 const AddPost = ({
-	isModalOpen,
-	setIsModalOpen,
-}: {
-	isModalOpen: boolean
-	setIsModalOpen: any
-}) => {
-	const modalRef: any = useRef()
+  isModalOpen,
+  setIsModalOpen,
+}:PostType) => {
 
-	const animation: any = useSpring({
-		left: isModalOpen ? window.innerWidth - 610 : window.innerWidth,
-		position: "absolute",
-		top: 0,
-		width: "600px",
-		height: "100%",
-	})
 
-	const onClose = (e: any) => {
-		if (modalRef.current === e.target) {
-			setIsModalOpen((prev: any) => !prev)
-		}
-	}
+  const modalRef:any = useRef();
+  const animation:any = useSpring({
+    config:{
+      duration:250
+    },
+    transform: isModalOpen ? `translateX(233%)`:`translateX(400%)`,
+    position:"absolute",
+    top:0,
+    width:"30vw",
+    height:"100%"
+  });
 
-	const [info, setInfo] = useState("")
-	const [img, setImg] = useState(null)
-	const [travi, setTravi] = useState<TraviType[]>([])
+  const onClose = (e:any) => {
+    if(modalRef.current === e.target){
+      setIsModalOpen((prev: any) => !prev);
+    }
+  };
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.currentTarget.value)
+  }
 
-	useEffect(() => {
-		const queries = query(
-			collection(dbService, "traviDB"),
-			orderBy("createdAt", "desc")
-		)
-		onSnapshot(queries, (snapshot) => {
-			const traviArr = snapshot.docs.map((docs) => ({
-				id: docs.id,
-				...docs.data(),
-			}))
-			setTravi(traviArr)
-		})
-	}, [])
 
-	const onSubmit = async (event: FormEvent) => {
-		event.preventDefault()
-		await addDoc(collection(dbService, "traviDB"), {
-			text: info,
-			createdAt: Date.now(),
-			// createdId:
-		})
-		setInfo("")
-	}
+  return (
+    <>
+      {isModalOpen ? (
+        <Background ref={modalRef} onClick={onClose}>
+            <animated.div style={animation}>
+            <Container >
+              <Wrapper>
+                <PhotoContainer>
+                  <ImageInput type="file" accept="image/*" onChange={onFileChange}/>
+                    {/* <AiOutlineFileAdd size={50} /> */}
+                  <PhotoList>
+                    <li>photo</li>
+                    <li>photo2</li>
+                    <li>photo3</li>
+                  </PhotoList>
+                </PhotoContainer>
+                <MapContainer>map</MapContainer>
+                <TextContainer>
+                  <TextArea></TextArea>
+                  <Button type="submit">작성완료</Button>
+                </TextContainer>
+              </Wrapper>
+            </Container>
+            </animated.div>
+        </Background>
+      ) : null}
+    </>
+  );
+};
 
-	const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-		const {
-			target: { value },
-		} = event
-		setInfo(value)
-	}
+export default AddPost;
 
-	return (
-		<>
-			{isModalOpen ? (
-				<Background ref={modalRef} onClick={onClose}>
-					<animated.div style={animation}>
-						<Container>
-							<Wrapper>
-								<PhotoContainer>
-									<AddPhoto>
-										<AiOutlineFileAdd size={50} />
-									</AddPhoto>
-									<PhotoList>
-										<li>photo</li>
-										<li>photo2</li>
-										<li>photo3</li>
-									</PhotoList>
-								</PhotoContainer>
-								<MapContainer>map</MapContainer>
-								<TextContainer>
-									<TextArea></TextArea>
-									<Button type="submit">작성완료</Button>
-								</TextContainer>
-							</Wrapper>
-						</Container>
-					</animated.div>
-				</Background>
-			) : null}
-		</>
-	)
-}
 
-export default AddPost
+
 const Background = styled.div`
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.8);
-	position: fixed;
-	display: flex;
-	overflow: hidden;
-`
-const Container = styled.div`
-	background: #fff;
-	display: flex;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  display: flex;
+`;
+const Container = styled.form`
+  background: #fff;
+  display: flex;
+  position:absolute;
+  right:0;
+  width: 30vw;
+  height: 92%;
+  border: 2px solid #000;
+  margin-left: auto;
+  border-radius: 20px;
+  z-index: 9999;
 
-	width: 23vw;
-	height: 92%;
-	border: 2px solid #000;
-	margin-left: auto;
-	border-radius: 20px;
-	z-index: 9999;
+`;
 
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 100%;
-	}
-	@media screen and (max-width: 500px) {
-		width: 100%;
-		height: 100%;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 100%;
-	}
-`
 const Wrapper = styled.div`
 	width: 100%;
 	height: 100%;
@@ -203,7 +164,7 @@ const PhotoContainer = styled.div`
 	}
 `
 
-const AddPhoto = styled.div`
+const ImageInput = styled.input`
     width:79%;
     height:100%
     font-size: 50px;
@@ -282,10 +243,13 @@ const TextContainer = styled.div`
 	}
 `
 const TextArea = styled.textarea`
-	width: 100%;
-	height: 90%;
-	resize: none;
-`
+  width: 100%;
+  height: 90%;
+  resize: none;
+  border: 2px solid #000;
+  border-radius:20px;
+`;
+
 const Button = styled.button`
 	width: 30%;
 	height: 10%;
