@@ -10,7 +10,7 @@ import { collection, query, onSnapshot,Timestamp } from "firebase/firestore";
 
 
 type GalleryProps = {
-	id: number;
+	id: string;
 	imgsrc: string
 }
 
