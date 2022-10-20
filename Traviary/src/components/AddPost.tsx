@@ -35,6 +35,7 @@ interface TraviType {
   image?: ImgHTMLAttributes<HTMLImageElement>;
 }
 interface RefObject<T>{
+	
 	current:T;
 }
 
