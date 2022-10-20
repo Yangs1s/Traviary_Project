@@ -1,16 +1,16 @@
 /** @format */
 
 import React, {
-  useState,
-  useRef,
-  ImgHTMLAttributes,
-  useEffect,
-  FormEvent,
-  ChangeEvent,
-} from "react";
-import { useSpring, animated } from "react-spring";
-import useInput  from '../hooks/useInput'
-import styled from "styled-components";
+	useState,
+	useRef,
+	ImgHTMLAttributes,
+	useEffect,
+	FormEvent,
+	ChangeEvent,
+} from "react"
+import { useSpring, animated } from "react-spring"
+import useInput from "../hooks/useInput"
+import styled from "styled-components"
 import {
 	addDoc,
 	collection,
@@ -23,19 +23,19 @@ import { dbService } from "../fbase"
 import { AiOutlineFileAdd } from "react-icons/ai"
 
 type PostType = {
-  isModalOpen: boolean;
-  setIsModalOpen: any;
-};
+	isModalOpen: boolean
+	setIsModalOpen: any
+}
 
 interface TraviType {
-  id?: string;
-  text?: string;
-  creatAt?: Timestamp;
-  createdId?: string;
-  image?: ImgHTMLAttributes<HTMLImageElement>;
+	id?: string
+	text?: string
+	creatAt?: Timestamp
+	createdId?: string
+	image?: ImgHTMLAttributes<HTMLImageElement>
 }
-interface RefObject<T>{
-	current:T;
+interface RefObject<T> {
+	current: T
 }
 
 const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
@@ -62,6 +62,7 @@ const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
 			text: textarea,
 			createAt: Date.now(),
 			// createdId: userObj.uid,
+			// imgFile: ...
 		})
 		setTextarea("")
 	}
@@ -112,6 +113,7 @@ const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
 										<li>photo</li>
 										<li>photo2</li>
 										<li>photo3</li>
+										{/* {infoTravi} 이걸로 추가된 이미지 보이게끔 */}
 									</PhotoList>
 								</PhotoContainer>
 								<MapContainer>여기다 이미지가 나오게끔??</MapContainer>
@@ -142,62 +144,62 @@ const Background = styled.div`
 	display: flex;
 `
 const Container = styled.form`
-  background: #fff;
-  display: flex;
-  position: absolute;
-  right: 0;
-  width: 40vw;
-  height: 92%;
-  border: 2px solid #000;
-  margin-left: auto;
-  border-radius: 20px;
-  z-index: 9999;
-`;
+	background: #fff;
+	display: flex;
+	position: absolute;
+	right: 0;
+	width: 40vw;
+	height: 92%;
+	border: 2px solid #000;
+	margin-left: auto;
+	border-radius: 20px;
+	z-index: 9999;
+`
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  margin: 10px 30px;
-  border-radius: 20px;
-  @media screen and (max-width: 900px) {
-    width: 100%;
-    height: 80%;
-    margin: 0;
-  }
-  @media screen and (max-width: 530px) {
-    width: 100%;
-    height: 70%;
-    margin: 0;
-  }
-  @media screen and (max-width: 400px) {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-  }
-`;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	margin: 10px 30px;
+	border-radius: 20px;
+	@media screen and (max-width: 900px) {
+		width: 100%;
+		height: 80%;
+		margin: 0;
+	}
+	@media screen and (max-width: 530px) {
+		width: 100%;
+		height: 70%;
+		margin: 0;
+	}
+	@media screen and (max-width: 400px) {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
+`
 const PhotoContainer = styled.div`
-  width: 100%;
-  height: 30%;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
-  @media screen and (max-width: 900px) {
-    width: 100%;
-    height: 40%;
-    display: block;
-  }
-  @media screen and (max-width: 530px) {
-    width: 100%;
-    height: 40%;
-    display: block;
-  }
-  @media screen and (max-width: 400px) {
-    width: 100%;
-    height: 40%;
-    display: block;
-  }
-`;
+	width: 100%;
+	height: 30%;
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 20px;
+	@media screen and (max-width: 900px) {
+		width: 100%;
+		height: 40%;
+		display: block;
+	}
+	@media screen and (max-width: 530px) {
+		width: 100%;
+		height: 40%;
+		display: block;
+	}
+	@media screen and (max-width: 400px) {
+		width: 100%;
+		height: 40%;
+		display: block;
+	}
+`
 
 const ImageInput = styled.input`
     width:79%;
@@ -219,78 +221,78 @@ const ImageInput = styled.input`
         height:70%;
       }
 
-`;
+`
 const PhotoList = styled.ul`
-  width: 20%;
-  margin-left: 1em;
-  border: 2px solid #000;
-  border-radius: 20px;
-  padding: 1em;
-  margin: 0 auto;
-  @media screen and (max-width: 900px) {
-    width: 100%;
-    height: 20%;
-    text-align: center;
-    display: flex;
-  }
-  @media screen and (max-width: 530px) {
-    width: 100%;
-    height: 30%;
-    text-align: center;
-    display: flex;
-  }
-  @media screen and (max-width: 400px) {
-    width: 100%;
-    height: 20%;
-    text-align: center;
-    display: flex;
-  }
-`;
+	width: 20%;
+	margin-left: 1em;
+	border: 2px solid #000;
+	border-radius: 20px;
+	padding: 1em;
+	margin: 0 auto;
+	@media screen and (max-width: 900px) {
+		width: 100%;
+		height: 20%;
+		text-align: center;
+		display: flex;
+	}
+	@media screen and (max-width: 530px) {
+		width: 100%;
+		height: 30%;
+		text-align: center;
+		display: flex;
+	}
+	@media screen and (max-width: 400px) {
+		width: 100%;
+		height: 20%;
+		text-align: center;
+		display: flex;
+	}
+`
 
 const MapContainer = styled.div`
-  width: 100%;
-  height: 30%;
-  border: 2px solid #000;
-  border-radius: 20px;
-  padding: 1em;
-  @media screen and (max-width: 400px) {
-    width: 100%;
-    text-align: center;
-  }
-`;
+	width: 100%;
+	height: 30%;
+	border: 2px solid #000;
+	border-radius: 20px;
+	padding: 1em;
+	@media screen and (max-width: 400px) {
+		width: 100%;
+		text-align: center;
+	}
+`
 
 const TextContainer = styled.div`
-  width: 100%;
-  height: 30%;
-  margin-top: 20px;
-  text-align: center;
-  @media screen and (max-width: 900px) {
-    width: 100%;
-    height: 40%;
-  }
-  @media screen and (max-width: 530px) {
-    width: 100%;
-    height: 40%;
-  }
-  @media screen and (max-width: 400px) {
-    width: 100%;
-    height: 20%;
-  }
-`;
+	width: 100%;
+	height: 30%;
+	margin-top: 20px;
+	text-align: center;
+	@media screen and (max-width: 900px) {
+		width: 100%;
+		height: 40%;
+	}
+	@media screen and (max-width: 530px) {
+		width: 100%;
+		height: 40%;
+	}
+	@media screen and (max-width: 400px) {
+		width: 100%;
+		height: 20%;
+	}
+`
 const TextArea = styled.textarea`
-  width: 100%;
-  height: 90%;
-  resize: none;
-  padding: 10px;
-  border: 2px solid #000;
-  border-radius: 20px;
-`;
+	width: 100%;
+	height: 90%;
+	resize: none;
+	padding: 10px;
+	border: 2px solid #000;
+	border-radius: 20px;
+`
 
 const Button = styled.button`
-  width: 30%;
-  height: 10%;
-  @media screen and (max-width: 400px) {
-    width: 50%;
-    height: 20%;
-  }
-`;
+	width: 30%;
+	height: 10%;
+	@media screen and (max-width: 400px) {
+		width: 50%;
+		height: 20%;
+	}
+`
