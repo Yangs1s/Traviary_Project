@@ -11,9 +11,8 @@ type imgType = {
 	img: string
 }
 
-const MainContainerComponents = ({ isOpen }: { isOpen: boolean }) => {
+const MainContainerComponents = () => {
 	const [images, setImages] = useState<any[]>([])
-	const [isModalOpen, setIsModalOpen] = useState(isOpen)
 	// const [isOpen, setIsOpen] = useState(props)
 	useEffect(() => {
 		setImages(Test.imgs)
@@ -70,34 +69,3 @@ const GridContainer = styled.div`
 		column-width: 100%;
 	}
 `
-
-// const ModalContainer = styled.div`
-//   width: 1020px;
-//   height: 100%;
-//   @media screen and (max-width: 900px) {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 500px;
-//   }
-//   @media screen and (max-width: 530px) {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     width: 95%;
-//     height: 500px;
-//   }
-//   @media screen and (max-width: 400px) {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     width: 92%;
-//     height: 500px;
-//   }
-// `;
-
-// const ModalContainerHide = styled.div`
-//   visibility: hidden;
-//   width: 30%;
-// `;
