@@ -1,77 +1,82 @@
 /** @format */
 
 import React, {
-	useState,
-	useRef,
-	ImgHTMLAttributes,
-	useEffect,
-	FormEvent,
-	ChangeEvent,
-} from "react"
-import { useSpring, animated } from "react-spring"
-import styled from "styled-components"
+  useState,
+  useRef,
+  ImgHTMLAttributes,
+  useEffect,
+  FormEvent,
+  ChangeEvent,
+} from "react";
+import { useSpring, animated } from "react-spring";
+import useInput  from '../hooks/useInput'
+import styled from "styled-components";
 import {
-	addDoc,
-	collection,
-	onSnapshot,
-	orderBy,
-	query,
-	Timestamp,
-} from "firebase/firestore"
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  Timestamp,
+} from "firebase/firestore";
 // import { dbService } from "../fbase"
-import { AiOutlineFileAdd } from "react-icons/ai"
-
+import { AiOutlineFileAdd } from "react-icons/ai";
 
 type PostType = {
-	isModalOpen: boolean
-	setIsModalOpen: any
-}
+  isModalOpen: boolean;
+  setIsModalOpen: any;
+};
 
 interface TraviType {
-	id?: string
-	text?: string
-	creatAt?: Timestamp
-	createdId?: string
-	image?: ImgHTMLAttributes<HTMLImageElement>
+  id?: string;
+  text?: string;
+  creatAt?: Timestamp;
+  createdId?: string;
+  image?: ImgHTMLAttributes<HTMLImageElement>;
+}
+interface RefObject<T>{
+	current:T;
 }
 
-const AddPost = ({
-  isModalOpen,
-  setIsModalOpen,
-}:PostType) => {
+const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
+	const maxLen = (value:string) => value.length < 130;
+	const contentText = useInput('',maxLen)
 
-
-  const modalRef:any = useRef();
-  const animation:any = useSpring({
-    config:{
-      duration:250
-    },
-    transform: isModalOpen ? `translateX(233%)`:`translateX(400%)`,
-    position:"absolute",
-    top:0,
-    width:"30vw",
-    height:"100%"
+	const modalRef = useRef<any>(null);
+	const animation: any = useSpring({
+		config: {
+		duration: 250,
+		},
+		transform: isModalOpen ? `translateX(233%)` : `translateX(400%)`,
+		position: "absolute",
+		top: 0,
+		width: "30vw",
+		height: "100%",
   });
 
-  const onClose = (e:any) => {
-    if(modalRef.current === e.target){
+  const onClose = (e: any) => {
+    if (modalRef.current === e.target) {
       setIsModalOpen((prev: any) => !prev);
     }
   };
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget.value)
-  }
+    console.log(event.currentTarget.value);
+  };
 
 
   return (
     <>
       {isModalOpen ? (
         <Background ref={modalRef} onClick={onClose}>
-            <animated.div style={animation}>
-            <Container >
+          <animated.div style={animation}>
+            <Container>
               <Wrapper>
                 <PhotoContainer>
-                  <ImageInput type="file" accept="image/*" onChange={onFileChange}/>
+                  <ImageInput
+                    type="file"
+                    accept="image/*"
+                    onChange={onFileChange}
+                  />
                   <PhotoList>
                     <li>photo</li>
                     <li>photo2</li>
@@ -80,12 +85,16 @@ const AddPost = ({
                 </PhotoContainer>
                 <MapContainer>map</MapContainer>
                 <TextContainer>
-                  <TextArea></TextArea>
+                  <TextArea
+                    placeholder="글을 입력하세요"
+                    value={contentText.value}
+                    onChange={contentText.onChange}
+                  ></TextArea>
                   <Button type="submit">작성완료</Button>
                 </TextContainer>
               </Wrapper>
             </Container>
-            </animated.div>
+          </animated.div>
         </Background>
       ) : null}
     </>
@@ -93,22 +102,6 @@ const AddPost = ({
 };
 
 export default AddPost;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const Background = styled.div`
   width: 100%;
@@ -120,61 +113,60 @@ const Background = styled.div`
 const Container = styled.form`
   background: #fff;
   display: flex;
-  position:absolute;
-  right:0;
-  width: 30vw;
+  position: absolute;
+  right: 0;
+  width: 40vw;
   height: 92%;
   border: 2px solid #000;
   margin-left: auto;
   border-radius: 20px;
   z-index: 9999;
-
 `;
 
 const Wrapper = styled.div`
-	width: 100%;
-	height: 100%;
-	padding: 10px;
-	margin: 10px 30px;
-	border-radius: 20px;
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 80%;
-		margin: 0;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 70%;
-		margin: 0;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 100%;
-		margin: 0;
-	}
-`
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 10px 30px;
+  border-radius: 20px;
+  @media screen and (max-width: 900px) {
+    width: 100%;
+    height: 80%;
+    margin: 0;
+  }
+  @media screen and (max-width: 530px) {
+    width: 100%;
+    height: 70%;
+    margin: 0;
+  }
+  @media screen and (max-width: 400px) {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+`;
 const PhotoContainer = styled.div`
-	width: 100%;
-	height: 30%;
-	display: flex;
-	flex-direction: row;
-	margin-bottom: 20px;
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 40%;
-		display: block;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 40%;
-		display: block;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 40%;
-		display: block;
-	}
-`
+  width: 100%;
+  height: 30%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  @media screen and (max-width: 900px) {
+    width: 100%;
+    height: 40%;
+    display: block;
+  }
+  @media screen and (max-width: 530px) {
+    width: 100%;
+    height: 40%;
+    display: block;
+  }
+  @media screen and (max-width: 400px) {
+    width: 100%;
+    height: 40%;
+    display: block;
+  }
+`;
 
 const ImageInput = styled.input`
     width:79%;
@@ -196,78 +188,78 @@ const ImageInput = styled.input`
         height:70%;
       }
 
-`
+`;
 const PhotoList = styled.ul`
-	width: 20%;
-	margin-left: 1em;
-	border: 2px solid #000;
-	border-radius: 20px;
-	padding: 1em;
-	margin: 0 auto;
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 20%;
-		text-align: center;
-		display: flex;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 30%;
-		text-align: center;
-		display: flex;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 20%;
-		text-align: center;
-		display: flex;
-	}
-`
+  width: 20%;
+  margin-left: 1em;
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 1em;
+  margin: 0 auto;
+  @media screen and (max-width: 900px) {
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    display: flex;
+  }
+  @media screen and (max-width: 530px) {
+    width: 100%;
+    height: 30%;
+    text-align: center;
+    display: flex;
+  }
+  @media screen and (max-width: 400px) {
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    display: flex;
+  }
+`;
 
 const MapContainer = styled.div`
-	width: 100%;
-	height: 30%;
-	border: 2px solid #000;
-	border-radius: 20px;
-	padding: 1em;
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		text-align: center;
-	}
-`
+  width: 100%;
+  height: 30%;
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 1em;
+  @media screen and (max-width: 400px) {
+    width: 100%;
+    text-align: center;
+  }
+`;
 
 const TextContainer = styled.div`
-	width: 100%;
-	height: 30%;
-	margin-top: 20px;
-	text-align: center;
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 40%;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 40%;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 20%;
-	}
-`
+  width: 100%;
+  height: 30%;
+  margin-top: 20px;
+  text-align: center;
+  @media screen and (max-width: 900px) {
+    width: 100%;
+    height: 40%;
+  }
+  @media screen and (max-width: 530px) {
+    width: 100%;
+    height: 40%;
+  }
+  @media screen and (max-width: 400px) {
+    width: 100%;
+    height: 20%;
+  }
+`;
 const TextArea = styled.textarea`
   width: 100%;
   height: 90%;
   resize: none;
+  padding: 10px;
   border: 2px solid #000;
-  border-radius:20px;
+  border-radius: 20px;
 `;
 
 const Button = styled.button`
-	width: 30%;
-	height: 10%;
-	@media screen and (max-width: 400px) {
-		width: 50%;
-		height: 20%;
-	}
-`
-
+  width: 30%;
+  height: 10%;
+  @media screen and (max-width: 400px) {
+    width: 50%;
+    height: 20%;
+  }
+`;

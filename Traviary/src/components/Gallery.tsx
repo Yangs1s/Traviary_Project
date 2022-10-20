@@ -1,10 +1,15 @@
 /** @format */
 
 import React, { useEffect, useState } from "react"
-import Test from "../mock_data/Img_test.json"
 import styled from "styled-components"
 
-const Gallery = ({ imgsrc, id }: { id: string; imgsrc: string }) => {
+type GalleryProp = {
+	id: string; 
+	imgsrc: string;
+}
+
+
+const Gallery = ({ imgsrc, id }: GalleryProp) => {
 	return (
 		<ImgItem>
 			<Image key={id} src={imgsrc} alt="게시글이미지" />
