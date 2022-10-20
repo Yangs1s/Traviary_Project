@@ -1,16 +1,17 @@
 /** @format */
 
 import React, {
-	useState,
-	useRef,
-	ImgHTMLAttributes,
-	useEffect,
-	FormEvent,
-	ChangeEvent,
-} from "react"
-import { useSpring, animated } from "react-spring"
-import useInput from "../hooks/useInput"
-import styled from "styled-components"
+
+  useState,
+  useRef,
+  ImgHTMLAttributes,
+  useEffect,
+  FormEvent,
+  ChangeEvent,
+} from "react";
+import { useSpring, animated } from "react-spring";
+import styled from "styled-components";
+
 import {
 	addDoc,
 	collection,
@@ -20,7 +21,6 @@ import {
 	Timestamp,
 } from "firebase/firestore"
 import { dbService } from "../fbase"
-import { AiOutlineFileAdd } from "react-icons/ai"
 
 type PostType = {
 	isModalOpen: boolean
@@ -39,7 +39,8 @@ interface RefObject<T> {
 }
 
 const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
-	const [textarea, setTextarea] = useState("")
+	const [postText, setPostText] = useState("")
+
 	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
 
 	useEffect(() => {
@@ -59,19 +60,19 @@ const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
 	const onSubmit = async (event: FormEvent) => {
 		event.preventDefault()
 		await addDoc(collection(dbService, "TraviDB"), {
-			text: textarea,
+			text: postText,
 			createAt: Date.now(),
 			// createdId: userObj.uid,
 			// imgFile: ...
 		})
-		setTextarea("")
+		setPostText("")
 	}
 
 	const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		const {
 			target: { value },
 		} = event
-		setTextarea(value)
+		setPostText(value)
 	}
 
 	const modalRef: any = useRef()
@@ -108,7 +109,6 @@ const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
 										accept="image/*"
 										onChange={onFileChange}
 									/>
-
 									<PhotoList>
 										<li>photo</li>
 										<li>photo2</li>
@@ -119,7 +119,7 @@ const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
 								<MapContainer>여기다 이미지가 나오게끔??</MapContainer>
 								<TextContainer>
 									<TextArea
-										value={textarea}
+										value={postText}
 										onChange={onChange}
 										name="text"
 									></TextArea>
@@ -133,7 +133,6 @@ const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
 		</>
 	)
 }
-
 export default AddPost
 
 const Background = styled.div`

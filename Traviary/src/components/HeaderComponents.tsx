@@ -35,7 +35,7 @@ export default function HeaderComponents() {
 			}
 			setInit(true)
 		})
-	})
+	},[])
 	const Logout = () => {
 		authService.signOut()
 		navigate("/")
@@ -74,7 +74,7 @@ export default function HeaderComponents() {
 					</>
 				)}
 			</Header>
-
+			
 			<ModalContainer>
 				<AddPost isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
 			</ModalContainer>

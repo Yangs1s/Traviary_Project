@@ -27,6 +27,7 @@ const SocialLogin = () => {
     navigate("/main");
     console.log(data);
   };
+  
   return (
     <>
       <IconWrapper>

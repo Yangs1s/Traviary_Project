@@ -22,6 +22,6 @@ const firebaseConfig = {
 	massaginSenderId: VITE_FIREBASE_SENDER_ID,
 }
 
-export const app = initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig)
 export const authService = getAuth(app)
 export const dbService = getFirestore(app)

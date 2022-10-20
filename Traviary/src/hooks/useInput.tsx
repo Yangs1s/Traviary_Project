@@ -19,8 +19,9 @@ const useInput = (initailValue:string,validator?:(value:string) => boolean) => {
         if(willUpdate){
             setValue(value)
         }
+    
   };
-    return { value , onChange};
+    return { value ,onChange};
 };
 
 

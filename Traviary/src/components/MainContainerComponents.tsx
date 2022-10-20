@@ -4,28 +4,67 @@ import React, { useState, useEffect } from "react"
 import Test from "../mock_data/Img_test.json"
 import styled from "styled-components"
 import Gallery from "./Gallery"
-import AddPost from "./AddPost"
+import ReadPost from "./ReadPost"
+import { dbService } from '../fbase';
+import { collection, query, onSnapshot,Timestamp } from "firebase/firestore";
 
-type imgType = {
-	id: string
-	img: string
+
+type GalleryProps = {
+	id: string;
+	imgsrc: string
 }
 
+interface TraviProp {
+    id?: string;
+    text?: string;
+    // creatAt?: Timestamp;
+    // createdId?: string;
+    // image?: ImgHTMLAttributes<HTMLImageElement>;
+  }
 const MainContainerComponents = () => {
-	const [images, setImages] = useState<any[]>([])
+	const [images, setImages] = useState<GalleryProps[]>([])
+	const [isOpenPost, setIsOpenPost] = useState(false);
+	const [travis,setTravis] = useState<TraviProp[]>([])
 	// const [isOpen, setIsOpen] = useState(props)
+
+
+	const handleOpenPost = () => {
+		setIsOpenPost((prev) => !prev);
+	};
+	
 	useEffect(() => {
 		setImages(Test.imgs)
 	}, [])
+	
+
+	useEffect(()=>{
+		const q = query(collection(dbService, "TraviDB"))
+		onSnapshot(q, (querySnapshot) => {
+			const Travi:any = querySnapshot.docs.map((docs) =>({
+				id:docs.id,
+				...docs.data(),
+			}))
+			setTravis(Travi)
+		})
+	},[])
 
 	return (
+		<>
 		<Container>
 			<GridContainer>
 				{images.map((image: any) => (
-					<Gallery key={image.id} imgsrc={image.imgsrc} id={""} />
+					<div onClick={handleOpenPost} key={image.id} >
+						<Gallery imgsrc={image.imgsrc} id={image.id} />
+					</div>
 				))}
 			</GridContainer>
 		</Container>
+		{travis.map((travi)=>
+		<ReadPost 
+		key={travi.id} 
+		traviObj={travi}/>
+		)}
+		</>
 	)
 }
 

@@ -1,10 +1,20 @@
 import MainContainerComponents from "../components/MainContainerComponents"
+import { authService } from "../fbase"
+import { useEffect, useState,ImgHTMLAttributes } from "react"
+import styled from "styled-components"
+import ReadPost from "../components/ReadPost"
 
-export default function MainContainer({isOpen}:{isOpen:boolean}) {
-	
+interface NameProp {
+	displayName:string
+}
+
+export default function MainContainer() {
+
+
 	return (
 		<>
-			<MainContainerComponents isOpen={isOpen}/>
+			<MainContainerComponents/>
 		</>
 	)
 }
+
