@@ -38,7 +38,7 @@ export default function HeaderComponents() {
 	})
 	const Logout = () => {
 		authService.signOut()
-		navigate("/main")
+		navigate("/")
 	}
 	const toggleAddPost = () => {
 		setIsModalOpen((prev) => !prev)

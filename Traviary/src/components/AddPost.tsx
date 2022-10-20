@@ -18,7 +18,7 @@ import {
 	query,
 	Timestamp,
 } from "firebase/firestore"
-import { dbService } from "../fbase"
+// import { dbService } from "../fbase"
 import { AiOutlineFileAdd } from "react-icons/ai"
 
 type PostType = {
@@ -38,28 +38,28 @@ const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
 	const [textarea, setTextarea] = useState("")
 	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
 
-	useEffect(() => {
-		const queries = query(
-			collection(dbService, "TraviDB"),
-			orderBy("createdAt", "desc")
-		)
-		onSnapshot(queries, (snapshot) => {
-			const traviArr = snapshot.docs.map((dosc) => ({
-				id: dosc.id,
-				...dosc.data(),
-			}))
-			setInfoTravi(traviArr)
-		})
-	}, [])
+	// useEffect(() => {
+	// 	const queries = query(
+	// 		collection(dbService, "TraviDB"),
+	// 		orderBy("createdAt", "desc")
+	// 	)
+	// 	onSnapshot(queries, (snapshot) => {
+	// 		const traviArr = snapshot.docs.map((dosc) => ({
+	// 			id: dosc.id,
+	// 			...dosc.data(),
+	// 		}))
+	// 		setInfoTravi(traviArr)
+	// 	})
+	// }, [])
 
 	const onSubmit = async (event: FormEvent) => {
 		event.preventDefault()
-		await addDoc(collection(dbService, "TraviDB"), {
-			text: textarea,
-			createAt: Date.now(),
-			// createdId: userObj.uid,
-		})
-		setTextarea("")
+		// await addDoc(collection(dbService, "TraviDB"), {
+		// 	text: textarea,
+		// 	createAt: Date.now(),
+		// 	// createdId: userObj.uid,
+		// })
+		// setTextarea("")
 	}
 
 	const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
