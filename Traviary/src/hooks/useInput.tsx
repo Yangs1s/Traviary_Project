@@ -23,4 +23,5 @@ const useInput = (initailValue:string,validator?:(value:string) => boolean) => {
     return { value , onChange};
 };
 
+
 export default useInput;

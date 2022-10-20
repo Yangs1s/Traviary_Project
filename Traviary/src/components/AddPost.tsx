@@ -12,15 +12,15 @@ import { useSpring, animated } from "react-spring";
 import useInput  from '../hooks/useInput'
 import styled from "styled-components";
 import {
-  addDoc,
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  Timestamp,
-} from "firebase/firestore";
-// import { dbService } from "../fbase"
-import { AiOutlineFileAdd } from "react-icons/ai";
+	addDoc,
+	collection,
+	onSnapshot,
+	orderBy,
+	query,
+	Timestamp,
+} from "firebase/firestore"
+import { dbService } from "../fbase"
+import { AiOutlineFileAdd } from "react-icons/ai"
 
 type PostType = {
   isModalOpen: boolean;
@@ -39,77 +39,108 @@ interface RefObject<T>{
 }
 
 const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
-	const maxLen = (value:string) => value.length < 130;
-	const contentText = useInput('',maxLen)
+	const [textarea, setTextarea] = useState("")
+	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
 
-	const modalRef = useRef<any>(null);
+	useEffect(() => {
+		const queries = query(
+			collection(dbService, "TraviDB"),
+			orderBy("createdAt", "desc")
+		)
+		onSnapshot(queries, (snapshot) => {
+			const traviArr = snapshot.docs.map((dosc) => ({
+				id: dosc.id,
+				...dosc.data(),
+			}))
+			setInfoTravi(traviArr)
+		})
+	}, [])
+
+	const onSubmit = async (event: FormEvent) => {
+		event.preventDefault()
+		await addDoc(collection(dbService, "TraviDB"), {
+			text: textarea,
+			createAt: Date.now(),
+			// createdId: userObj.uid,
+		})
+		setTextarea("")
+	}
+
+	const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+		const {
+			target: { value },
+		} = event
+		setTextarea(value)
+	}
+
+	const modalRef: any = useRef()
 	const animation: any = useSpring({
 		config: {
-		duration: 250,
+			duration: 250,
 		},
 		transform: isModalOpen ? `translateX(233%)` : `translateX(400%)`,
 		position: "absolute",
 		top: 0,
 		width: "30vw",
 		height: "100%",
-  });
+	})
 
-  const onClose = (e: any) => {
-    if (modalRef.current === e.target) {
-      setIsModalOpen((prev: any) => !prev);
-    }
-  };
-  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget.value);
-  };
+	const onClose = (e: any) => {
+		if (modalRef.current === e.target) {
+			setIsModalOpen((prev: any) => !prev)
+		}
+	}
+	const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		console.log(event.currentTarget.value)
+	}
 
+	return (
+		<>
+			{isModalOpen ? (
+				<Background ref={modalRef} onClick={onClose}>
+					<animated.div style={animation}>
+						<Container onSubmit={onSubmit}>
+							<Wrapper>
+								<PhotoContainer>
+									<ImageInput
+										type="file"
+										accept="image/*"
+										onChange={onFileChange}
+									/>
 
-  return (
-    <>
-      {isModalOpen ? (
-        <Background ref={modalRef} onClick={onClose}>
-          <animated.div style={animation}>
-            <Container>
-              <Wrapper>
-                <PhotoContainer>
-                  <ImageInput
-                    type="file"
-                    accept="image/*"
-                    onChange={onFileChange}
-                  />
-                  <PhotoList>
-                    <li>photo</li>
-                    <li>photo2</li>
-                    <li>photo3</li>
-                  </PhotoList>
-                </PhotoContainer>
-                <MapContainer>map</MapContainer>
-                <TextContainer>
-                  <TextArea
-                    placeholder="글을 입력하세요"
-                    value={contentText.value}
-                    onChange={contentText.onChange}
-                  ></TextArea>
-                  <Button type="submit">작성완료</Button>
-                </TextContainer>
-              </Wrapper>
-            </Container>
-          </animated.div>
-        </Background>
-      ) : null}
-    </>
-  );
-};
+									<PhotoList>
+										<li>photo</li>
+										<li>photo2</li>
+										<li>photo3</li>
+									</PhotoList>
+								</PhotoContainer>
+								<MapContainer>여기다 이미지가 나오게끔??</MapContainer>
+								<TextContainer>
+									<TextArea
+										value={textarea}
+										onChange={onChange}
+										name="text"
+									></TextArea>
+									<Button type="submit" value="확인!!" />
+								</TextContainer>
+							</Wrapper>
+						</Container>
+					</animated.div>
+				</Background>
+			) : null}
+		</>
+	)
+}
 
-export default AddPost;
+export default AddPost
 
 const Background = styled.div`
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  position: fixed;
-  display: flex;
-`;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	position: fixed;
+	display: flex;
+`
 const Container = styled.form`
   background: #fff;
   display: flex;
