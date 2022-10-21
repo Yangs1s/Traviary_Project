@@ -5,9 +5,8 @@ import styled from "styled-components"
 import Gallery from "./Gallery"
 import ReadPost from "./ReadPost"
 import { dbService } from "../fbase"
-import Test from '../mock_data/Img_test.json'
+import Test from "../mock_data/Img_test.json"
 import { collection, query, onSnapshot, Timestamp } from "firebase/firestore"
-
 
 interface TraviProp {
 	id?: string
@@ -27,6 +26,7 @@ const MainContainerComponents = () => {
 	};
 	
 
+
 	useEffect(() => {
 		setImages(Test.imgs)
 	}, [])
@@ -39,26 +39,23 @@ const MainContainerComponents = () => {
 				...docs.data(),
 			}))
 			setTravis(Travi)
-			console.log(travis)
 		})
 	}, [])
 
 	return (
 		<>
-		<Container>
-			<GridContainer>
-				{travis.map((travi: any) => (
-					<div onClick={handleOpenPost} key={travi.id} >
-						<Gallery traviObj={travi} />
-					</div>
-				))}
-			</GridContainer>
-		</Container>
-		{travis.map((travi)=>
-		<ReadPost 
-		key={travi.id} 
-		traviObj={travi}/>
-		)}
+			<Container>
+				<GridContainer>
+					{travis.map((travi: any) => (
+						<div onClick={handleOpenPost} key={travi.id}>
+							<Gallery traviObj={travi} />
+						</div>
+					))}
+				</GridContainer>
+			</Container>
+			{travis.map((travi) => (
+				<ReadPost key={travi.id} traviObj={travi} />
+			))}
 		</>
 	)
 }
@@ -82,9 +79,9 @@ const GridContainer = styled.div`
 	padding: 20px 20px;
 	margin: 30px 30px;
 	border-radius: 15px;
-	position:absolute;
-	top:100px;
-	z-index:0;
+	position: absolute;
+	top: 100px;
+	z-index: 0;
 	@media screen and (max-width: 901px) {
 		-webkit-column-count: 3;
 		-moz-column-count: 3;
@@ -99,5 +96,4 @@ const GridContainer = styled.div`
 		-moz-column-width: 33%;
 		column-width: 33%;
 	}
-
 `

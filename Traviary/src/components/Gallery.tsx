@@ -4,14 +4,16 @@ import styled from "styled-components"
 type GalleryProp = {
 	id: number
 	attachmentUrl: string
-}
 
-const Gallery = ({ traviObj }:{traviObj:any}) => {
-
+const Gallery = ({ traviObj }: { traviObj: any }) => {
 	return (
 		<>
 			<ImgItem>
-				<Image key={traviObj.id} src={traviObj.fileAttachURL } alt="게시글이미지" />
+				<Image
+					key={traviObj.id}
+					src={traviObj.fileAttachURL}
+					alt="게시글이미지"
+				/>
 			</ImgItem>
 		</>
 	)
