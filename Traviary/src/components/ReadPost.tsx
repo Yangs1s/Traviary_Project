@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 const ReadPost = ({traviObj}:{traviObj:any}) => {
 
-    console.log(traviObj.id)
+    // console.log(traviObj.id)
     const handleClose = () =>{
         
     }
@@ -20,7 +20,7 @@ const ReadPost = ({traviObj}:{traviObj:any}) => {
                     </div>
                 </PostHeader>
                 <ImageContainer>
-                    <Image src="public/images/image3.jpg"/> 
+                    <Image src={traviObj.fileAttachURL}/> 
                 </ImageContainer>
                 <ContentContainer>
                     <MapContainer>
@@ -39,7 +39,6 @@ const ReadPost = ({traviObj}:{traviObj:any}) => {
 export default ReadPost
 
 const PostContainer = styled.div`
-    display:none;
 	flex-direction: row;
 
     border-top-left-radius:10px;

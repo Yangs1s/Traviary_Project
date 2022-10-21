@@ -41,7 +41,7 @@ const MainContainerComponents = () => {
 			setTravis(Travi)
 		})
 	}, [])
-
+	console.log(travis)
 	return (
 		<>
 			<Container>
