@@ -2,37 +2,40 @@ import React, { useEffect, useState, ImgHTMLAttributes } from "react"
 import styled from "styled-components"
 
 
-const ReadPost = ({traviObj}:{traviObj:any}) => {
-    
+const ReadPost = ({traviObj,isPostOpen}:{isPostOpen:boolean,traviObj:any}) => {
     // console.log(traviObj.id)
     const handleClose = () =>{
-        
+       
     }
 
     return (
-        <PostContainer>
-            <Wrapper id={traviObj.id}>
-                <PostHeader>
-                    <div>
-                    <CloseBtn type="button" onClick={handleClose}>
-                        <span>🆇</span>    
-                    </CloseBtn>
-                    </div>
-                </PostHeader>
-                <ImageContainer>
-                    <Image src={traviObj.fileAttachURL}/> 
-                </ImageContainer>
-                <ContentContainer>
-                    <MapContainer>
+        <>
+        {isPostOpen ?
+            <PostContainer>
+                <Wrapper>
+                    <PostHeader>
+                        <div>
+                        <CloseBtn type="button" onClick={handleClose}>
+                            <span>🆇</span>    
+                        </CloseBtn>
+                        </div>
+                    </PostHeader>
+                    <ImageContainer>
+                        <Image src={traviObj.fileAttachURL}  id={traviObj.id}/> 
+                    </ImageContainer>
+                    <ContentContainer>
+                        <MapContainer>
+                        </MapContainer>
 
-                    </MapContainer>
-
-                    <TextContainer>
-
-                    </TextContainer>
-                </ContentContainer>
-            </Wrapper>
-        </PostContainer>
+                        <TextContainer>
+                            <span>{traviObj.text}</span>
+                        </TextContainer>
+                    </ContentContainer>
+                </Wrapper>
+            </PostContainer>
+            :null
+        }
+        </> 
     );
 }
 

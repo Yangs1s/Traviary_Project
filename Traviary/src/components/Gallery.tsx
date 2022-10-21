@@ -6,7 +6,7 @@ type GalleryProp = {
 	fileAttachURL: string 
 }
 
-const Gallery = ({ traviObj }: { traviObj: GalleryProp }) => {
+const Gallery = ({ traviObj }: {traviObj: GalleryProp }) => {
 	return (
 		<>
 			<ImgItem>
