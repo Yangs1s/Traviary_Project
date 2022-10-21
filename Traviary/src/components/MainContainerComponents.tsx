@@ -5,65 +5,60 @@ import Test from "../mock_data/Img_test.json"
 import styled from "styled-components"
 import Gallery from "./Gallery"
 import ReadPost from "./ReadPost"
-import { dbService } from '../fbase';
-import { collection, query, onSnapshot,Timestamp } from "firebase/firestore";
-
+import { dbService } from "../fbase"
+import { collection, query, onSnapshot, Timestamp } from "firebase/firestore"
 
 type GalleryProps = {
-	id: string;
+	id: string
 	imgsrc: string
 }
 
 interface TraviProp {
-    id?: string;
-    text?: string;
-    // creatAt?: Timestamp;
-    // createdId?: string;
-    // image?: ImgHTMLAttributes<HTMLImageElement>;
-  }
+	id?: string
+	text?: string
+	// creatAt?: Timestamp;
+	// createdId?: string;
+	// image?: ImgHTMLAttributes<HTMLImageElement>;
+}
 const MainContainerComponents = () => {
 	const [images, setImages] = useState<GalleryProps[]>([])
-	const [isOpenPost, setIsOpenPost] = useState(false);
-	const [travis,setTravis] = useState<TraviProp[]>([])
+	const [isOpenPost, setIsOpenPost] = useState(false)
+	const [travis, setTravis] = useState<TraviProp[]>([])
 	// const [isOpen, setIsOpen] = useState(props)
 
-
 	const handleOpenPost = () => {
-		setIsOpenPost((prev) => !prev);
-	};
-	
-	useEffect(() => {
-		setImages(Test.imgs)
-	}, [])
-	
+		setIsOpenPost((prev) => !prev)
+	}
 
-	useEffect(()=>{
+	// useEffect(() => {
+	// 	setImages(Test.imgs)
+	// }, [])
+
+	useEffect(() => {
 		const q = query(collection(dbService, "TraviDB"))
 		onSnapshot(q, (querySnapshot) => {
-			const Travi:any = querySnapshot.docs.map((docs) =>({
-				id:docs.id,
+			const Travi: any = querySnapshot.docs.map((docs) => ({
+				id: docs.id,
 				...docs.data(),
 			}))
 			setTravis(Travi)
 		})
-	},[])
+	}, [])
 
 	return (
 		<>
-		<Container>
-			<GridContainer>
-				{images.map((image: any) => (
-					<div onClick={handleOpenPost} key={image.id} >
-						<Gallery imgsrc={image.imgsrc} id={image.id} />
-					</div>
-				))}
-			</GridContainer>
-		</Container>
-		{travis.map((travi)=>
-		<ReadPost 
-		key={travi.id} 
-		traviObj={travi}/>
-		)}
+			<Container>
+				<GridContainer>
+					{images.map((image: any) => (
+						<div onClick={handleOpenPost} key={image.id}>
+							<Gallery imgsrc={image.imgsrc} id={image.id} />
+						</div>
+					))}
+				</GridContainer>
+			</Container>
+			{travis.map((travi) => (
+				<ReadPost key={travi.id} traviObj={travi} />
+			))}
 		</>
 	)
 }

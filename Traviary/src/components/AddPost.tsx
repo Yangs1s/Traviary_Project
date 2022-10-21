@@ -1,16 +1,17 @@
 /** @format */
 
-import React, {
+import { v4 as uuid } from "uuid"
 
-  useState,
-  useRef,
-  ImgHTMLAttributes,
-  useEffect,
-  FormEvent,
-  ChangeEvent,
-} from "react";
-import { useSpring, animated } from "react-spring";
-import styled from "styled-components";
+import React, {
+	useState,
+	useRef,
+	ImgHTMLAttributes,
+	useEffect,
+	FormEvent,
+	ChangeEvent,
+} from "react"
+import { useSpring, animated } from "react-spring"
+import styled from "styled-components"
 
 import {
 	addDoc,
@@ -20,11 +21,14 @@ import {
 	query,
 	Timestamp,
 } from "firebase/firestore"
-import { dbService } from "../fbase"
+import { ref, uploadString, getDownloadURL } from "firebase/storage"
+import { dbService, storageService } from "../fbase"
+import { uuidv4 } from "@firebase/util"
 
 type PostType = {
 	isModalOpen: boolean
 	setIsModalOpen: any
+	userObj: any
 }
 
 interface TraviType {
@@ -32,15 +36,14 @@ interface TraviType {
 	text?: string
 	creatAt?: Timestamp
 	createdId?: string
-	image?: ImgHTMLAttributes<HTMLImageElement>
 }
 interface RefObject<T> {
 	current: T
 }
 
-const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
+const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 	const [postText, setPostText] = useState("")
-
+	const [fileAttach, setFileAttach] = useState<any>("")
 	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
 
 	useEffect(() => {
@@ -59,20 +62,49 @@ const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
 
 	const onSubmit = async (event: FormEvent) => {
 		event.preventDefault()
-		await addDoc(collection(dbService, "TraviDB"), {
+		let fileAttachURL = ""
+
+		const attachmentRef = ref(storageService, `${uuidv4()}`)
+		const response = await uploadString(attachmentRef, fileAttach, "data_url")
+		fileAttachURL = await getDownloadURL(response.ref)
+
+		const TraviObj = {
 			text: postText,
 			createAt: Date.now(),
-			// createdId: userObj.uid,
-			// imgFile: ...
-		})
+			createdId: userObj.uid,
+			fileAttachURL,
+		}
+		await addDoc(collection(dbService, "TraviDB"), TraviObj)
 		setPostText("")
+		setFileAttach("")
 	}
 
-	const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+	const onChange = (
+		event: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>
+	) => {
 		const {
 			target: { value },
 		} = event
 		setPostText(value)
+	}
+
+	const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const {
+			currentTarget: { files },
+		} = event as any
+		const theFile = files[0]
+		const reader = new FileReader()
+		reader.onloadend = (finishedEvent: any) => {
+			const {
+				currentTarget: { result },
+			} = finishedEvent
+			setFileAttach(result)
+		}
+		reader.readAsDataURL(theFile)
+	}
+
+	const onClearAttach = () => {
+		setFileAttach("")
 	}
 
 	const modalRef: any = useRef()
@@ -92,9 +124,6 @@ const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
 			setIsModalOpen((prev: any) => !prev)
 		}
 	}
-	const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		console.log(event.currentTarget.value)
-	}
 
 	return (
 		<>
@@ -110,13 +139,14 @@ const AddPost = ({ isModalOpen, setIsModalOpen }: PostType) => {
 										onChange={onFileChange}
 									/>
 									<PhotoList>
-										<li>photo</li>
-										<li>photo2</li>
-										<li>photo3</li>
-										{/* {infoTravi} 이걸로 추가된 이미지 보이게끔 */}
+										{fileAttach && (
+											<>
+												<img src={fileAttach} width="120px" />
+											</>
+										)}
 									</PhotoList>
 								</PhotoContainer>
-								<MapContainer>여기다 이미지가 나오게끔??</MapContainer>
+								<MapContainer></MapContainer>
 								<TextContainer>
 									<TextArea
 										value={postText}
