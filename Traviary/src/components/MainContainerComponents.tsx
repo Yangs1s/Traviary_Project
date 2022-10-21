@@ -27,7 +27,6 @@ const MainContainerComponents = () => {
 	};
 	
 
-
 	useEffect(() => {
 		setImages(Test.imgs)
 	}, [])

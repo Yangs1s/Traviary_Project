@@ -7,10 +7,11 @@ type GalleryProp = {
 }
 
 const Gallery = ({ traviObj }:{traviObj:any}) => {
+
 	return (
 		<>
 			<ImgItem>
-				<Image key={traviObj.id} src={traviObj.attachmentUrl} alt="게시글이미지" />
+				<Image key={traviObj.id} src={traviObj.fileAttachURL } alt="게시글이미지" />
 			</ImgItem>
 		</>
 	)
