@@ -7,6 +7,8 @@ type GalleryProp = {
 }
 
 const Gallery = ({ traviObj }: {traviObj: GalleryProp }) => {
+
+
 	return (
 		<>
 			<ImgItem>
