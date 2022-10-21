@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 
 const ReadPost = ({traviObj}:{traviObj:any}) => {
-
+    
     // console.log(traviObj.id)
     const handleClose = () =>{
         
