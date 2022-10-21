@@ -1,17 +1,12 @@
 /** @format */
 
 import React, { useState, useEffect } from "react"
-import Test from "../mock_data/Img_test.json"
 import styled from "styled-components"
 import Gallery from "./Gallery"
 import ReadPost from "./ReadPost"
 import { dbService } from "../fbase"
 import { collection, query, onSnapshot, Timestamp } from "firebase/firestore"
 
-type GalleryProps = {
-	id: string
-	imgsrc: string
-}
 
 interface TraviProp {
 	id?: string
@@ -21,7 +16,7 @@ interface TraviProp {
 	// image?: ImgHTMLAttributes<HTMLImageElement>;
 }
 const MainContainerComponents = () => {
-	const [images, setImages] = useState<GalleryProps[]>([])
+
 	const [isOpenPost, setIsOpenPost] = useState(false)
 	const [travis, setTravis] = useState<TraviProp[]>([])
 	// const [isOpen, setIsOpen] = useState(props)
@@ -30,11 +25,7 @@ const MainContainerComponents = () => {
 		setIsOpenPost((prev) => !prev);
 	};
 	
-	useEffect(() => {
-		setImages(Test.imgs)
-		console.log(images)
-	}, [])
-	
+
 
 	// useEffect(() => {
 	// 	setImages(Test.imgs)
@@ -56,12 +47,11 @@ const MainContainerComponents = () => {
 		<>
 		<Container>
 			<GridContainer>
-				{images.map((image: any) => (
+				{/* {images.map((image: any) => (
 					<div onClick={handleOpenPost} key={image.id} >
 						<Gallery imgsrc={image.imgsrc} id={image.id} />
-						{/* <ReadPost traviObj ={image}></ReadPost> */}
 					</div>
-				))}
+				))} */}
 			</GridContainer>
 		</Container>
 		{travis.map((travi)=>
@@ -90,9 +80,9 @@ const GridContainer = styled.div`
 	-moz-column-width: 20%;
 	column-width: 20%;
 	padding: 20px 20px;
-	margin: 10px 30px;
+	margin: 40px 30px;
 	border-radius: 15px;
-
+	height:110em;
 	@media screen and (max-width: 901px) {
 		-webkit-column-count: 3;
 		-moz-column-count: 3;

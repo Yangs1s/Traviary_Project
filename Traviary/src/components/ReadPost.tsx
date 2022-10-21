@@ -38,7 +38,7 @@ const ReadPost = ({traviObj}:{traviObj:any}) => {
 export default ReadPost
 
 const PostContainer = styled.div`
-	display: none;
+    display:none;
 	flex-direction: row;
 
     border-top-left-radius:10px;
@@ -63,6 +63,7 @@ const PostHeader = styled.header`
 
 const Wrapper = styled.div`
     width:100%;
+    height:100%;
 `
 
 
