@@ -60,6 +60,10 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 		})
 	}, [])
 
+  useEffect(()=>{
+    document.body.style.overflow = "hidden";
+  })
+
 	const onSubmit = async (event: FormEvent) => {
 		event.preventDefault()
 		let fileAttachURL = ""
@@ -171,6 +175,8 @@ const Background = styled.div`
 	background: rgba(0, 0, 0, 0.8);
 	position: fixed;
 	display: flex;
+  z-index:9999;
+  top:100px;
 `
 const Container = styled.form`
 	background: #fff;
@@ -191,6 +197,7 @@ const Wrapper = styled.div`
 	padding: 10px;
 	margin: 10px 30px;
 	border-radius: 20px;
+  z-index:9999;
 	@media screen and (max-width: 900px) {
 		width: 100%;
 		height: 80%;
