@@ -59,10 +59,15 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 			setInfoTravi(traviArr)
 		})
 	}, [])
-
-	useEffect(() => {
-		document.body.style.overflow = "hidden"
-	})
+  
+  	    // 모달 창 배경 안내려감
+        useEffect(()=>{
+          {
+            isModalOpen?
+            document.body.style.overflow = "hidden":document.body.style.overflow ="none"
+          }
+          })
+    
 
 	const onSubmit = async (event: FormEvent) => {
 		event.preventDefault()

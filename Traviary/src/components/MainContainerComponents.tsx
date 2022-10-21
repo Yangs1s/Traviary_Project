@@ -22,8 +22,10 @@ const MainContainerComponents = () => {
 	// const [isOpen, setIsOpen] = useState(props)
 
 	const handleOpenPost = () => {
-		setIsOpenPost((prev) => !prev)
-	}
+		setIsOpenPost((prev) => !prev);
+	};
+	
+
 
 	useEffect(() => {
 		setImages(Test.imgs)
