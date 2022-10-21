@@ -34,6 +34,7 @@ const MainContainerComponents = () => {
 	
 	useEffect(() => {
 		setImages(Test.imgs)
+		console.log(images)
 	}, [])
 	
 
@@ -45,6 +46,7 @@ const MainContainerComponents = () => {
 				...docs.data(),
 			}))
 			setTravis(Travi)
+			console.log(travis)
 		})
 	},[])
 
@@ -55,6 +57,7 @@ const MainContainerComponents = () => {
 				{images.map((image: any) => (
 					<div onClick={handleOpenPost} key={image.id} >
 						<Gallery imgsrc={image.imgsrc} id={image.id} />
+						{/* <ReadPost traviObj ={image}></ReadPost> */}
 					</div>
 				))}
 			</GridContainer>
