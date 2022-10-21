@@ -4,7 +4,7 @@ import styled from "styled-components"
 type GalleryProp = {
 	id: number
 	attachmentUrl: string
-
+}
 const Gallery = ({ traviObj }: { traviObj: any }) => {
 	return (
 		<>
