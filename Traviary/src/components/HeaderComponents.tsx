@@ -21,8 +21,9 @@ interface ModalProp {
 }
 
 export default function HeaderComponents() {
-	const [init, setInit] = useState(false)
+	// const [init, setInit] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [userObj, setUserObj] = useState<any>(null)
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const navigate = useNavigate()
 
@@ -30,12 +31,13 @@ export default function HeaderComponents() {
 		authService.onAuthStateChanged((user) => {
 			if (user) {
 				setIsLoggedIn(true)
+				setUserObj(user)
 			} else {
 				setIsLoggedIn(false)
 			}
-			setInit(true)
+			// setInit(true)
 		})
-	},[])
+	}, [])
 	const Logout = () => {
 		authService.signOut()
 		navigate("/")
@@ -74,9 +76,13 @@ export default function HeaderComponents() {
 					</>
 				)}
 			</Header>
-			
+
 			<ModalContainer>
-				<AddPost isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+				<AddPost
+					isModalOpen={isModalOpen}
+					setIsModalOpen={setIsModalOpen}
+					userObj={userObj}
+				/>
 			</ModalContainer>
 		</>
 	)

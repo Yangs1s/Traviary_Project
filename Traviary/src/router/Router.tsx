@@ -9,7 +9,7 @@ export default function Router() {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Header />}>
-						<Route path="main" element={<MainContainer isOpen={false} />} />
+						<Route path="main" element={<MainContainer />} />
 						<Route path="auth" element={<Auth />} />
 					</Route>
 				</Routes>

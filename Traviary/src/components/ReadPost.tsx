@@ -1,5 +1,5 @@
-import React, { useEffect,useState,ImgHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState, ImgHTMLAttributes } from "react"
+import styled from "styled-components"
 
 
 const ReadPost = ({traviObj}:{traviObj:any}) => {
@@ -35,13 +35,11 @@ const ReadPost = ({traviObj}:{traviObj:any}) => {
     );
 }
 
-export default ReadPost;
-
-
+export default ReadPost
 
 const PostContainer = styled.div`
-    display:flex;
-    flex-direction:row;
+	display: none;
+	flex-direction: row;
 
     border-top-left-radius:10px;
     border-bottom-left-radius:10px;
