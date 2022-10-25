@@ -3,12 +3,10 @@ import styled from "styled-components"
 
 type GalleryProp = {
 	id: number
-	fileAttachURL: string 
+	fileAttachURL: string
 }
 
-const Gallery = ({ traviObj }: {traviObj: GalleryProp }) => {
-
-
+const Gallery = ({ traviObj }: { traviObj: GalleryProp }) => {
 	return (
 		<>
 			<ImgItem>

@@ -16,10 +16,9 @@ interface TraviProp {
 	// image?: ImgHTMLAttributes<HTMLImageElement>;
 }
 const MainContainerComponents = () => {
-
 	const [isOpenPost, setIsOpenPost] = useState(false)
 	const [travis, setTravis] = useState<TraviProp[]>([])
-	const [postId, setPostId] = useState('')
+	const [postId, setPostId] = useState("")
 	// const [isOpen, setIsOpen] = useState(props)
 
 	useEffect(() => {
@@ -33,48 +32,43 @@ const MainContainerComponents = () => {
 		})
 	}, [])
 
-	const handleOpenPost = (event:any) => {
-		setIsOpenPost((prev) => !prev);
+	const handleOpenPost = (event: any) => {
+		setIsOpenPost((prev) => !prev)
 		setPostId(event.currentTarget.id)
 	}
 
-	console.log(postId) 
+	console.log(postId)
 	return (
 		<>
 			<Container>
 				<GridContainer>
 					{travis.map((travi: any) => (
-						<div onClick={handleOpenPost} id={travi.id} key={travi.id} >
+						<div onClick={handleOpenPost} id={travi.id} key={travi.id}>
 							<Gallery traviObj={travi} />
 						</div>
 					))}
-					
 				</GridContainer>
-				{travis.map((travi) => ( 
-				<>
-				{
-				postId === travi.id
-				?
-				<ReadPost isPostOpen={isOpenPost} key={travi.id} traviObj={travi} />
-				:null
-				}
-				</>
-			))}
+				{travis.map((travi) => (
+					<>
+						{postId === travi.id ? (
+							<ReadPost
+								isPostOpen={isOpenPost}
+								key={travi.id}
+								traviObj={travi}
+							/>
+						) : null}
+					</>
+				))}
 			</Container>
-			
-			
-	
-			
 		</>
 	)
-
 }
 export default MainContainerComponents
 
 const Container = styled.div`
 	width: 100%;
 	height: 100%;
-	display:flex;
+	display: flex;
 `
 
 const GridContainer = styled.div`
