@@ -1,36 +1,57 @@
 import React, { useEffect, useState, ImgHTMLAttributes } from "react"
 import styled from "styled-components"
 
+import {AiTwotoneDelete} from 'react-icons/ai'
+import {BiPencil} from 'react-icons/bi'
 
 const ReadPost = ({traviObj,isPostOpen}:{isPostOpen:boolean,traviObj:any}) => {
     // console.log(traviObj.id)
+    const [open ,setOpen] = useState(false)
     const handleClose = () =>{
-       
+    setOpen(prev => !prev)
     }
 
     return (
         <>
-        {isPostOpen ?
+        {isPostOpen === open?
             <PostContainer>
                 <Wrapper>
                     <PostHeader>
-                        <div>
-                        <CloseBtn type="button" onClick={handleClose}>
-                            <span>🆇</span>    
-                        </CloseBtn>
-                        </div>
-                    </PostHeader>
-                    <ImageContainer>
-                        <Image src={traviObj.fileAttachURL}  id={traviObj.id}/> 
-                    </ImageContainer>
-                    <ContentContainer>
-                        <MapContainer>
-                        </MapContainer>
+                        <HeaderWrapper>
+                        <Closebox>
+                            <CloseBtn type="button" onClick={handleClose}>
+                                <span>🆇</span>    
+                            </CloseBtn>
+                        </Closebox>
 
-                        <TextContainer>
-                            <span>{traviObj.text}</span>
-                        </TextContainer>
+                        <Icons>
+                            <AiTwotoneDelete className="icons"/>
+                            <BiPencil className="icons"/>
+                        </Icons>
+                        </HeaderWrapper>
+                    </PostHeader>
+                    
+                    <ContentContainer>
+                        <ImageContainer>
+                            <Image src={traviObj.fileAttachURL}  id={traviObj.id}/> 
+                        </ImageContainer>
+                    
+                        <TextMapContainer>
+
+                            <Title> MAP </Title>
+                            <MapContainer>
+                                <MapWrapper>
+                                </MapWrapper>
+                            </MapContainer>
+
+                            <Title> POST </Title>
+                            <CommentWrapper>
+                                <TextContent>{traviObj.text}</TextContent>
+                            </CommentWrapper>
+                            
+                        </TextMapContainer>
                     </ContentContainer>
+
                 </Wrapper>
             </PostContainer>
             :null
@@ -42,71 +63,152 @@ const ReadPost = ({traviObj,isPostOpen}:{isPostOpen:boolean,traviObj:any}) => {
 export default ReadPost
 
 const PostContainer = styled.div`
-	flex-direction: row;
-
     border-top-left-radius:10px;
     border-bottom-left-radius:10px;
     border-bottom-right-radius:10px;
-    width:60em;
-    height:80em;
+    width:80em;
+    height:100em;
     background:#fff;
-    border:2px solid #000;
+    border:2px solid #fefefe;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .2);
     position:absolute;
     top:100px;
-    
-    bottom:0;
     right:0;
 `
-
-const PostHeader = styled.header`
-    width:100%;
-    height:5%;
-    border-bottom:2px solid #000;
-`
-
 const Wrapper = styled.div`
     width:100%;
     height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:1;
+    `
+const PostHeader = styled.header`
+    width:100%;
+    height:5%;
+    border-bottom:1px solid rgba(0,0,0,0.3);
+    border-top-left-radius:10px;
+    background:var(--tab-bgcolor)
+
+    `
+const HeaderWrapper = styled.div`
+    width:100%;
+    height:100%;
+    display:flex;
+`
+const Closebox = styled.div`
+    width:100%;
+    height:100%;
+    display:flex;
+`
+
+const CloseBtn = styled.button`
+    width:10%;
+    outline:none;
+    border:none;
+    margin:0;
+    background:transparent;
+    span{
+        font-size:3em;
+        color:var(--main-color)
+    }
+    
+    `
+
+
+const Icons = styled.div`
+    width:100%
+    height:100%;
+    margin:0 2em;
+    display:flex;
+    align-items:center;
+    .icons{
+        font-size:3.5em;
+        color:var(--main-color);
+        text-align:center;
+        margin-right:5px;
+        padding:0 5px;
+    }
 `
 
 
+
+// Image////////
 const ImageContainer = styled.div`
-    width:100%;
-    height:40%;
+    width:60%;
+    height:90%;
+    display:flex;
+    flex-direction:column;
+    margin:10px 0;
+
 `
 const Image = styled.img`
     width:100%;
     height:100%;
     padding:1em;
-    border-bottom:2px solid #000;
     `
 
-const CloseBtn = styled.button`
-    width:10%;
-    height:20%;
-    outline:none;
-    border:none;
-    
-    background:transparent;
-    span{
-        font-size:2em;
-    }
-    
-    `
-
+// CONTENT //
 const ContentContainer = styled.div`
     width:100%;
     height:100%;
     display:flex;
-    flex-direction:row;
+    align-items:center;
 `
 
+
+
+//CONTETN -  TEXT//
+const TextMapContainer = styled.div`
+    width:40%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    border-left:1px solid #e8e8e8;
+`
+const CommentWrapper = styled.div`
+    width:90%;
+    height:70%;
+    margin:2% 0;
+    border:solid 1px var(--color-gray0);
+    border-radius:10px;
+`
+const TextContent = styled.span`
+    font-size:2em;
+    padding:1em;
+`
+
+
+
+// CONTENT - MAP //
 const MapContainer = styled.div`
-    width:50%;
-    height:55%;
-    border-right:2px solid #000;
+    width:100%;
+    height:40%;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    margin-top:2%;
+    `
+const MapWrapper = styled.div`
+    width:90%;
+    height:100%;
+    border:solid 1px var(--color-gray0);
+    border-radius:10px;
+    display:flex;
+    margin:5% 0;
 `
-const TextContainer = styled.div`
-    width:50%;
-    height:55%;
+
+// TITLE
+const Title = styled.div`
+    width:20%;
+    font-size:2em;
+    margin-top: 0.5em;
+    border:1px solid var(--main-color);
+    border-radius:15%;
+    text-align:center;
+    color:var(--main-color);
+    background:var(--tab-bgcolor)
 `
+

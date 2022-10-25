@@ -48,11 +48,9 @@ const MainContainerComponents = () => {
 							<Gallery traviObj={travi} />
 						</div>
 					))}
+					
 				</GridContainer>
-			</Container>
-			
-			
-			{travis.map((travi) => ( 
+				{travis.map((travi) => ( 
 				<>
 				{
 				postId === travi.id
@@ -62,6 +60,10 @@ const MainContainerComponents = () => {
 				}
 				</>
 			))}
+			</Container>
+			
+			
+	
 			
 		</>
 	)
@@ -72,6 +74,7 @@ export default MainContainerComponents
 const Container = styled.div`
 	width: 100%;
 	height: 100%;
+	display:flex;
 `
 
 const GridContainer = styled.div`
@@ -84,11 +87,8 @@ const GridContainer = styled.div`
 	-moz-column-width: 25%;
 	column-width: 25%;
 	padding: 20px 20px;
-	margin: 30px 30px;
+	margin: 130px 30px;
 	border-radius: 15px;
-	position: absolute;
-	top: 100px;
-	z-index: 0;
 	@media screen and (max-width: 901px) {
 		-webkit-column-count: 3;
 		-moz-column-count: 3;
