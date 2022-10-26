@@ -4,36 +4,44 @@ import styled from "styled-components"
 import { doc, deleteDoc } from "firebase/firestore"
 import { AiTwotoneDelete } from "react-icons/ai"
 import { BiPencil } from "react-icons/bi"
-import { dbService, storageService,authService } from "../fbase"
-import { deleteObject,ref } from "firebase/storage"
-
+import { dbService, storageService, authService } from "../fbase"
+import { deleteObject, ref } from "firebase/storage"
 
 const ReadPost = ({
 	traviObj,
 	isPostOpen,
-    userObj
+	userObj,
 }: {
 	isPostOpen: boolean
 	traviObj: any
-    userObj:string
+	userObj: any
 }) => {
 	// console.log(traviObj.id)
 	const [open, setOpen] = useState(false)
+	const [editing, setEditing] = useState(false)
 	const handleClose = () => {
 		setOpen((prev) => !prev)
 	}
-    const TraviRef = doc(dbService,"TraviDB",`${traviObj.id}`)
-    const urlRef = ref(storageService,traviObj.fileAttachURL)
-    console.log(authService)
+	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
+	const urlRef = ref(storageService, traviObj.fileAttachURL)
 
-    const onDeleteClick = async () => {
-        const Ok = window.confirm("삭제하시겠습니까???");
-        console.log(Ok);
-        if (Ok) {
-          await deleteDoc(TraviRef);
-          await deleteObject(urlRef)
-        }
-      };
+	const onDeleteClick = async () => {
+		const Ok = window.confirm("삭제하시겠습니까???")
+		console.log(Ok)
+		if (Ok) {
+			await deleteDoc(TraviRef)
+			await deleteObject(urlRef)
+		}
+	}
+
+	useEffect(() => {
+		if (traviObj.createdId === userObj.uid) {
+			setEditing(true)
+		} else {
+			setEditing(false)
+		}
+	})
+
 	return (
 		<>
 			{isPostOpen === open ? (
@@ -48,8 +56,18 @@ const ReadPost = ({
 								</Closebox>
 
 								<Icons>
-									<AiTwotoneDelete className="icons" role="button" onClick={onDeleteClick}/>
-									<BiPencil className="icons" />
+									{editing ? (
+										<>
+											<AiTwotoneDelete
+												className="icons"
+												role="button"
+												onClick={onDeleteClick}
+											/>
+											<BiPencil className="icons" />
+										</>
+									) : (
+										<></>
+									)}
 								</Icons>
 							</HeaderWrapper>
 						</PostHeader>
@@ -183,7 +201,7 @@ const CommentWrapper = styled.div`
 	width: 90%;
 	height: 70%;
 	margin: 2% 0;
-    padding:1em;
+	padding: 1em;
 	border: solid 1px var(--color-gray0);
 	border-radius: 10px;
 `
