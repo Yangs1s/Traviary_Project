@@ -1,27 +1,6 @@
-
-import React, {
-	useState,
-	useRef,
-	ImgHTMLAttributes,
-	useEffect,
-	FormEvent,
-	ChangeEvent,
-} from "react"
-
-
+import { useRef,useEffect} from "react"
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components"
-
-import {
-	addDoc,
-	collection,
-	onSnapshot,
-	orderBy,
-	query,
-	Timestamp,
-} from "firebase/firestore"
-
-import { dbService, storageService } from "../fbase"
 import AddPosting from './AddPosting';
 
 type PostType = {
@@ -64,11 +43,11 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 	return (
 		<>
 			{isModalOpen
-			? <Background ref={modalRef} onClick={onClose}>
+			? (<Background ref={modalRef} onClick={onClose}>
 					<animated.div style={animation}>
 						<AddPosting userObj={userObj} isModalOpen={isModalOpen}/>
 					</animated.div>
-				</Background>
+				</Background>)
 			 : null}
 		</>
 	)

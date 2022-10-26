@@ -111,8 +111,11 @@ const AddPosting = ({userObj,isModalOpen}:userObjType) => {
 									<ImageInput
 										type="file"
 										accept="image/*"
+										id="files"
 										onChange={onFileChange}
 									/>
+									<ImageLabel htmlFor="files">
+										<span>⨁</span></ImageLabel>
 									<PhotoList>
 										{fileAttach && (
 											<>
@@ -154,15 +157,29 @@ const Container = styled.form`
 	display: flex;
 	position: absolute;
 	right: 0;
-	width: 40vw;
+	width: 50vw;
 	height: 92%;
 	border: 2px solid #efefef;
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	margin-left: auto;
 	border-radius: 20px;
-	z-index: 9999;
+	z-index: 1;
 	overflow:scroll;
-
+	@media screen and (max-width: 900px) {
+		width: 100%;
+		height: 80%;
+		margin: 0;
+	}
+	@media screen and (max-width: 530px) {
+		width: 100%;
+		height: 70%;
+		margin: 0;
+	}
+	@media screen and (max-width: 400px) {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
 `
 
 const Wrapper = styled.div`
@@ -212,26 +229,38 @@ const PhotoContainer = styled.div`
 	}
 `
 
-const ImageInput = styled.input`
-    width:79%;
-    height:100%
-    font-size: 50px;
-    text-align:center;
-    border: 2px solid #e8e8e8;
-    border-radius:20px;
-    @media screen and (max-width: 900px) {
-        width:100%;
-        height:70%;
-      }
-    @media screen and (max-width: 530px) {
-        width:100%;
-        height:70%;
-      }
-    @media screen and (max-width: 400px) {
-        width:100%;
-        height:70%;
-      }
 
+const ImageLabel = styled.label`
+width:79%;
+height:100%
+font-size: 50px;
+text-align:center;
+border: 2px solid #e8e8e8;
+border-radius:20px;
+padding: 13% 0;
+@media screen and (max-width: 900px) {
+	width:100%;
+	height:70%;
+  }
+@media screen and (max-width: 530px) {
+	width:100%;
+	height:70%;
+  }
+@media screen and (max-width: 400px) {
+	width:100%;
+	height:70%;
+  }
+&::file-selector-button{
+	display:none
+}
+span{
+	font-size:100px;
+}
+`
+
+const ImageInput = styled.input`
+	display:none;
+	
 `
 const PhotoList = styled.ul`
 	width: 20%;

@@ -33,6 +33,7 @@ const MainContainerComponents = () => {
 				...docs.data(),
 			}))
 			setTravis(Travi)
+			console.log(travis)
 		})
 	}, [])
 
@@ -43,29 +44,41 @@ const MainContainerComponents = () => {
 		})
 	})
 
-	const handleOpenPost = (event: any) => {
-		setIsOpenPost((prev) => !prev)
+	const handleOpenPost = (event: React.MouseEvent<HTMLImageElement>) => {
+		event.preventDefault();
+		setIsOpenPost(prev => !prev)
 		setPostId(event.currentTarget.id)
+		console.log(event.currentTarget)
 	}
 
+	const handlePostClose = () => {
+		setIsOpenPost((prev) => !prev)
+	}
 	return (
 		<>
 			<Container>
 				<GridContainer>
 					{travis.map((travi: any) => (
-						<div onClick={handleOpenPost} id={travi.id} key={travi.id}>
-							<Gallery traviObj={travi} />
-						</div>
+						<>
+						<Gallery 
+						id={travi.id}
+						traviObj={travi} 
+						key={travi.id} 
+						onClick={handleOpenPost} 
+						/>
+						</>
 					))}
 				</GridContainer>
+				
 				{travis.map((travi) => (
 					<>
 						{postId === travi.id ? (
 							<ReadPost
 								key={travi.id}
-								isPostOpen={isOpenPost}
+								isPostOpen={!isOpenPost}
 								traviObj={travi}
 								userObj={userId}
+								onClose={handlePostClose}
 							/>
 						) : null}
 					</>
@@ -80,6 +93,16 @@ const Container = styled.div`
 	width: 100%;
 	height: 100%;
 	display: flex;
+	@media screen and (max-width: 900px) {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
+	@media screen and (max-width: 400px) {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
 `
 
 const GridContainer = styled.div`
@@ -100,7 +123,7 @@ const GridContainer = styled.div`
 		column-count: 3;
 		column-width: 25%;
 	}
-	@media screen and (max-width: 501px) {
+	@media screen and (max-width: 530px) {
 		-webkit-column-count: 3;
 		-moz-column-count: 3;
 		column-count: 3;

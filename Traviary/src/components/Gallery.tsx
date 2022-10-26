@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 
-type GalleryProp = {
-	id: number
+interface GalleryProp  {
+	id?: string;
 	fileAttachURL: string
+	
 }
 
-const Gallery = ({ traviObj }: { traviObj: GalleryProp }) => {
+const Gallery = ({ traviObj,onClick }: { traviObj: GalleryProp,onClick:(event: React.MouseEvent<HTMLImageElement>)=>void }) => {
 	return (
 		<>
-			<ImgItem>
+			<ImgItem >
 				<Image
+					id={traviObj.id}
 					key={traviObj.id}
 					src={traviObj.fileAttachURL}
 					alt="게시글이미지"
+					onClick={onClick}
 				/>
 			</ImgItem>
 		</>
