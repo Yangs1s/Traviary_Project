@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import Gallery from "./Gallery"
 import ReadPost from "./ReadPost"
-import { dbService } from "../fbase"
+import { dbService,authService } from "../fbase"
 import Test from "../mock_data/Img_test.json"
 import { collection, query, onSnapshot, Timestamp } from "firebase/firestore"
 
@@ -19,7 +19,7 @@ const MainContainerComponents = () => {
 	const [isOpenPost, setIsOpenPost] = useState(false)
 	const [travis, setTravis] = useState<TraviProp[]>([])
 	const [postId, setPostId] = useState("")
-	// const [isOpen, setIsOpen] = useState(props)
+	const [userId, setUserId] = useState('')
 
 	useEffect(() => {
 		const q = query(collection(dbService, "TraviDB"))
@@ -31,6 +31,14 @@ const MainContainerComponents = () => {
 			setTravis(Travi)
 		})
 	}, [])
+	
+	useEffect(()=>{
+		authService.onAuthStateChanged((user:any) => {
+			setUserId(user)
+			console.log(user.uid)		
+
+		})
+	})
 
 	const handleOpenPost = (event: any) => {
 		setIsOpenPost((prev) => !prev)
@@ -52,9 +60,10 @@ const MainContainerComponents = () => {
 					<>
 						{postId === travi.id ? (
 							<ReadPost
-								isPostOpen={isOpenPost}
 								key={travi.id}
+								isPostOpen={isOpenPost}
 								traviObj={travi}
+								userObj = {userId}
 							/>
 						) : null}
 					</>

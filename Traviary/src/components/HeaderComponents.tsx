@@ -14,7 +14,7 @@ import { MdPostAdd } from "react-icons/md"
 
 import { Link, useNavigate } from "react-router-dom"
 import { authService } from "../fbase"
-import AddPost from "./AddPost"
+import PostModal from "./PostModal"
 
 interface ModalProp {
 	isOpen: boolean
@@ -78,7 +78,7 @@ export default function HeaderComponents() {
 			</Header>
 
 			<ModalContainer>
-				<AddPost
+				<PostModal
 					isModalOpen={isModalOpen}
 					setIsModalOpen={setIsModalOpen}
 					userObj={userObj}

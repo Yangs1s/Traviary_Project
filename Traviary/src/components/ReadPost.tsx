@@ -4,14 +4,18 @@ import styled from "styled-components"
 import { doc, deleteDoc } from "firebase/firestore"
 import { AiTwotoneDelete } from "react-icons/ai"
 import { BiPencil } from "react-icons/bi"
-import { dbService, storageService } from "../fbase"
+import { dbService, storageService,authService } from "../fbase"
 import { deleteObject,ref } from "firebase/storage"
+
+
 const ReadPost = ({
 	traviObj,
 	isPostOpen,
+    userObj
 }: {
 	isPostOpen: boolean
 	traviObj: any
+    userObj:string
 }) => {
 	// console.log(traviObj.id)
 	const [open, setOpen] = useState(false)
@@ -20,7 +24,7 @@ const ReadPost = ({
 	}
     const TraviRef = doc(dbService,"TraviDB",`${traviObj.id}`)
     const urlRef = ref(storageService,traviObj.fileAttachURL)
-
+    console.log(authService)
 
     const onDeleteClick = async () => {
         const Ok = window.confirm("삭제하시겠습니까???");
