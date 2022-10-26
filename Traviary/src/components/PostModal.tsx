@@ -7,6 +7,8 @@ import React, {
 	FormEvent,
 	ChangeEvent,
 } from "react"
+
+
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components"
 
@@ -18,8 +20,10 @@ import {
 	query,
 	Timestamp,
 } from "firebase/firestore"
+
 import { dbService, storageService } from "../fbase"
 import AddPosting from './AddPosting';
+
 type PostType = {
 	isModalOpen: boolean
 	setIsModalOpen: any
@@ -39,6 +43,7 @@ interface RefObject<T> {
 const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
 	const [isModal,setIsModal] = useState(true)
+
 
 	useEffect(() => {
 		const queries = query(
@@ -70,7 +75,6 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 		}
 	}
 
-
 	// 모달 애니메이션 //
 	const modalRef: any = useRef()
 
@@ -90,6 +94,7 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 			{isModalOpen === isModal ? (
 				<Background ref={modalRef} onClick={onClose}>
 					<animated.div style={animation}>
+
 						<AddPosting userObj={userObj} isModalOpen={isModalOpen}/>
 					</animated.div>
 				</Background>
@@ -98,6 +103,10 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 						<AddPosting userObj={userObj} isModalOpen={isModalOpen}/>
 					</animated.div>
 				</BackgroundHide>}
+
+					</animated.div>
+				</Background>
+			)
 		</>
 	)
 }
@@ -112,6 +121,7 @@ const Background = styled.div`
 	z-index: 9999;
 	top: 100px;
 `
+
 const BackgroundHide = styled.div`
 	width: 100%;
 	height: 100%;
@@ -119,3 +129,4 @@ const BackgroundHide = styled.div`
 	z-index: 9999;
 	top: 100px;
 `
+
