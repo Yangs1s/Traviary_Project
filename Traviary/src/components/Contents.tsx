@@ -1,95 +1,90 @@
 /** @format */
-import React, { useEffect, useState,useRef } from "react"
-import styled from "styled-components";
-import { doc, deleteDoc } from "firebase/firestore";
-import { AiTwotoneDelete } from "react-icons/ai";
-import { BiPencil } from "react-icons/bi";
-import { dbService, storageService } from "../fbase";
-import { deleteObject, ref } from "firebase/storage";
+import React, { useEffect, useState, useRef } from "react"
+import styled from "styled-components"
+import { doc, deleteDoc } from "firebase/firestore"
+import { AiTwotoneDelete } from "react-icons/ai"
+import { BiPencil } from "react-icons/bi"
+import { dbService, storageService } from "../fbase"
+import { deleteObject, ref } from "firebase/storage"
 
-const Contents = ({traviObj,userObj}: {
-	traviObj: any
-	userObj: any
-}) => {
-  // console.log(traviObj.id)
-  const [open, setOpen] = useState(false);
-  const [editing, setEditing] = useState(false);
+const Contents = ({ traviObj, userObj }: { traviObj: any; userObj: any }) => {
+	// console.log(traviObj.id)
+	const [open, setOpen] = useState(false)
+	const [editing, setEditing] = useState(false)
 
-  const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`);
-  const urlRef = ref(storageService, traviObj.fileAttachURL);
+	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
+	const urlRef = ref(storageService, traviObj.fileAttachURL)
 
-  const onDeleteClick = async () => {
-    const Ok = window.confirm("삭제하시겠습니까???");
-    console.log(Ok);
-    if (Ok) {
-      await deleteDoc(TraviRef);
-      await deleteObject(urlRef);
-    }
-  };
+	const onDeleteClick = async () => {
+		const Ok = window.confirm("삭제하시겠습니까???")
+		console.log(Ok)
+		if (Ok) {
+			await deleteDoc(TraviRef)
+			await deleteObject(urlRef)
+		}
+	}
 
-  useEffect(() => {
-    if (traviObj.createdId === userObj.uid) {
-      setEditing(true);
-    } else {
-      setEditing(false);
-    }
-  });
-  const handleClose = () => {
-    [setOpen((prev) => !prev)];
-  };
+	useEffect(() => {
+		if (traviObj.createdId === userObj.uid) {
+			setEditing(true)
+		} else {
+			setEditing(false)
+		}
+	})
+	const handleClose = () => {
+		;[setOpen((prev) => !prev)]
+	}
 
-  return (
-    <>
-      <Wrapper>
-        <PostHeader>
-          <HeaderWrapper>
-            <Closebox>
-              <CloseBtn type="button" onClick={handleClose}>
-                <span>🆇</span>
-              </CloseBtn>
-            </Closebox>
+	return (
+		<>
+			<Wrapper>
+				<PostHeader>
+					<HeaderWrapper>
+						<Closebox>
+							<CloseBtn type="button" onClick={handleClose}>
+								<span>🆇</span>
+							</CloseBtn>
+						</Closebox>
 
-            <Icons>
-              {editing ? (
-                <>
-                  <AiTwotoneDelete
-                    className="icons"
-                    role="button"
-                    onClick={onDeleteClick}
-                  />
-                  <BiPencil className="icons" />
-                </>
-              ) : (
-                <></>
-              )}
-            </Icons>
-          </HeaderWrapper>
-        </PostHeader>
+						<Icons>
+							{editing ? (
+								<>
+									<AiTwotoneDelete
+										className="icons"
+										role="button"
+										onClick={onDeleteClick}
+									/>
+									<BiPencil className="icons" />
+								</>
+							) : (
+								<></>
+							)}
+						</Icons>
+					</HeaderWrapper>
+				</PostHeader>
 
-        <ContentContainer>
-          <ImageContainer>
-            <Image src={traviObj.fileAttachURL} id={traviObj.id} />
-          </ImageContainer>
+				<ContentContainer>
+					<ImageContainer>
+						<Image src={traviObj.fileAttachURL} id={traviObj.id} />
+					</ImageContainer>
 
-          <TextMapContainer>
-            <Title> MAP </Title>
-            <MapContainer>
-              <MapWrapper></MapWrapper>
-            </MapContainer>
-            <Title> POST </Title>
-            <CommentWrapper>
-              <TextContent>{traviObj.text}</TextContent>
-            </CommentWrapper>
-          </TextMapContainer>
-        </ContentContainer>
-      </Wrapper>
-    </>
-  );
-};
+					<TextMapContainer>
+						<Title> MAP </Title>
+						<MapContainer>
+							<MapWrapper></MapWrapper>
+						</MapContainer>
+						<Title> POST </Title>
+						<CommentWrapper>
+							<TextContent>{traviObj.text}</TextContent>
+						</CommentWrapper>
+					</TextMapContainer>
+				</ContentContainer>
+			</Wrapper>
+		</>
+	)
+}
 
-export default Contents;
-
-
+export default Contents
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -136,7 +131,6 @@ const Closebox = styled.div`
 	width: 100%;
 	height: 100%;
 	display: flex;
-
 `
 
 const CloseBtn = styled.button`
@@ -170,32 +164,30 @@ const Icons = styled.div`
 const ImageContainer = styled.div`
 	width: 60%;
 	height: 100%;
-	border:2px solid #fff;
-	border-bottom-left-radius:10px;
+	border: 2px solid #fff;
+	border-bottom-left-radius: 10px;
 	display: flex;
 	flex-direction: column;
-	background:rgba(0,0,0,0.15);
+	background: rgba(0, 0, 0, 0.15);
 	margin: 10px 0;
 
-	@media screen and (max-width: 900px ) {
+	@media screen and (max-width: 900px) {
 		width: 100%;
 		height: 100%;
-		border:2px solid #fff;
-		border-bottom-left-radius:10px;
+		border: 2px solid #fff;
+		border-bottom-left-radius: 10px;
 		display: flex;
 		flex-direction: column;
-		background:rgba(0,0,0,0.15);
-
+		background: rgba(0, 0, 0, 0.15);
 	}
 	@media screen and (max-width: 530px) {
 		width: 60%;
 		height: 100%;
-		border:2px solid #fff;
-		border-bottom-left-radius:10px;
+		border: 2px solid #fff;
+		border-bottom-left-radius: 10px;
 		display: flex;
 		flex-direction: column;
-		background:rgba(0,0,0,0.15);
-
+		background: rgba(0, 0, 0, 0.15);
 	}
 `
 const Image = styled.img`
@@ -206,7 +198,6 @@ const Image = styled.img`
 
 	@media screen and (max-width: 900px) {
 		width: 100%;
-
 	}
 `
 

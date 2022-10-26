@@ -1,7 +1,7 @@
-import { useRef,useEffect} from "react"
+import { useRef, useEffect } from "react"
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components"
-import AddPosting from './AddPosting';
+import AddPosting from "./AddPosting"
 
 type PostType = {
 	isModalOpen: boolean
@@ -10,7 +10,6 @@ type PostType = {
 }
 
 const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
-
 	// 모달 창 배경 고정
 	useEffect(() => {
 		{
@@ -42,13 +41,13 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 
 	return (
 		<>
-			{isModalOpen
-			? (<Background ref={modalRef} onClick={onClose}>
+			{isModalOpen ? (
+				<Background ref={modalRef} onClick={onClose}>
 					<animated.div style={animation}>
-						<AddPosting userObj={userObj} isModalOpen={isModalOpen}/>
+						<AddPosting userObj={userObj} isModalOpen={isModalOpen} />
 					</animated.div>
-				</Background>)
-			 : null}
+				</Background>
+			) : null}
 		</>
 	)
 }
