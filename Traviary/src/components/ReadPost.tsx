@@ -1,12 +1,7 @@
 import React, { useEffect, useState, useRef, ReactNode } from "react"
 import styled, { css, keyframes } from "styled-components"
-import { doc, deleteDoc } from "firebase/firestore"
-import { AiTwotoneDelete } from "react-icons/ai"
-import { BiPencil } from "react-icons/bi"
-import { dbService, storageService, authService } from "../fbase"
-import { deleteObject, ref } from "firebase/storage"
+
 import Contents from "./Contents"
-import { NIL } from "uuid"
 
 export type ModalBaseProps = {
 	traviObj: any
@@ -21,10 +16,7 @@ const ReadPost = ({
 	userObj,
 	onClose,
 }: ModalBaseProps) => {
-	// console.log(traviObj.id)
 	const [open, setOpen] = useState(false)
-	const [editing, setEditing] = useState(false)
-
 	const modalRef: any = useRef()
 
 	useEffect(() => {

@@ -1,7 +1,13 @@
 /** @format */
-import React, { useEffect, useState, useRef } from "react"
+import React, {
+	useEffect,
+	useState,
+	useRef,
+	ChangeEvent,
+	FormEvent,
+} from "react"
 import styled from "styled-components"
-import { doc, deleteDoc } from "firebase/firestore"
+import { doc, deleteDoc, updateDoc } from "firebase/firestore"
 import { AiTwotoneDelete } from "react-icons/ai"
 import { BiPencil } from "react-icons/bi"
 import { dbService, storageService } from "../fbase"
@@ -11,17 +17,46 @@ const Contents = ({ traviObj, userObj }: { traviObj: any; userObj: any }) => {
 	// console.log(traviObj.id)
 	const [open, setOpen] = useState(false)
 	const [editing, setEditing] = useState(false)
+	const [editData, setEditData] = useState(false)
+	const [editText, setEditText] = useState(traviObj.text)
+	const [editFile, setEditFile] = useState(traviObj.fileAttachURL)
 
 	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
 	const urlRef = ref(storageService, traviObj.fileAttachURL)
 
 	const onDeleteClick = async () => {
 		const Ok = window.confirm("삭제하시겠습니까???")
-		console.log(Ok)
+
 		if (Ok) {
 			await deleteDoc(TraviRef)
 			await deleteObject(urlRef)
 		}
+	}
+
+	const toggleEditing = () => {
+		setEditData((prev) => !prev)
+	}
+
+	const onChangeText = (
+		event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+	) => {
+		const {
+			target: { value },
+		} = event
+		setEditText(value)
+	}
+
+	const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
+		const {
+			currentTarget: { files },
+		} = event as any
+		setEditFile(files)
+	}
+
+	const onSubmit = async (event: FormEvent) => {
+		event.preventDefault()
+		await updateDoc(TraviRef, { text: editText, fileAttachUrl: editFile })
+		setEditData(false)
 	}
 
 	useEffect(() => {
@@ -37,49 +72,69 @@ const Contents = ({ traviObj, userObj }: { traviObj: any; userObj: any }) => {
 
 	return (
 		<>
-			<Wrapper>
-				<PostHeader>
-					<HeaderWrapper>
-						<Closebox>
-							<CloseBtn type="button" onClick={handleClose}>
-								<span>🆇</span>
-							</CloseBtn>
-						</Closebox>
+			{editData ? (
+				<Wrapper>
+					<form onSubmit={onSubmit}>
+						<input
+							type="text"
+							value={editText}
+							onChange={onChangeText}
+							required
+						/>
+						<input type="file" accept="image/*" onChange={onChangeFile} />
+						<input type="submit" value="Update File" />
+					</form>
+					<button onClick={toggleEditing}>Cancle</button>
+				</Wrapper>
+			) : (
+				<Wrapper>
+					<PostHeader>
+						<HeaderWrapper>
+							<Closebox>
+								<CloseBtn type="button" onClick={handleClose}>
+									<span>🆇</span>
+								</CloseBtn>
+							</Closebox>
 
-						<Icons>
-							{editing ? (
-								<>
-									<AiTwotoneDelete
-										className="icons"
-										role="button"
-										onClick={onDeleteClick}
-									/>
-									<BiPencil className="icons" />
-								</>
-							) : (
-								<></>
-							)}
-						</Icons>
-					</HeaderWrapper>
-				</PostHeader>
+							<Icons>
+								{editing ? (
+									<>
+										<AiTwotoneDelete
+											className="icons"
+											role="button"
+											onClick={onDeleteClick}
+										/>
+										<BiPencil
+											className="icons"
+											role="button"
+											onClick={toggleEditing}
+										/>
+									</>
+								) : (
+									<></>
+								)}
+							</Icons>
+						</HeaderWrapper>
+					</PostHeader>
 
-				<ContentContainer>
-					<ImageContainer>
-						<Image src={traviObj.fileAttachURL} id={traviObj.id} />
-					</ImageContainer>
+					<ContentContainer>
+						<ImageContainer>
+							<Image src={traviObj.fileAttachURL} id={traviObj.id} />
+						</ImageContainer>
 
-					<TextMapContainer>
-						<Title> MAP </Title>
-						<MapContainer>
-							<MapWrapper></MapWrapper>
-						</MapContainer>
-						<Title> POST </Title>
-						<CommentWrapper>
-							<TextContent>{traviObj.text}</TextContent>
-						</CommentWrapper>
-					</TextMapContainer>
-				</ContentContainer>
-			</Wrapper>
+						<TextMapContainer>
+							<Title> MAP </Title>
+							<MapContainer>
+								<MapWrapper></MapWrapper>
+							</MapContainer>
+							<Title> POST </Title>
+							<CommentWrapper>
+								<TextContent>{traviObj.text}</TextContent>
+							</CommentWrapper>
+						</TextMapContainer>
+					</ContentContainer>
+				</Wrapper>
+			)}
 		</>
 	)
 }
