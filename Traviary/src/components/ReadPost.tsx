@@ -1,9 +1,11 @@
 import React, { useEffect, useState, ImgHTMLAttributes } from "react"
 import styled from "styled-components"
 
+import { doc, deleteDoc } from "firebase/firestore"
 import { AiTwotoneDelete } from "react-icons/ai"
 import { BiPencil } from "react-icons/bi"
-
+import { dbService, storageService } from "../fbase"
+import { deleteObject,ref } from "firebase/storage"
 const ReadPost = ({
 	traviObj,
 	isPostOpen,
@@ -16,7 +18,18 @@ const ReadPost = ({
 	const handleClose = () => {
 		setOpen((prev) => !prev)
 	}
+    const TraviRef = doc(dbService,"TraviDB",`${traviObj.id}`)
+    const urlRef = ref(storageService,traviObj.fileAttachURL)
 
+
+    const onDeleteClick = async () => {
+        const Ok = window.confirm("삭제하시겠습니까???");
+        console.log(Ok);
+        if (Ok) {
+          await deleteDoc(TraviRef);
+          await deleteObject(urlRef)
+        }
+      };
 	return (
 		<>
 			{isPostOpen === open ? (
@@ -31,7 +44,7 @@ const ReadPost = ({
 								</Closebox>
 
 								<Icons>
-									<AiTwotoneDelete className="icons" />
+									<AiTwotoneDelete className="icons" role="button" onClick={onDeleteClick}/>
 									<BiPencil className="icons" />
 								</Icons>
 							</HeaderWrapper>
@@ -166,12 +179,12 @@ const CommentWrapper = styled.div`
 	width: 90%;
 	height: 70%;
 	margin: 2% 0;
+    padding:1em;
 	border: solid 1px var(--color-gray0);
 	border-radius: 10px;
 `
 const TextContent = styled.span`
 	font-size: 2em;
-	padding: 1em;
 `
 
 // CONTENT - MAP //
