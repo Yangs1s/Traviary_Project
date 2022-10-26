@@ -83,7 +83,6 @@ const ReadPost = ({
 								<MapContainer>
 									<MapWrapper></MapWrapper>
 								</MapContainer>
-
 								<Title> POST </Title>
 								<CommentWrapper>
 									<TextContent>{traviObj.text}</TextContent>
@@ -169,9 +168,13 @@ const Icons = styled.div`
 // Image////////
 const ImageContainer = styled.div`
 	width: 60%;
-	height: 90%;
+	height: 100%;
+	border:2px solid #fff;
+	border-bottom-left-radius:10px;
 	display: flex;
 	flex-direction: column;
+	background:rgba(0,0,0,0.15);
+
 	margin: 10px 0;
 `
 const Image = styled.img`

@@ -5,7 +5,6 @@ import styled from "styled-components"
 import Gallery from "./Gallery"
 import ReadPost from "./ReadPost"
 import { dbService, authService } from "../fbase"
-import Test from "../mock_data/Img_test.json"
 import {
 	collection,
 	query,
@@ -25,7 +24,6 @@ const MainContainerComponents = () => {
 	const [travis, setTravis] = useState<TraviProp[]>([])
 	const [postId, setPostId] = useState("")
 	const [userId, setUserId] = useState("")
-	const [editing, setEditing] = useState(false)
 
 	useEffect(() => {
 		const q = query(collection(dbService, "TraviDB"))
