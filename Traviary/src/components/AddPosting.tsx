@@ -50,6 +50,7 @@ const AddPosting = ({userObj,isModalOpen}:userObjType) => {
 				...dosc.data(),
 			}))
 			setInfoTravi(traviArr)
+			console.log(isModal)
 		})
 	}, [])
 
@@ -68,16 +69,10 @@ const AddPosting = ({userObj,isModalOpen}:userObjType) => {
 			fileAttachURL,
 		}
 		await addDoc(collection(dbService, "TraviDB"), TraviObj)
-        if(postText.length <= 0){
-            alert('내용을 채워주세요')
-
-        }
-        else{
-            setPostText("")
-            setFileAttach("")
-            setIsModal(prev => !prev)
-        }
-    
+        setPostText("")
+        setFileAttach("")
+        setIsModal(prev => !prev)
+		console.log(isModal)
 	}
 
 	const onChange = (
@@ -116,8 +111,11 @@ const AddPosting = ({userObj,isModalOpen}:userObjType) => {
 									<ImageInput
 										type="file"
 										accept="image/*"
+										id="files"
 										onChange={onFileChange}
 									/>
+									<ImageLabel htmlFor="files">
+										<span>⨁</span></ImageLabel>
 									<PhotoList>
 										{fileAttach && (
 											<>
@@ -136,10 +134,10 @@ const AddPosting = ({userObj,isModalOpen}:userObjType) => {
                                     {
                                     postText ?
 									<Button type="submit">
-										<span>작성완료</span>
+										<span>POST</span>
 										</Button>
                                         :<Button type="submit" disabled>
-										<span>작성완료</span>
+										<span>POST</span>
 										</Button>
                                     }
 								</TextContainer>
@@ -159,12 +157,29 @@ const Container = styled.form`
 	display: flex;
 	position: absolute;
 	right: 0;
-	width: 40vw;
+	width: 50vw;
 	height: 92%;
-	border: 2px solid #000;
+	border: 2px solid #efefef;
+	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	margin-left: auto;
 	border-radius: 20px;
-	z-index: 9999;
+	z-index: 1;
+	overflow:scroll;
+	@media screen and (max-width: 900px) {
+		width: 100%;
+		height: 80%;
+		margin: 0;
+	}
+	@media screen and (max-width: 530px) {
+		width: 100%;
+		height: 70%;
+		margin: 0;
+	}
+	@media screen and (max-width: 400px) {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
 `
 
 const Wrapper = styled.div`
@@ -174,6 +189,7 @@ const Wrapper = styled.div`
 	margin: 10px 30px;
 	border-radius: 20px;
 	z-index: 9999;
+
 	@media screen and (max-width: 900px) {
 		width: 100%;
 		height: 80%;
@@ -213,31 +229,43 @@ const PhotoContainer = styled.div`
 	}
 `
 
-const ImageInput = styled.input`
-    width:79%;
-    height:100%
-    font-size: 50px;
-    text-align:center;
-    border: 2px solid #000;
-    border-radius:20px;
-    @media screen and (max-width: 900px) {
-        width:100%;
-        height:70%;
-      }
-    @media screen and (max-width: 530px) {
-        width:100%;
-        height:70%;
-      }
-    @media screen and (max-width: 400px) {
-        width:100%;
-        height:70%;
-      }
 
+const ImageLabel = styled.label`
+width:79%;
+height:100%
+font-size: 50px;
+text-align:center;
+border: 2px solid #e8e8e8;
+border-radius:20px;
+padding: 13% 0;
+@media screen and (max-width: 900px) {
+	width:100%;
+	height:70%;
+  }
+@media screen and (max-width: 530px) {
+	width:100%;
+	height:70%;
+  }
+@media screen and (max-width: 400px) {
+	width:100%;
+	height:70%;
+  }
+&::file-selector-button{
+	display:none
+}
+span{
+	font-size:100px;
+}
+`
+
+const ImageInput = styled.input`
+	display:none;
+	
 `
 const PhotoList = styled.ul`
 	width: 20%;
 	margin-left: 1em;
-	border: 2px solid #000;
+	border: 2px solid #e8e8e8;
 	border-radius: 20px;
 	padding: 1em;
 	margin: 0 auto;
@@ -264,7 +292,7 @@ const PhotoList = styled.ul`
 const MapContainer = styled.div`
 	width: 100%;
 	height: 30%;
-	border: 2px solid #000;
+	border: 2px solid #e8e8e8;
 	border-radius: 20px;
 	padding: 1em;
 	@media screen and (max-width: 400px) {
@@ -296,7 +324,8 @@ const TextArea = styled.textarea`
 	height: 90%;
 	resize: none;
 	padding: 10px;
-	border: 2px solid #000;
+	border: 2px solid #e8e8e8;
+	
 	border-radius: 20px;
 `
 
@@ -306,6 +335,10 @@ const Button = styled.button`
 	background:var(--tab-bgcolor);
 	border-radius:10px;
 	border:1px solid #fff;
+	span{
+		font-size:2em;
+		color:var(--main-color)
+	}
 	@media screen and (max-width: 400px) {
 		width: 50%;
 		height: 20%;
