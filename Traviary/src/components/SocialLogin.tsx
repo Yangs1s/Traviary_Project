@@ -32,7 +32,7 @@ const SocialLogin = () => {
 		<>
 			<IconWrapper>
 				<Button onClick={onSocialClick} name="google">
-					<AiOutlineGoogle className="icon" />
+					<AiOutlineGoogle className="icon" onClick={onSocialClick}/>
 				</Button>
 				<Button onClick={onSocialClick} name="github">
 					<AiFillGithub className="icon" />
@@ -61,7 +61,7 @@ const Button = styled.button`
 	outline: none;
 	border: none;
 	padding: 1px;
-	// background:transparent;
+	background:transparent;
 	width: 60px;
 	.icon {
 		width: 30px;
