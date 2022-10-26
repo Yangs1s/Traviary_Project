@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef, ReactNode } from "react"
+import React, { useEffect, useState, useRef, ReactNode } from "react"
 import styled, { css, keyframes } from "styled-components"
 import { doc, deleteDoc } from "firebase/firestore"
 import { AiTwotoneDelete } from "react-icons/ai"
@@ -8,57 +8,57 @@ import { deleteObject, ref } from "firebase/storage"
 import Contents from "./Contents"
 import { NIL } from "uuid"
 
-export type ModalBaseProps={
-	traviObj: any;
-	userObj:any;
-	isPostOpen:boolean;
-	onClose:()=>void;
-
+export type ModalBaseProps = {
+	traviObj: any
+	userObj: any
+	isPostOpen: boolean
+	onClose: () => void
 }
 
-
-const ReadPost = ({traviObj,isPostOpen,userObj,onClose}:ModalBaseProps) => {
+const ReadPost = ({
+	traviObj,
+	isPostOpen,
+	userObj,
+	onClose,
+}: ModalBaseProps) => {
 	// console.log(traviObj.id)
 	const [open, setOpen] = useState(false)
 	const [editing, setEditing] = useState(false)
-	
+
 	const modalRef: any = useRef()
 
-	useEffect(()=>{
-		let timeoutId: NodeJS.Timeout;
-		if(isPostOpen){
+	useEffect(() => {
+		let timeoutId: NodeJS.Timeout
+		if (isPostOpen) {
 			setOpen(true)
-		}else{
-			setTimeout(()=> setOpen(false),150)
+		} else {
+			setTimeout(() => setOpen(false), 150)
 		}
 
-		return() =>{
-			if(timeoutId !== undefined){
+		return () => {
+			if (timeoutId !== undefined) {
 				clearTimeout(timeoutId)
 			}
 		}
-	},[isPostOpen])
+	}, [isPostOpen])
 
-	if(!open){
-		return null;
+	if (!open) {
+		return null
 	}
 	return (
 		<>
 			{isPostOpen === open ? (
 				<Background onClick={onClose} visible={isPostOpen}>
 					<PostContainer ref={modalRef} visible={isPostOpen}>
-						<Contents traviObj={traviObj} userObj={userObj}/>
+						<Contents traviObj={traviObj} userObj={userObj} />
 					</PostContainer>
-				</Background>								
+				</Background>
 			) : null}
 		</>
 	)
 }
 
 export default ReadPost
-
-
-
 
 const slideIn = keyframes`
   0% {
@@ -68,7 +68,7 @@ const slideIn = keyframes`
   100% {
 	transform:translateX(0%);
   }
-`;
+`
 
 const slideOut = keyframes`
 	0% {
@@ -78,17 +78,15 @@ const slideOut = keyframes`
   100% {
 	transform:translateX(100%);
   }
-`;
+`
 
-
-
-const modalSettings = (visible:boolean) => css`
-	visibility: ${visible ? 'visible' : 'hidden'};
+const modalSettings = (visible: boolean) => css`
+	visibility: ${visible ? "visible" : "hidden"};
 	z-index: 15;
 	animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
 	transition: visibility 0.45s ease-out;
 `
-const Background = styled.div<{visible:boolean}>`
+const Background = styled.div<{ visible: boolean }>`
 	width: 100%;
 	height: 100%;
 	position: fixed;
@@ -97,7 +95,7 @@ const Background = styled.div<{visible:boolean}>`
 	top: 100px;
 	background-color: rgba(0, 0, 0, 0.6);
 `
-const PostContainer = styled.div<{visible:boolean}>`
+const PostContainer = styled.div<{ visible: boolean }>`
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
@@ -108,7 +106,7 @@ const PostContainer = styled.div<{visible:boolean}>`
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	position: absolute;
 	right: 0;
-	
+
 	${(props) => modalSettings(props.visible)}
 
 	@media screen and (max-width: 1000px) {
