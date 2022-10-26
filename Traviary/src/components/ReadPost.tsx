@@ -24,7 +24,6 @@ const ReadPost = ({
 	}
     const TraviRef = doc(dbService,"TraviDB",`${traviObj.id}`)
     const urlRef = ref(storageService,traviObj.fileAttachURL)
-    console.log(authService)
 
     const onDeleteClick = async () => {
         const Ok = window.confirm("삭제하시겠습니까???");

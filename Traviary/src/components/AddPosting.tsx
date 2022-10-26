@@ -23,7 +23,8 @@ import { dbService, storageService } from "../fbase"
 import { uuidv4 } from "@firebase/util"
 
 
-type PostType = {
+type userObjType = {
+    isModalOpen:boolean;
 	userObj: any
 }
 interface TraviType {
@@ -32,10 +33,12 @@ interface TraviType {
 	creatAt?: Timestamp
 	createdId?: string
 }
-const AddPosting = ({userObj}:PostType) => {
+const AddPosting = ({userObj,isModalOpen}:userObjType) => {
     const [postText, setPostText] = useState("")
 	const [fileAttach, setFileAttach] = useState<any>("")
+    const [isModal,setIsModal]= useState(isModalOpen) 
 	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
+
     useEffect(() => {
 		const queries = query(
 			collection(dbService, "TraviDB"),
@@ -64,10 +67,17 @@ const AddPosting = ({userObj}:PostType) => {
 			createdId: userObj.uid,
 			fileAttachURL,
 		}
-		console.log(TraviObj.createdId)
 		await addDoc(collection(dbService, "TraviDB"), TraviObj)
-		setPostText("")
-		setFileAttach("")
+        if(postText.length <= 0){
+            alert('내용을 채워주세요')
+
+        }
+        else{
+            setPostText("")
+            setFileAttach("")
+            setIsModal(prev => !prev)
+        }
+    
 	}
 
 	const onChange = (
@@ -98,7 +108,8 @@ const AddPosting = ({userObj}:PostType) => {
 
 
     return (
-        <>
+        <>{
+            isModalOpen === isModal ?
             <Container onSubmit={onSubmit}>
 							<Wrapper>
 								<PhotoContainer>
@@ -122,12 +133,19 @@ const AddPosting = ({userObj}:PostType) => {
 										onChange={onChange}
 										name="text"
 									></TextArea>
+                                    {
+                                    postText ?
 									<Button type="submit">
 										<span>작성완료</span>
 										</Button>
+                                        :<Button type="submit" disabled>
+										<span>작성완료</span>
+										</Button>
+                                    }
 								</TextContainer>
 							</Wrapper>
-						</Container>
+						</Container>:null
+        }
         </>
     );
 };

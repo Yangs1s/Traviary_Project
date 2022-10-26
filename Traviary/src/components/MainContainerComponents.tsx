@@ -31,12 +31,10 @@ const MainContainerComponents = () => {
 			setTravis(Travi)
 		})
 	}, [])
-	
+
 	useEffect(()=>{
 		authService.onAuthStateChanged((user:any) => {
 			setUserId(user)
-			console.log(user.uid)		
-
 		})
 	})
 
@@ -45,7 +43,6 @@ const MainContainerComponents = () => {
 		setPostId(event.currentTarget.id)
 	}
 
-	console.log(postId)
 	return (
 		<>
 			<Container>
