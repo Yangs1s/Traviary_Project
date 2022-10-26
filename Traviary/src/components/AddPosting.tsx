@@ -1,4 +1,13 @@
-import { useState, useEffect, FormEvent, ChangeEvent } from "react"
+
+import React, {
+	useState,
+	useRef,
+	ImgHTMLAttributes,
+	useEffect,
+	FormEvent,
+	ChangeEvent,
+} from "react"
+import { useSpring, animated } from "react-spring"
 import styled from "styled-components"
 
 import {
@@ -13,7 +22,9 @@ import { ref, uploadString, getDownloadURL } from "firebase/storage"
 import { dbService, storageService } from "../fbase"
 import { uuidv4 } from "@firebase/util"
 
-type PostType = {
+
+type userObjType = {
+    isModalOpen:boolean;
 	userObj: any
 }
 interface TraviType {
@@ -22,11 +33,13 @@ interface TraviType {
 	creatAt?: Timestamp
 	createdId?: string
 }
-const AddPosting = ({ userObj }: PostType) => {
-	const [postText, setPostText] = useState("")
+const AddPosting = ({userObj,isModalOpen}:userObjType) => {
+    const [postText, setPostText] = useState("")
 	const [fileAttach, setFileAttach] = useState<any>("")
+    const [isModal,setIsModal]= useState(isModalOpen) 
 	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
-	useEffect(() => {
+
+    useEffect(() => {
 		const queries = query(
 			collection(dbService, "TraviDB"),
 			orderBy("createdAt", "desc")
@@ -36,12 +49,11 @@ const AddPosting = ({ userObj }: PostType) => {
 				id: dosc.id,
 				...dosc.data(),
 			}))
-			console.log(infoTravi)
 			setInfoTravi(traviArr)
 		})
 	}, [])
 
-	const onSubmit = async (event: FormEvent) => {
+    const onSubmit = async (event: FormEvent) => {
 		event.preventDefault()
 		let fileAttachURL = ""
 
@@ -55,10 +67,17 @@ const AddPosting = ({ userObj }: PostType) => {
 			createdId: userObj.uid,
 			fileAttachURL,
 		}
-		console.log(TraviObj.createdId)
 		await addDoc(collection(dbService, "TraviDB"), TraviObj)
-		setPostText("")
-		setFileAttach("")
+        if(postText.length <= 0){
+            alert('내용을 채워주세요')
+
+        }
+        else{
+            setPostText("")
+            setFileAttach("")
+            setIsModal(prev => !prev)
+        }
+    
 	}
 
 	const onChange = (
@@ -85,38 +104,55 @@ const AddPosting = ({ userObj }: PostType) => {
 		reader.readAsDataURL(theFile)
 	}
 
-	return (
-		<>
-			<Container onSubmit={onSubmit}>
-				<Wrapper>
-					<PhotoContainer>
-						<ImageInput type="file" accept="image/*" onChange={onFileChange} />
-						<PhotoList>
-							{fileAttach && (
-								<>
-									<img src={fileAttach} width="120px" />
-								</>
-							)}
-						</PhotoList>
-					</PhotoContainer>
-					<MapContainer></MapContainer>
-					<TextContainer>
-						<TextArea
-							value={postText}
-							onChange={onChange}
-							name="text"
-						></TextArea>
-						<Button type="submit">
-							<span>작성완료</span>
-						</Button>
-					</TextContainer>
-				</Wrapper>
-			</Container>
-		</>
-	)
-}
 
-export default AddPosting
+
+
+    return (
+        <>{
+            isModalOpen === isModal ?
+            <Container onSubmit={onSubmit}>
+							<Wrapper>
+								<PhotoContainer>
+									<ImageInput
+										type="file"
+										accept="image/*"
+										onChange={onFileChange}
+									/>
+									<PhotoList>
+										{fileAttach && (
+											<>
+												<img src={fileAttach} width="120px" />
+											</>
+										)}
+									</PhotoList>
+								</PhotoContainer>
+								<MapContainer></MapContainer>
+								<TextContainer>
+									<TextArea
+										value={postText}
+										onChange={onChange}
+										name="text"
+									></TextArea>
+                                    {
+                                    postText ?
+									<Button type="submit">
+										<span>작성완료</span>
+										</Button>
+                                        :<Button type="submit" disabled>
+										<span>작성완료</span>
+										</Button>
+                                    }
+								</TextContainer>
+							</Wrapper>
+						</Container>:null
+        }
+        </>
+    );
+};
+
+export default AddPosting;
+
+
 
 const Container = styled.form`
 	background: #fff;
@@ -267,11 +303,12 @@ const TextArea = styled.textarea`
 const Button = styled.button`
 	width: 30%;
 	height: 15%;
-	background: var(--tab-bgcolor);
-	border-radius: 10px;
-	border: 1px solid #fff;
+	background:var(--tab-bgcolor);
+	border-radius:10px;
+	border:1px solid #fff;
 	@media screen and (max-width: 400px) {
 		width: 50%;
 		height: 20%;
 	}
 `
+

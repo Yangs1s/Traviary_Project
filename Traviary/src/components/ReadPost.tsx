@@ -22,6 +22,7 @@ const ReadPost = ({
 	const handleClose = () => {
 		setOpen((prev) => !prev)
 	}
+
 	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
 	const urlRef = ref(storageService, traviObj.fileAttachURL)
 

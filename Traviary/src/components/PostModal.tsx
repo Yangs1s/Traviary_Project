@@ -1,6 +1,14 @@
-/** @format */
 
-import React, { useState, useRef, useEffect } from "react"
+import React, {
+	useState,
+	useRef,
+	ImgHTMLAttributes,
+	useEffect,
+	FormEvent,
+	ChangeEvent,
+} from "react"
+
+
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components"
 
@@ -13,9 +21,9 @@ import {
 	Timestamp,
 } from "firebase/firestore"
 
-import { dbService } from "../fbase"
+import { dbService, storageService } from "../fbase"
+import AddPosting from './AddPosting';
 
-import AddPosting from "./AddPosting"
 type PostType = {
 	isModalOpen: boolean
 	setIsModalOpen: any
@@ -34,6 +42,8 @@ interface RefObject<T> {
 
 const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
+	const [isModal,setIsModal] = useState(true)
+
 
 	useEffect(() => {
 		const queries = query(
@@ -46,6 +56,7 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 				...dosc.data(),
 			}))
 			setInfoTravi(traviArr)
+
 		})
 	}, [])
 
@@ -57,6 +68,7 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 				: (document.body.style.overflow = "scroll")
 		}
 	})
+
 	const onClose = (e: any) => {
 		if (modalRef.current === e.target) {
 			setIsModalOpen((prev: any) => !prev)
@@ -65,6 +77,7 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 
 	// 모달 애니메이션 //
 	const modalRef: any = useRef()
+
 	const animation: any = useSpring({
 		config: {
 			duration: 250,
@@ -75,17 +88,25 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 		width: "30vw",
 		height: "100%",
 	})
+
 	return (
 		<>
-			{isModalOpen ? (
+			{isModalOpen === isModal ? (
 				<Background ref={modalRef} onClick={onClose}>
 					<animated.div style={animation}>
-						<AddPosting userObj={userObj} />
+
+						<AddPosting userObj={userObj} isModalOpen={isModalOpen}/>
 					</animated.div>
 				</Background>
-			) : (
-				<></>
-			)}
+			) : <BackgroundHide ref={modalRef}>
+					<animated.div style={animation}>
+						<AddPosting userObj={userObj} isModalOpen={isModalOpen}/>
+					</animated.div>
+				</BackgroundHide>}
+
+					</animated.div>
+				</Background>
+			)
 		</>
 	)
 }
@@ -100,3 +121,12 @@ const Background = styled.div`
 	z-index: 9999;
 	top: 100px;
 `
+
+const BackgroundHide = styled.div`
+	width: 100%;
+	height: 100%;
+	display: none;
+	z-index: 9999;
+	top: 100px;
+`
+

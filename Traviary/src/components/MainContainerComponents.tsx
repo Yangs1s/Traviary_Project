@@ -38,8 +38,9 @@ const MainContainerComponents = () => {
 		})
 	}, [])
 
-	useEffect(() => {
-		authService.onAuthStateChanged((user: any) => {
+
+	useEffect(()=>{
+		authService.onAuthStateChanged((user:any) => {
 			setUserId(user)
 		})
 	})
