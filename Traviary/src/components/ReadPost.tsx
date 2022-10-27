@@ -73,7 +73,7 @@ const slideOut = keyframes`
 `
 
 const modalSettings = (visible: boolean) => css`
-	visibility: ${visible ? "visible" : "hidden"};
+	visibility: ${visible ? "visible" : "visible"};
 	z-index: 15;
 	animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
 	transition: visibility 0.45s ease-out;

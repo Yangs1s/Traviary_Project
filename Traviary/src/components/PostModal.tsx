@@ -58,6 +58,6 @@ const Background = styled.div`
 	height: 100%;
 	position: fixed;
 	display: flex;
-	z-index: 9999;
+	z-index: 9998;
 	top: 100px;
 `

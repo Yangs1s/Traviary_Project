@@ -72,69 +72,74 @@ const Contents = ({ traviObj, userObj }: { traviObj: any; userObj: any }) => {
 
 	return (
 		<>
-			{editData ? (
-				<Wrapper>
-					<form onSubmit={onSubmit}>
-						<input
-							type="text"
-							value={editText}
-							onChange={onChangeText}
-							required
-						/>
-						<input type="file" accept="image/*" onChange={onChangeFile} />
-						<input type="submit" value="Update File" />
-					</form>
-					<button onClick={toggleEditing}>Cancle</button>
-				</Wrapper>
-			) : (
-				<Wrapper>
-					<PostHeader>
-						<HeaderWrapper>
-							<Closebox>
-								<CloseBtn type="button" onClick={handleClose}>
-									<span>🆇</span>
-								</CloseBtn>
-							</Closebox>
+			<Wrapper>
+				<PostHeader>
+					<HeaderWrapper>
+						<Closebox>
+							<CloseBtn type="button" onClick={handleClose}>
+								<span>🆇</span>
+							</CloseBtn>
+						</Closebox>
 
-							<Icons>
-								{editing ? (
-									<>
-										<AiTwotoneDelete
-											className="icons"
-											role="button"
-											onClick={onDeleteClick}
-										/>
-										<BiPencil
-											className="icons"
-											role="button"
-											onClick={toggleEditing}
-										/>
-									</>
-								) : (
-									<></>
-								)}
-							</Icons>
-						</HeaderWrapper>
-					</PostHeader>
+						<Icons>
+							{editing ? (
+								<>
+									<AiTwotoneDelete
+										className="icons"
+										role="button"
+										onClick={onDeleteClick}
+									/>
+									<BiPencil
+										className="icons"
+										role="button"
+										onClick={toggleEditing}
+									/>
+									{editData ? (
+										<>
+											<form onSubmit={onSubmit}>
+												<input
+													type="textarea"
+													value={traviObj.text}
+													onChange={onChangeText}
+													required
+												/>
+												<input
+													type="file"
+													accept="image/*"
+													onChange={onChangeFile}
+													required
+												/>
+												<input type="submit" value="update" />
+											</form>
+										</>
+									) : (
+										<></>
+									)}
+								</>
+							) : (
+								<></>
+							)}
+						</Icons>
+					</HeaderWrapper>
+				</PostHeader>
 
-					<ContentContainer>
-						<ImageContainer>
-							<Image src={traviObj.fileAttachURL} id={traviObj.id} />
-						</ImageContainer>
+				<ContentContainer>
+					<ImageContainer>
+						<Image src={traviObj.fileAttachURL} id={traviObj.id} />
+					</ImageContainer>
 
-						<TextMapContainer>
-							<Title> MAP </Title>
-							<MapContainer>
-								<MapWrapper></MapWrapper>
-							</MapContainer>
-							<Title> POST </Title>
-							<CommentWrapper>
-								<TextContent>{traviObj.text}</TextContent>
-							</CommentWrapper>
-						</TextMapContainer>
-					</ContentContainer>
-				</Wrapper>
-			)}
+					<TextMapContainer>
+						<Title> MAP </Title>
+						<MapContainer>
+							<MapWrapper></MapWrapper>
+						</MapContainer>
+						<Title> POST </Title>
+						<CommentWrapper>
+							<TextContent>{traviObj.text}</TextContent>
+						</CommentWrapper>
+					</TextMapContainer>
+				</ContentContainer>
+			</Wrapper>
 		</>
 	)
 }
@@ -145,10 +150,11 @@ const Wrapper = styled.div`
 	width: 100%;
 	height: 100%;
 	display: flex;
+	position: absolute;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	z-index: 1;
+	z-index: 9999;
 	@media screen and (max-width: 900px) {
 		width: 100%;
 		height: 50%;
@@ -177,6 +183,13 @@ const PostHeader = styled.header`
 		margin: 0;
 	}
 `
+
+// const DivAfter = styled.div`
+// 	width: 50px;
+// 	height: 50px;
+// 	background: var(--tab-bgcolor);
+// `
+
 const HeaderWrapper = styled.div`
 	width: 100%;
 	height: 100%;
