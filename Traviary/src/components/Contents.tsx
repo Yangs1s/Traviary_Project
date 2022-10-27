@@ -146,17 +146,15 @@ const slideOut = keyframes`
 const PostContainer = styled.div<{ visible: boolean }>`
   border-radius: 10px;
 
-  width: 50vw;
+  width: 30vw;
   height: 70vh;
   background: #fff;
-  border: 2px solid #fefefe;
+
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
   position: absolute;
+  top: 150px;
+  left: 35%;
 
-  top: 10%;
-  left: 20%;
-
-  overflow-y: scroll;
 
   ${(props) => modalSettings(props.visible)}
 
@@ -167,7 +165,7 @@ const PostContainer = styled.div<{ visible: boolean }>`
 `;
 
 const Wrapper = styled.div`
-  width: 50vw;
+  width: 30vw;
   height: 64vh;
   display: flex;
   flex-direction: column;
@@ -186,7 +184,7 @@ const Wrapper = styled.div`
 
 /// HEADER --- HEADER
 const PostHeader = styled.header`
-  width: 50vw;
+  width: 30vw;
   height: 5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   border-top-left-radius: 10px;
@@ -241,7 +239,7 @@ const Icons = styled.div`
 
 // CONTENT //
 const ContentContainer = styled.div`
-  width: 50vw;
+  width: 30vw;
   height: 60vh;
   display: flex;
   align-items: center;
@@ -258,13 +256,18 @@ const ContentContainer = styled.div`
 
 // CONTENT --- Image////////
 const ImageContainer = styled.div`
-  width: 50vw;
+  width: 30vw;
   height: 70%;
-  border: 2px solid #fff;
+  
+  border-top:2px solid #fff;
+  border-bottom:2px solid #fc80ef;
+
   border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(255, 70, 150, 0.2);
 
   @media screen and (max-width: 770px) {
     width: 100%;
@@ -278,8 +281,8 @@ const ImageContainer = styled.div`
   }
 `;
 const Image = styled.img`
-  width: 30vw;
-  height: 30vh;
+  width: 25vw;
+  height: 35vh;
   padding: 1em;
   text-align: center;
   margin: auto;
@@ -291,27 +294,25 @@ const Image = styled.img`
 
 //CONTETN -  TEXT//
 const TextStatContainer = styled.div`
-  width: 50vw;
-  height: 100%;
+  width: 30vw;
+  height: 29vh;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  border-left: 1px solid #e8e8e8;
-
   @media screen and (max-width: 770px) {
     width: 100%;
     height: 70vh;
   }
 `;
 const TextContainer = styled.div`
-  width: 20vw;
+  width: 10vw;
   height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
-  margin-top: 2%;
+  margin:10px 20px;
 
   @media screen and (max-width: 770px) {
     font-size: 0.5em;
@@ -319,24 +320,24 @@ const TextContainer = styled.div`
   }
 `;
 const TextContent = styled.span`
-  font-size: 2em;
-  width: 20vw;
-  padding: 1em;
-  height: 100%;
+width: 11vw;
+padding: 1em;
+height: 100%;
+font-size: 1.5em;
   border: solid 1px var(--color-gray0);
   border-radius: 10px;
   display: flex;
-  margin: 5% 0;
+  margin: 10px;
 `;
 
 // CONTENT - Stat //
 const StatContainer = styled.div`
-  width: 20vw;
+  width: 13vw;
   height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2%;
+  margin: 10px ;
 
   @media screen and (max-width: 770px) {
     font-size: 0.5em;
@@ -344,15 +345,17 @@ const StatContainer = styled.div`
   }
 `;
 const StatWrapper = styled.ul`
-  width: 20vw;
-  height: 100%;
+  width: 13vw;
+  height: 90%;
   border: solid 1px var(--color-gray0);
   border-radius: 10px;
   display: flex;
   padding: 10px;
   flex-direction: column;
-  margin: 5% 0;
+  margin: 10px;
 
+  font-family: "Gill Sans", sans-serif;
+  font-weight:600;
   li {
     font-size: 2rem;
     text-align: left;
