@@ -1,40 +1,77 @@
 /** @format */
-import React, { useEffect, useState, useRef } from "react";
-import styled, { css, keyframes } from "styled-components";
-import { doc, deleteDoc } from "firebase/firestore";
-import { AiTwotoneDelete } from "react-icons/ai";
-import { BiPencil } from "react-icons/bi";
-import { dbService, storageService } from "../fbase";
-import { deleteObject, ref } from "firebase/storage";
-import { ImStarFull } from "react-icons/im";
-import { GiFalloutShelter } from "react-icons/gi";
+import React, {
+	useEffect,
+	useState,
+	useRef,
+	ChangeEvent,
+	FormEvent,
+} from "react"
+import styled,{keyframes,css} from "styled-components"
+import { doc, deleteDoc, updateDoc } from "firebase/firestore"
+import { AiTwotoneDelete } from "react-icons/ai"
+import { BiPencil } from "react-icons/bi"
+import { dbService, storageService } from "../fbase"
+import { deleteObject, ref } from "firebase/storage"
+import {ImStarFull} from 'react-icons/im'
 
 const Contents = ({
-  traviObj,
-  userObj,
-  isPostOpen,
-    onClose
-}: {
-  traviObj: any;
-  userObj: any;
-  isPostOpen:boolean
-    onClose:(e:any)=>void
-}) => {
-  // console.log(traviObj.id)
-  const [open, setOpen] = useState(false);
-  const [editing, setEditing] = useState(false);
+    traviObj,
+    userObj,
+    isPostOpen,
+      onClose
+  }: {
+    traviObj: any;
+    userObj: any;
+    isPostOpen:boolean
+      onClose:(e:any)=>void
+  }) => {
+	// console.log(traviObj.id)
+	const [open, setOpen] = useState(false)
+	const [editing, setEditing] = useState(false)
+	const [editData, setEditData] = useState(false)
+	const [editText, setEditText] = useState(traviObj.text)
+	const [editFile, setEditFile] = useState(traviObj.fileAttachURL)
 
-  const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`);
-  const urlRef = ref(storageService, traviObj.fileAttachURL);
+	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
+	const urlRef = ref(storageService, traviObj.fileAttachURL)
 
-  const onDeleteClick = async () => {
-    const Ok = window.confirm("삭제하시겠습니까???");
-    console.log(Ok);
-    if (Ok) {
-      await deleteDoc(TraviRef);
-      await deleteObject(urlRef);
-    }
-  };
+	const onDeleteClick = async () => {
+		const Ok = window.confirm("삭제하시겠습니까???")
+        if (Ok) {
+			await deleteDoc(TraviRef)
+			await deleteObject(urlRef)
+		}
+	}
+
+	const toggleEditing = () => {
+		setEditData((prev) => !prev)
+	}
+
+	const onChangeText = (
+		event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+	) => {
+		const {
+			target: { value },
+		} = event
+		setEditText(value)
+	}
+
+	const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
+		const {
+			currentTarget: { files },
+		} = event as any
+		setEditFile(files)
+	}
+
+	const onSubmit = async (event: FormEvent) => {
+		event.preventDefault()
+		await updateDoc(TraviRef, { text: editText, fileAttachUrl: editFile })
+		setEditData(false)
+	}
+
+	const handleClose = () => {
+		;[setOpen((prev) => !prev)]
+	}
 
   useEffect(() => {
     if (traviObj.createdId === userObj.uid) {
@@ -58,19 +95,44 @@ const Contents = ({
               </Closebox>
 
               <Icons>
-                {editing ? (
-                  <>
-                    <AiTwotoneDelete
-                      className="icons"
-                      role="button"
-                      onClick={onDeleteClick}
-                    />
-                    <BiPencil className="icons" />
-                  </>
-                ) : (
-                  <></>
-                )}
-              </Icons>
+					{editing ? (
+								<>
+									<AiTwotoneDelete
+										className="icons"
+										role="button"
+										onClick={onDeleteClick}
+									/>
+									<BiPencil
+										className="icons"
+										role="button"
+										onClick={toggleEditing}
+									/>
+									{editData ? (
+										<>
+											<form onSubmit={onSubmit}>
+												<input
+													type="textarea"
+													value={traviObj.text}
+													onChange={onChangeText}
+													required
+												/>
+												<input
+													type="file"
+													accept="image/*"
+													onChange={onChangeFile}
+													required
+												/>
+												<input type="submit" value="update" />
+											</form>
+										</>
+									) : (
+										<></>
+									)}
+								</>
+							) : (
+								<></>
+							)}
+						</Icons>
             </HeaderWrapper>
           </PostHeader>
 
@@ -201,6 +263,8 @@ const Closebox = styled.div`
   height: 100%;
   display: flex;
 `;
+
+
 
 const CloseBtn = styled.button`
   width: 10%;

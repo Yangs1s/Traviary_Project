@@ -1,16 +1,21 @@
 import React from "react"
 import styled from "styled-components"
 
-interface GalleryProp  {
-	id: string;
+interface GalleryProp {
+	id?: string
 	fileAttachURL: string
-	
 }
 
-const Gallery = ({ traviObj,onClick }: { traviObj: GalleryProp,onClick:(event: React.MouseEvent<HTMLImageElement>)=>void }) => {
+const Gallery = ({
+	traviObj,
+	onClick,
+}: {
+	traviObj: GalleryProp
+	onClick: (event: React.MouseEvent<HTMLImageElement>) => void
+}) => {
 	return (
 		<>
-			<ImgItem >
+			<ImgItem>
 				<Image
 					id={traviObj.id}
 					key={traviObj.id}

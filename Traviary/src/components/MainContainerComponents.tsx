@@ -37,18 +37,17 @@ const MainContainerComponents = () => {
 		})
 	}, [])
 
-
-	useEffect(()=>{
-		authService.onAuthStateChanged((user:any) => {
+	useEffect(() => {
+		authService.onAuthStateChanged((user: any) => {
 			setUserId(user)
 		})
 	})
 
 	const handleOpenPost = (event: React.MouseEvent<HTMLImageElement>) => {
-		event.preventDefault();
-		setIsOpenPost(prev => !prev)
+		event.preventDefault()
+		setIsOpenPost((prev) => !prev)
 		setPostId(event.currentTarget.id)
-		console.log(event.currentTarget)
+		// console.log(event.currentTarget)
 	}
 
 	const handlePostClose = () => {
@@ -60,16 +59,16 @@ const MainContainerComponents = () => {
 				<GridContainer>
 					{travis.map((travi: any) => (
 						<>
-						<Gallery 
-						id={travi.id}
-						traviObj={travi} 
-						key={travi.id} 
-						onClick={handleOpenPost} 
-						/>
+							<Gallery
+								id={travi.id}
+								traviObj={travi}
+								key={travi.id}
+								onClick={handleOpenPost}
+							/>
 						</>
 					))}
 				</GridContainer>
-				
+
 				{travis.map((travi) => (
 					<>
 						{postId === travi.id ? (
