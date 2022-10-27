@@ -17,7 +17,7 @@ import { authService } from "../fbase"
 import PostModal from"./PostModal"
 
 
-export default function HeaderComponents({isShowed}:{isShowed:boolean}) {
+export default function HeaderComponents() {
 	// const [init, setInit] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [userObj, setUserObj] = useState<any>(null)

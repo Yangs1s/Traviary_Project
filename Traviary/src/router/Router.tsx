@@ -15,7 +15,7 @@ export default function Router() {
 		<>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<Header isShowed={showed}/>}>
+					<Route path="/" element={<Header isShowed={showed} />}>
 						<Route path="main" element={<MainContainer isClose={showed}/>} />
 						<Route path="auth" element={<Auth />} />
 					</Route>

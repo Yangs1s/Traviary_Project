@@ -8,11 +8,11 @@ interface NameProp {
 	displayName: string
 }
 
-export default function MainContainer({isClose}:{isClose:boolean}) {
+export default function MainContainer() {
 	const [isClosed,setIsClosed] = useState(false)
 	return (
 		<>
-			<MainContainerComponents isClose={isClose}/>
+			<MainContainerComponents/>
 		</>
 	)
 }
