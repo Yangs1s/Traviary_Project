@@ -184,12 +184,6 @@ const PostHeader = styled.header`
 	}
 `
 
-// const DivAfter = styled.div`
-// 	width: 50px;
-// 	height: 50px;
-// 	background: var(--tab-bgcolor);
-// `
-
 const HeaderWrapper = styled.div`
 	width: 100%;
 	height: 100%;
