@@ -24,9 +24,8 @@ const Contents = ({
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(false);
 
-  const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`);
-  const urlRef = ref(storageService, traviObj.fileAttachURL);
-
+	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
+	const urlRef = ref(storageService, traviObj.fileAttachURL)
   const onDeleteClick = async () => {
     const Ok = window.confirm("삭제하시겠습니까???");
     console.log(Ok);
@@ -113,7 +112,27 @@ const Contents = ({
   );
 };
 
-export default Contents;
+
+				<ContentContainer>
+					<ImageContainer>
+						<Image src={traviObj.fileAttachURL} id={traviObj.id} />
+					</ImageContainer>
+
+					<TextMapContainer>
+						<Title> MAP </Title>
+						<MapContainer>
+							<MapWrapper></MapWrapper>
+						</MapContainer>
+						<Title> POST </Title>
+						<CommentWrapper>
+							<TextContent>{traviObj.text}</TextContent>
+						</CommentWrapper>
+					</TextMapContainer>
+				</ContentContainer>
+			</Wrapper>
+		</>
+	)
+}
 
 
 const modalSettings = (visible: boolean) => css`
@@ -166,6 +185,8 @@ const PostContainer = styled.div<{ visible: boolean }>`
   }
 `;
 
+
+
 const Wrapper = styled.div`
   width: 50vw;
   height: 64vh;
@@ -204,6 +225,7 @@ const Closebox = styled.div`
   display: flex;
 `;
 
+
 const CloseBtn = styled.button`
   width: 10%;
   outline: none;
@@ -237,7 +259,6 @@ const Icons = styled.div`
     }
 
 
-`;
 
 // CONTENT //
 const ContentContainer = styled.div`

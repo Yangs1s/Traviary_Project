@@ -14,8 +14,7 @@ import { MdPostAdd } from "react-icons/md"
 
 import { Link, useNavigate } from "react-router-dom"
 import { authService } from "../fbase"
-import PostModal from"./PostModal"
-
+import PostModal from "./PostModal"
 
 export default function HeaderComponents() {
 	// const [init, setInit] = useState(false)

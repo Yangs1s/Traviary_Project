@@ -1,13 +1,4 @@
-
-import React, {
-	useState,
-	useRef,
-	ImgHTMLAttributes,
-	useEffect,
-	FormEvent,
-	ChangeEvent,
-} from "react"
-import { useSpring, animated } from "react-spring"
+import { useState, useEffect, FormEvent, ChangeEvent } from "react"
 import styled from "styled-components"
 
 import {
@@ -22,9 +13,8 @@ import { ref, uploadString, getDownloadURL } from "firebase/storage"
 import { dbService, storageService } from "../fbase"
 import { uuidv4 } from "@firebase/util"
 
-
 type userObjType = {
-    isModalOpen:boolean;
+	isModalOpen: boolean
 	userObj: any
 }
 interface TraviType {
@@ -33,13 +23,13 @@ interface TraviType {
 	creatAt?: Timestamp
 	createdId?: string
 }
-const AddPosting = ({userObj,isModalOpen}:userObjType) => {
-    const [postText, setPostText] = useState("")
+const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
+	const [postText, setPostText] = useState("")
 	const [fileAttach, setFileAttach] = useState<any>("")
-    const [isModal,setIsModal]= useState(isModalOpen) 
+	const [isModal, setIsModal] = useState(isModalOpen)
 	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
 
-    useEffect(() => {
+	useEffect(() => {
 		const queries = query(
 			collection(dbService, "TraviDB"),
 			orderBy("createdAt", "desc")
@@ -54,7 +44,7 @@ const AddPosting = ({userObj,isModalOpen}:userObjType) => {
 		})
 	}, [])
 
-    const onSubmit = async (event: FormEvent) => {
+	const onSubmit = async (event: FormEvent) => {
 		event.preventDefault()
 		let fileAttachURL = ""
 
@@ -69,9 +59,9 @@ const AddPosting = ({userObj,isModalOpen}:userObjType) => {
 			fileAttachURL,
 		}
 		await addDoc(collection(dbService, "TraviDB"), TraviObj)
-        setPostText("")
-        setFileAttach("")
-        setIsModal(prev => !prev)
+		setPostText("")
+		setFileAttach("")
+		setIsModal((prev) => !prev)
 		console.log(isModal)
 	}
 
@@ -99,58 +89,54 @@ const AddPosting = ({userObj,isModalOpen}:userObjType) => {
 		reader.readAsDataURL(theFile)
 	}
 
+	return (
+		<>
+			{isModalOpen === isModal ? (
+				<Container onSubmit={onSubmit}>
+					<Wrapper>
+						<PhotoContainer>
+							<ImageInput
+								type="file"
+								accept="image/*"
+								id="files"
+								onChange={onFileChange}
+							/>
+							<ImageLabel htmlFor="files">
+								<span>⨁</span>
+							</ImageLabel>
+							<PhotoList>
+								{fileAttach && (
+									<>
+										<img src={fileAttach} width="120px" />
+									</>
+								)}
+							</PhotoList>
+						</PhotoContainer>
+						<MapContainer></MapContainer>
+						<TextContainer>
+							<TextArea
+								value={postText}
+								onChange={onChange}
+								name="text"
+							></TextArea>
+							{postText ? (
+								<Button type="submit">
+									<span>POST</span>
+								</Button>
+							) : (
+								<Button type="submit" disabled>
+									<span>POST</span>
+								</Button>
+							)}
+						</TextContainer>
+					</Wrapper>
+				</Container>
+			) : null}
+		</>
+	)
+}
 
-
-
-    return (
-        <>{
-            isModalOpen === isModal ?
-            <Container onSubmit={onSubmit}>
-							<Wrapper>
-								<PhotoContainer>
-									<ImageInput
-										type="file"
-										accept="image/*"
-										id="files"
-										onChange={onFileChange}
-									/>
-									<ImageLabel htmlFor="files">
-										<span>⨁</span></ImageLabel>
-									<PhotoList>
-										{fileAttach && (
-											<>
-												<img src={fileAttach} width="120px" />
-											</>
-										)}
-									</PhotoList>
-								</PhotoContainer>
-								<MapContainer></MapContainer>
-								<TextContainer>
-									<TextArea
-										value={postText}
-										onChange={onChange}
-										name="text"
-									></TextArea>
-                                    {
-                                    postText ?
-									<Button type="submit">
-										<span>POST</span>
-										</Button>
-                                        :<Button type="submit" disabled>
-										<span>POST</span>
-										</Button>
-                                    }
-								</TextContainer>
-							</Wrapper>
-						</Container>:null
-        }
-        </>
-    );
-};
-
-export default AddPosting;
-
-
+export default AddPosting
 
 const Container = styled.form`
 	background: #fff;
@@ -163,7 +149,9 @@ const Container = styled.form`
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	margin-left: auto;
 	border-radius: 20px;
+
 	z-index: 9999;
+
 
 `
 
@@ -200,7 +188,6 @@ const PhotoContainer = styled.div`
 	}
 `
 
-
 const ImageLabel = styled.label`
 width:45vw;
 height:100%
@@ -219,8 +206,7 @@ span{
 `
 
 const ImageInput = styled.input`
-	display:none;
-	
+	display: none;
 `
 const PhotoList = styled.ul`
 	width: 20%;
@@ -285,23 +271,22 @@ const TextArea = styled.textarea`
 	resize: none;
 	padding: 10px;
 	border: 2px solid #e8e8e8;
-	
+
 	border-radius: 20px;
 `
 
 const Button = styled.button`
 	width: 30%;
 	height: 15%;
-	background:var(--tab-bgcolor);
-	border-radius:10px;
-	border:1px solid #fff;
-	span{
-		font-size:2em;
-		color:var(--main-color)
+	background: var(--tab-bgcolor);
+	border-radius: 10px;
+	border: 1px solid #fff;
+	span {
+		font-size: 2em;
+		color: var(--main-color);
 	}
 	@media screen and (max-width: 400px) {
 		width: 50%;
 		height: 20%;
 	}
 `
-
