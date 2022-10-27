@@ -1,11 +1,13 @@
 import HeaderComponents from "../components/HeaderComponents"
 import { Outlet } from "react-router-dom"
 
-export default function Header() {
+const Header = ({isShowed}:{isShowed:boolean}) => {
 	return (
 		<>
-			<HeaderComponents />
+			<HeaderComponents isShowed={isShowed} />
 			<Outlet />
 		</>
 	)
 }
+
+export default Header;

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styled from "styled-components"
 
 interface GalleryProp  {
-	id?: string;
+	id: string;
 	fileAttachURL: string
 	
 }

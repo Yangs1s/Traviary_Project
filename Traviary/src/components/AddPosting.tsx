@@ -157,29 +157,14 @@ const Container = styled.form`
 	display: flex;
 	position: absolute;
 	right: 0;
-	width: 50vw;
-	height: 92%;
+	width: 55vw;
+	height: 80vh;
 	border: 2px solid #efefef;
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	margin-left: auto;
 	border-radius: 20px;
-	z-index: 1;
-	overflow:scroll;
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 80%;
-		margin: 0;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 70%;
-		margin: 0;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 100%;
-		margin: 0;
-	}
+	z-index: 9999;
+
 `
 
 const Wrapper = styled.div`
@@ -190,21 +175,7 @@ const Wrapper = styled.div`
 	border-radius: 20px;
 	z-index: 9999;
 
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 80%;
-		margin: 0;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 70%;
-		margin: 0;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 100%;
-		margin: 0;
-	}
+
 `
 const PhotoContainer = styled.div`
 	width: 100%;
@@ -231,25 +202,14 @@ const PhotoContainer = styled.div`
 
 
 const ImageLabel = styled.label`
-width:79%;
+width:45vw;
 height:100%
 font-size: 50px;
 text-align:center;
 border: 2px solid #e8e8e8;
 border-radius:20px;
 padding: 13% 0;
-@media screen and (max-width: 900px) {
-	width:100%;
-	height:70%;
-  }
-@media screen and (max-width: 530px) {
-	width:100%;
-	height:70%;
-  }
-@media screen and (max-width: 400px) {
-	width:100%;
-	height:70%;
-  }
+margin-right:1vw;
 &::file-selector-button{
 	display:none
 }

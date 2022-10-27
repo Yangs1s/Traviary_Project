@@ -19,7 +19,7 @@ interface TraviProp {
 	creatAt?: Timestamp
 	createdId?: string
 }
-const MainContainerComponents = () => {
+const MainContainerComponents = ({isClose}:{isClose:boolean}) => {
 	const [isOpenPost, setIsOpenPost] = useState(false)
 	const [travis, setTravis] = useState<TraviProp[]>([])
 	const [postId, setPostId] = useState("")

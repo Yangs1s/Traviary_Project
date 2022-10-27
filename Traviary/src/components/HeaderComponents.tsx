@@ -17,11 +17,12 @@ import { authService } from "../fbase"
 import PostModal from"./PostModal"
 
 
-export default function HeaderComponents() {
+export default function HeaderComponents({isShowed}:{isShowed:boolean}) {
 	// const [init, setInit] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [userObj, setUserObj] = useState<any>(null)
 	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [showPostClose,setShowPostClose] = useState(true)
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -41,6 +42,7 @@ export default function HeaderComponents() {
 	}
 	const toggleAddPost = () => {
 		setIsModalOpen((prev) => !prev)
+		setShowPostClose(prev => !prev)
 	}
 
 	return (

@@ -1,12 +1,6 @@
-import React, { useEffect, useState,useRef, ReactNode } from "react"
+import React, { useEffect, useState,useRef} from "react"
 import styled, { css, keyframes } from "styled-components"
-import { doc, deleteDoc } from "firebase/firestore"
-import { AiTwotoneDelete } from "react-icons/ai"
-import { BiPencil } from "react-icons/bi"
-import { dbService, storageService, authService } from "../fbase"
-import { deleteObject, ref } from "firebase/storage"
 import Contents from "./Contents"
-import { NIL } from "uuid"
 
 export type ModalBaseProps={
 	traviObj: any;
@@ -93,7 +87,7 @@ const Background = styled.div<{visible:boolean}>`
 	height: 100%;
 	position: fixed;
 	display: flex;
-	z-index: 9999;
+	z-index: 9997;
 	top: 100px;
 	background-color: rgba(0, 0, 0, 0.6);
 `
@@ -101,8 +95,8 @@ const PostContainer = styled.div<{visible:boolean}>`
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
-	width: 50%;
-	height: 80%;
+	width: 49vw;
+	height: 78vh;
 	background: #fff;
 	border: 2px solid #fefefe;
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
@@ -110,19 +104,9 @@ const PostContainer = styled.div<{visible:boolean}>`
 	right: 0;
 	
 	${(props) => modalSettings(props.visible)}
-
-	@media screen and (max-width: 1000px) {
-		width: 100%;
-		height: 60%;
-		position: absolute;
-		top: 160px;
-		margin: 0;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 60%;
-		position: absolute;
-		top: 160px;
+  	
+	@media screen and (max-width: 750px) {
+		height: 60vh;
 		margin: 0;
 	}
 `
