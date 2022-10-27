@@ -1,7 +1,7 @@
 import HeaderComponents from "../components/HeaderComponents"
 import { Outlet } from "react-router-dom"
 
-export default function Header() {
+const Header = () => {
 	return (
 		<>
 			<HeaderComponents />
@@ -9,3 +9,5 @@ export default function Header() {
 		</>
 	)
 }
+
+export default Header;
