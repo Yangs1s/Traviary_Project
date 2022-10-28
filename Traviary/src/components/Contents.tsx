@@ -152,15 +152,15 @@ const Contents = ({
                 </SubTitle>
                 <StatWrapper>
                   <li>
-                    Taste:{traviObj.ratings.tasterating}
-                    <ReadStar ratingLength={traviObj.ratings.visualrating}/>
-                  </li>
-                  <li>
-                    Visual:{traviObj.ratings.visualrating}
+                    Taste:&nbsp;
                     <ReadStar ratingLength={traviObj.ratings.tasterating}/>
                   </li>
                   <li>
-                    Price:{traviObj.ratings.pricerating}
+                    Visual:&nbsp;
+                    <ReadStar ratingLength={traviObj.ratings.visualrating}/>
+                  </li>
+                  <li>
+                    Price:&nbsp;
                     <ReadStar ratingLength={traviObj.ratings.pricerating}/>
                   </li>
                 </StatWrapper>
