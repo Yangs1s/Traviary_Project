@@ -55,7 +55,7 @@ const Contents = ({
 		} = event
 		setEditText(value)
 	}
-
+    console.log(traviObj)
 	const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
 		const {
 			currentTarget: { files },
@@ -146,15 +146,15 @@ const Contents = ({
                 <Title> STAT </Title>
                 <StatWrapper>
                   <li>
-                    Taste:
+                    Taste:{traviObj.ratings.tasterating}
                     <ImStarFull />
                   </li>
                   <li>
-                    Visual:
+                    Visual:{traviObj.ratings.visualrating}
                     <ImStarFull />
                   </li>
                   <li>
-                    Price:
+                    Price:{traviObj.ratings.pricerating}
                     <ImStarFull />
                   </li>
                 </StatWrapper>
