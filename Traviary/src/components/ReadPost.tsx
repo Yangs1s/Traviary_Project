@@ -1,12 +1,12 @@
-import React, { useEffect, useState,useRef} from "react"
+import React, { useEffect, useState, useRef } from "react"
 import styled, { css, keyframes } from "styled-components"
-import Contents from './Contents'
+import Contents from "./Contents"
 
-export type ModalBaseProps={
-	traviObj: any;
-	userObj:any;
-	isPostOpen:boolean;
-	onClose:()=>void;
+export type ModalBaseProps = {
+	traviObj: any
+	userObj: any
+	isPostOpen: boolean
+	onClose: () => void
 }
 
 const ReadPost = ({
@@ -37,13 +37,18 @@ const ReadPost = ({
 		return null
 	}
 
-	const handlePostClose = () =>{
+	const handlePostClose = () => {
 		setOpen(false)
 	}
 	return (
 		<>
-		<Background ref={modalRef} visible={isPostOpen} onClick={onClose} />								
-		<Contents traviObj={traviObj} userObj={userObj}  isPostOpen={isPostOpen} onClose={handlePostClose}/>
+			<Background ref={modalRef} visible={isPostOpen} onClick={onClose} />
+			<Contents
+				traviObj={traviObj}
+				userObj={userObj}
+				isPostOpen={isPostOpen}
+				onClose={handlePostClose}
+			/>
 		</>
 	)
 }
@@ -77,8 +82,7 @@ const modalSettings = (visible: boolean) => css`
 	transition: visibility 0.45s ease-out;
 `
 
-
-const Background = styled.div<{visible:boolean}>`
+const Background = styled.div<{ visible: boolean }>`
 	width: 100%;
 	height: 100%;
 	position: fixed;

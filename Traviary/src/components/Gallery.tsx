@@ -33,17 +33,17 @@ export default Gallery
 const Image = styled.img`
 	width: 100%;
 	height: 100%;
-	border-radius:10px;
-	`
+	border-radius: 10px;
+`
 const ImgItem = styled.div`
 	-webkit-transition: all 350ms ease;
 	transition: all 350ms ease;
 	cursor: pointer;
 	margin-bottom: 12px;
-	border-radius:10px;
+	border-radius: 10px;
 	box-shadow: 1px 2px 5px 2px rgba(0, 0, 0, 0.2);
 	:hover {
-		-webkit-filter: brightness(.5);
-		filter: brightness(.5);
+		-webkit-filter: brightness(0.5);
+		filter: brightness(0.5);
 	}
 `

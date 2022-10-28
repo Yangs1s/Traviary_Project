@@ -15,7 +15,6 @@ import { uuidv4 } from "@firebase/util"
 
 import StraRating from "./StraRating"
 
-
 type userObjType = {
 	isModalOpen: boolean
 	userObj: any
@@ -30,9 +29,9 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 	const [postText, setPostText] = useState("")
 	const [fileAttach, setFileAttach] = useState<any>("")
 	const [isModal, setIsModal] = useState(isModalOpen)
-	const [taste,setTaste] = useState(0)
-	const [price,setPrice] = useState(0)
-	const [visual,setVisual] = useState(0)
+	const [taste, setTaste] = useState(0)
+	const [price, setPrice] = useState(0)
+	const [visual, setVisual] = useState(0)
 	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
 
 	useEffect(() => {
@@ -60,10 +59,11 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 
 		const TraviObj = {
 			text: postText,
-			ratings:{
-				tasterating:taste
-				,pricerating:price,
-				visualrating:visual},
+			ratings: {
+				tasterating: taste,
+				pricerating: price,
+				visualrating: visual,
+			},
 			createAt: Date.now(),
 			createdId: userObj.uid,
 			fileAttachURL,
@@ -125,18 +125,17 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 						</PhotoContainer>
 						<StarRatingContainer>
 							<StarRatingItem>
-							<span>TASTE :</span>
-							<StraRating ratingIndex={taste} setRatingIndex={setTaste}/>
+								<span>TASTE :</span>
+								<StraRating ratingIndex={taste} setRatingIndex={setTaste} />
 							</StarRatingItem>
 							<StarRatingItem>
-							<span>PRICE :</span>
-							<StraRating ratingIndex={price} setRatingIndex={setPrice}/>
+								<span>PRICE :</span>
+								<StraRating ratingIndex={price} setRatingIndex={setPrice} />
 							</StarRatingItem>
 							<StarRatingItem>
-							<span>VISUAL :</span>
-							<StraRating ratingIndex={visual} setRatingIndex={setVisual}/>
+								<span>VISUAL :</span>
+								<StraRating ratingIndex={visual} setRatingIndex={setVisual} />
 							</StarRatingItem>
-						
 						</StarRatingContainer>
 						<TextContainer>
 							<TextArea
@@ -160,7 +159,6 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 		</>
 	)
 }
-
 
 export default AddPosting
 
@@ -201,8 +199,6 @@ const Wrapper = styled.div`
 	margin: 10px 30px;
 	border-radius: 20px;
 	z-index: 9999;
-
-
 `
 const PhotoContainer = styled.div`
 	width: 100%;
@@ -286,18 +282,17 @@ const StarRatingContainer = styled.div`
 	}
 `
 const StarRatingItem = styled.div`
-	display:flex;
-	flex-direction:row;
-	align-items:center;
-	jutify-content:center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	jutify-content: center;
 
-	span{
-		font-size:15px;
-		font-weight:700;
-		vertical-align:middle;
+	span {
+		font-size: 15px;
+		font-weight: 700;
+		vertical-align: middle;
 	}
-
-	`
+`
 
 const TextContainer = styled.div`
 	width: 100%;
