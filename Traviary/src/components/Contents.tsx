@@ -13,7 +13,9 @@ import { BiPencil } from "react-icons/bi"
 import { dbService, storageService } from "../fbase"
 import { deleteObject, ref } from "firebase/storage"
 import {ImStarFull} from 'react-icons/im'
-
+import {TbNotes} from 'react-icons/tb'
+import {BsStars} from 'react-icons/bs'
+import ReadStar from "./ReadStar"
 const Contents = ({
 
     traviObj,
@@ -56,7 +58,6 @@ const Contents = ({
 		} = event
 		setEditText(value)
 	}
-    console.log(traviObj)
 	const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
 		const {
 			currentTarget: { files },
@@ -145,27 +146,31 @@ const Contents = ({
 
             <TextStatContainer>
               <StatContainer>
-                <Title> STAT </Title>
+              <SubTitle>
+                  <Star/>
+                  <Name> RATING </Name>
+                </SubTitle>
                 <StatWrapper>
                   <li>
                     Taste:{traviObj.ratings.tasterating}
-                    <ImStarFull />
+                    <ReadStar ratingLength={traviObj.ratings.visualrating}/>
                   </li>
                   <li>
                     Visual:{traviObj.ratings.visualrating}
-                    <ImStarFull />
+                    <ReadStar ratingLength={traviObj.ratings.tasterating}/>
                   </li>
                   <li>
                     Price:{traviObj.ratings.pricerating}
-                    <ImStarFull />
+                    <ReadStar ratingLength={traviObj.ratings.pricerating}/>
                   </li>
                 </StatWrapper>
               </StatContainer>
 
               <TextContainer>
-                <div>
-                  <Title> POST </Title>
-                </div>
+                <SubTitle>
+                  <Note/>
+                  <Name> POST </Name>
+                </SubTitle>
 
                 <TextContent>{traviObj.text}</TextContent>
               </TextContainer>
@@ -178,27 +183,7 @@ const Contents = ({
 };
 
 
-				<ContentContainer>
-					<ImageContainer>
-						<Image src={traviObj.fileAttachURL} id={traviObj.id} />
-					</ImageContainer>
-
-					<TextMapContainer>
-						<Title> MAP </Title>
-						<MapContainer>
-							<MapWrapper></MapWrapper>
-						</MapContainer>
-						<Title> POST </Title>
-						<CommentWrapper>
-							<TextContent>{traviObj.text}</TextContent>
-						</CommentWrapper>
-					</TextMapContainer>
-				</ContentContainer>
-			</Wrapper>
-		</>
-	)
-}
-
+export default Contents
 
 const modalSettings = (visible: boolean) => css`
   visibility: ${visible ? "visible" : "hidden"};
@@ -321,7 +306,7 @@ const Icons = styled.div`
         padding:0 5px;
     }
 
-
+`
 
 // CONTENT //
 const ContentContainer = styled.div`
@@ -410,6 +395,7 @@ width: 11vw;
 padding: 1em;
 height: 100%;
 font-size: 1.5em;
+text-align:left;
   border: solid 1px var(--color-gray0);
   border-radius: 10px;
   display: flex;
@@ -450,20 +436,44 @@ const StatWrapper = styled.ul`
 `;
 
 // TITLE
-const Title = styled.div`
-  width: 5vw;
-  font-size: 2em;
-  font-weight: 700;
 
-  margin-top: 0.5em;
-  border: 1px solid var(--main-color);
-  border-radius: 10%;
+const SubTitle =styled.div`
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  jutify-content:center;
+  width:max-content;
+  background: var(--tab-bgcolor);
+  border-radius: 10px;
+  padding:3px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+`
+const Star = styled(BsStars)`
+  color:var(--main-color);
+  width:30px;
+  font-size:20px;
+`
+const Note = styled(TbNotes)`
+  color:var(--main-color);
+  font-size:20px;
+  width:30px;
+  margin:0;
+  
+`
+
+const Name = styled.div`
+  width:max-content;
+  font-size: 1.7em;
+  font-weight: 900;
+  padding-right:4px;
+  vertical-align:middle;
+
   text-align: center;
   color: var(--main-color);
-  background: var(--tab-bgcolor);
+
 
   @media screen and (max-width: 770px) {
-    width: 10vw;
     font-size: 1.5em;
   }
 `;
+

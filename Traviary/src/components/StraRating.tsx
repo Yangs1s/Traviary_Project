@@ -19,6 +19,11 @@ const RatingContainer = styled.div`
 const RatingStar = styled(ImStarFull)`
     cursor:pointer;
 `
+
+const Grade = styled.p`
+    margin:0 5px;
+    font-size:16px;
+`
 interface RatingSectionProps{
     ratingIndex:number;
     setRatingIndex:Dispatch<SetStateAction<number>>
@@ -35,8 +40,22 @@ const StraRating = ({ratingIndex,setRatingIndex}:RatingSectionProps) => {
                 className={star<= ratingIndex ? 'active':'inactive'}
                 onClick={()=> setRatingIndex(star)}
                 />))}
+        <Grade>
+            {
+                ratingIndex === 5
+                ?'5'
+                :ratingIndex === 4
+                ? '4'
+                :ratingIndex === 3
+                ? '3'
+                :ratingIndex === 2
+                ? '2'
+                :ratingIndex === 1
+                ? '1'
+                :'0'
+            }
+        </Grade>
         </RatingContainer>
-                
     )
 };
 
