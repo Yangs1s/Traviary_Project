@@ -47,7 +47,7 @@ const MainContainerComponents = () => {
 		event.preventDefault()
 		setIsOpenPost((prev) => !prev)
 		setPostId(event.currentTarget.id)
-		console.log(event.currentTarget)
+		// console.log(event.currentTarget)
 	}
 
 	const handlePostClose = () => {

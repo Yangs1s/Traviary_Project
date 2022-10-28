@@ -1,40 +1,40 @@
 import React, { useEffect, useState,useRef} from "react"
 import styled, { css, keyframes } from "styled-components"
-import Contents from "./Contents"
+import Contents from './Contents'
 
 export type ModalBaseProps={
 	traviObj: any;
 	userObj:any;
 	isPostOpen:boolean;
 	onClose:()=>void;
-
 }
 
-
-const ReadPost = ({traviObj,isPostOpen,userObj,onClose}:ModalBaseProps) => {
-	// console.log(traviObj.id)
+const ReadPost = ({
+	traviObj,
+	isPostOpen,
+	userObj,
+	onClose,
+}: ModalBaseProps) => {
 	const [open, setOpen] = useState(false)
-	const [editing, setEditing] = useState(false)
-	
 	const modalRef: any = useRef()
 
-	useEffect(()=>{
-		let timeoutId: NodeJS.Timeout;
-		if(isPostOpen){
+	useEffect(() => {
+		let timeoutId: NodeJS.Timeout
+		if (isPostOpen) {
 			setOpen(true)
-		}else{
-			setTimeout(()=> setOpen(false),150)
+		} else {
+			setTimeout(() => setOpen(false), 150)
 		}
 
-		return() =>{
-			if(timeoutId !== undefined){
+		return () => {
+			if (timeoutId !== undefined) {
 				clearTimeout(timeoutId)
 			}
 		}
-	},[isPostOpen])
+	}, [isPostOpen])
 
-	if(!open){
-		return null;
+	if (!open) {
+		return null
 	}
 
 	const handlePostClose = () =>{
@@ -50,9 +50,6 @@ const ReadPost = ({traviObj,isPostOpen,userObj,onClose}:ModalBaseProps) => {
 
 export default ReadPost
 
-
-
-
 const slideIn = keyframes`
   0% {
 	opacity:0
@@ -61,7 +58,7 @@ const slideIn = keyframes`
   100% {
 	opacity:1;
   }
-`;
+`
 
 const slideOut = keyframes`
 0% {
@@ -71,12 +68,10 @@ const slideOut = keyframes`
   100% {
 	opacity:0;
   }
-`;
+`
 
-
-
-const modalSettings = (visible:boolean) => css`
-	visibility: ${visible ? 'visible' : 'hidden'};
+const modalSettings = (visible: boolean) => css`
+	visibility: ${visible ? "visible" : "visible"};
 	z-index: 15;
 	animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
 	transition: visibility 0.45s ease-out;

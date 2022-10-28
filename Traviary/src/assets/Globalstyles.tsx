@@ -17,7 +17,7 @@ ${reset}
 --color-gray2: #7d7d7d;
 --color-gray3: #515151;
 --base-size: 10px;
---font-family-main: Inter, Avenir, Helvetica, Arial, sans-serif;
+--font-main: "Gill Sans", sans-serif;
 --font-lobster:Lobster;
 
 }
