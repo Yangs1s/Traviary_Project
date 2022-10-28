@@ -15,6 +15,7 @@ import { deleteObject, ref } from "firebase/storage"
 import {ImStarFull} from 'react-icons/im'
 
 const Contents = ({
+
     traviObj,
     userObj,
     isPostOpen,
@@ -72,6 +73,7 @@ const Contents = ({
 	const handleClose = () => {
 		;[setOpen((prev) => !prev)]
 	}
+
 
   useEffect(() => {
     if (traviObj.createdId === userObj.uid) {
@@ -175,7 +177,27 @@ const Contents = ({
   );
 };
 
-export default Contents;
+
+				<ContentContainer>
+					<ImageContainer>
+						<Image src={traviObj.fileAttachURL} id={traviObj.id} />
+					</ImageContainer>
+
+					<TextMapContainer>
+						<Title> MAP </Title>
+						<MapContainer>
+							<MapWrapper></MapWrapper>
+						</MapContainer>
+						<Title> POST </Title>
+						<CommentWrapper>
+							<TextContent>{traviObj.text}</TextContent>
+						</CommentWrapper>
+					</TextMapContainer>
+				</ContentContainer>
+			</Wrapper>
+		</>
+	)
+}
 
 
 const modalSettings = (visible: boolean) => css`
@@ -226,6 +248,8 @@ const PostContainer = styled.div<{ visible: boolean }>`
   }
 `;
 
+
+
 const Wrapper = styled.div`
   width: 30vw;
   height: 64vh;
@@ -265,7 +289,6 @@ const Closebox = styled.div`
 `;
 
 
-
 const CloseBtn = styled.button`
   width: 10%;
   outline: none;
@@ -299,7 +322,6 @@ const Icons = styled.div`
     }
 
 
-`;
 
 // CONTENT //
 const ContentContainer = styled.div`

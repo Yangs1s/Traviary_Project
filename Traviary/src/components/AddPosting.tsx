@@ -12,7 +12,9 @@ import {
 import { ref, uploadString, getDownloadURL } from "firebase/storage"
 import { dbService, storageService } from "../fbase"
 import { uuidv4 } from "@firebase/util"
+
 import StraRating from "./StraRating"
+
 
 type userObjType = {
 	isModalOpen: boolean
@@ -158,6 +160,7 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 		</>
 	)
 }
+
 
 export default AddPosting
 
