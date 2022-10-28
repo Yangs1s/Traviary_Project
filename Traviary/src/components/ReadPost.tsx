@@ -40,7 +40,7 @@ const ReadPost = ({
 	return (
 		<>
 			{isPostOpen === open ? (
-				<Background onClick={onClose} visible={isPostOpen}>
+				<Background visible={isPostOpen}>
 					<PostContainer ref={modalRef} visible={isPostOpen}>
 						<Contents traviObj={traviObj} userObj={userObj} />
 					</PostContainer>
@@ -73,7 +73,7 @@ const slideOut = keyframes`
 `
 
 const modalSettings = (visible: boolean) => css`
-	visibility: ${visible ? "visible" : "visible"};
+	visibility: ${visible ? "visible" : "hidden"};
 	z-index: 15;
 	animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
 	transition: visibility 0.45s ease-out;

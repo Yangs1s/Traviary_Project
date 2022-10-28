@@ -72,7 +72,6 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 			target: { value },
 		} = event
 		setPostText(value)
-		console.log(value)
 	}
 
 	const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {

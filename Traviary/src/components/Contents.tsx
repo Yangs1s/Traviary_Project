@@ -41,7 +41,7 @@ const Contents = ({ traviObj, userObj }: { traviObj: any; userObj: any }) => {
 		event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
 	) => {
 		const {
-			target: { value },
+			currentTarget: { value },
 		} = event
 		setEditText(value)
 	}
@@ -50,7 +50,15 @@ const Contents = ({ traviObj, userObj }: { traviObj: any; userObj: any }) => {
 		const {
 			currentTarget: { files },
 		} = event as any
-		setEditFile(files)
+		const theFile = files[0]
+		const reader = new FileReader()
+		reader.onloadend = (finishedEvent: any) => {
+			const {
+				currentTarget: { result },
+			} = finishedEvent
+			setEditFile(result)
+		}
+		reader.readAsDataURL(theFile)
 	}
 
 	const onSubmit = async (event: FormEvent) => {
@@ -98,18 +106,17 @@ const Contents = ({ traviObj, userObj }: { traviObj: any; userObj: any }) => {
 										<>
 											<form onSubmit={onSubmit}>
 												<input
-													type="textarea"
+													type="text"
+													name="text"
 													value={traviObj.text}
 													onChange={onChangeText}
-													required
 												/>
 												<input
 													type="file"
 													accept="image/*"
 													onChange={onChangeFile}
-													required
 												/>
-												<input type="submit" value="update" />
+												<button type="submit">update</button>
 											</form>
 										</>
 									) : (
