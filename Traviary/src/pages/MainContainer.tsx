@@ -9,7 +9,6 @@ interface NameProp {
 }
 
 export default function MainContainer() {
-	const [isClosed,setIsClosed] = useState(false)
 	return (
 		<>
 			<MainContainerComponents/>

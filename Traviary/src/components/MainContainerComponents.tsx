@@ -116,6 +116,8 @@ const GridContainer = styled.div`
 	padding: 20px 20px;
 	margin: 130px 30px;
 	border-radius: 15px;
+
+	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	@media screen and (max-width: 901px) {
 		-webkit-column-count: 3;
 		-moz-column-count: 3;
