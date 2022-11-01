@@ -53,7 +53,6 @@ export default function HeaderComponents() {
 					<Title>
 						<Link to="/main">
 							<span>Traviary</span>
-							<Shadow />
 						</Link>
 					</Title>
 				</LogoWrapper>
@@ -104,6 +103,7 @@ const LogoWrapper = styled.div`
 	.logo {
 		font-size: 50px;
 		margin-right: 5px;
+		color:var(--main-color);
 	}
 	padding: 20px;
 	@media screen and (min-width: 900px) {
@@ -119,13 +119,6 @@ const Title = styled.h1`
 	@media screen and (min-width: 400px) {
 		font-size: calc(var(--base-size) * 3);
 	}
-`
-const Shadow = styled.div`
-	width: 100%;
-	height: 3px;
-	margin-top: 2px;
-	background: var(--main-color);
-	border-radius: 100%;
 `
 const IconWrapper = styled.div`
 	width: 20%;

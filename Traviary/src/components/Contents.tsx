@@ -141,7 +141,9 @@ const Contents = ({
 
           <ContentContainer>
             <ImageContainer>
+              <ImageWrapper>
               <Image src={traviObj.fileAttachURL} id={traviObj.id} />
+              </ImageWrapper>
             </ImageContainer>
 
             <TextStatContainer>
@@ -270,6 +272,7 @@ const HeaderWrapper = styled.div`
 const Closebox = styled.div`
   width: 100%;
   height: 100%;
+  padding-left:5px;
   display: flex;
 `;
 
@@ -328,22 +331,22 @@ const ContentContainer = styled.div`
 // CONTENT --- Image////////
 const ImageContainer = styled.div`
   width: 30vw;
-  height: 70%;
+  height: 60vh;
   
   border-top:2px solid #fff;
-  border-bottom:2px solid #fc80ef;
-
+  border-bottom:2px solid rgba(0,0,0,0.2);
+  box-shadow:2px 0 0 rgba(0,0,0,0.2);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  margin-bottom: 20px;
 
   display: flex;
   flex-direction: column;
-  background: rgba(255, 70, 150, 0.2);
+
 
   @media screen and (max-width: 770px) {
     width: 100%;
-    height: 52vh;
-    margin: 0;
+    height: 51vh;
 
     display: flex;
 
@@ -351,9 +354,17 @@ const ImageContainer = styled.div`
     border-bottom-right-radius: 10px;
   }
 `;
+
+const ImageWrapper = styled.div`
+  width:auto;
+  height:400px;
+  display: flex;
+  border-radius:10px;
+  `
 const Image = styled.img`
-  width: 25vw;
-  height: 35vh;
+  width: 100%;
+  height:auto;
+  max-height:400px;
   padding: 1em;
   text-align: center;
   margin: auto;
@@ -410,11 +421,11 @@ const StatContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 10px ;
-
   @media screen and (max-width: 770px) {
     font-size: 0.5em;
     height: 20vh;
   }
+
 `;
 const StatWrapper = styled.ul`
   width: 13vw;

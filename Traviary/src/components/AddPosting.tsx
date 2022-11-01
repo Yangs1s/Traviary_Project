@@ -1,5 +1,5 @@
 import { useState, useEffect, FormEvent, ChangeEvent } from "react"
-import styled from "styled-components"
+import styled, { css, keyframes } from "styled-components"
 
 import {
 	addDoc,
@@ -103,7 +103,7 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 	return (
 		<>
 			{isModalOpen === isModal ? (
-				<Container onSubmit={onSubmit}>
+				<Container onSubmit={onSubmit} visible={isModalOpen}>
 					<Wrapper>
 						<PhotoContainer>
 							<ImageInput
@@ -113,15 +113,16 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 								onChange={onFileChange}
 							/>
 							<ImageLabel htmlFor="files">
-								<span>⨁</span>
-							</ImageLabel>
-							<PhotoList>
-								{fileAttach && (
+								{fileAttach ? (
 									<>
-										<img src={fileAttach} width="120px" />
+										<img src={fileAttach} className="addImg"/>
 									</>
-								)}
-							</PhotoList>
+								)
+								:<span>⨁</span>
+								}
+							</ImageLabel>
+					
+
 						</PhotoContainer>
 						<StarRatingContainer>
 							<StarRatingItem>
@@ -143,6 +144,7 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 								value={postText}
 								onChange={onChange}
 								name="text"
+								placeholder="Write Your Post!!"
 							></TextArea>
 							{postText ? (
 								<Button type="submit">
@@ -163,14 +165,41 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 
 
 export default AddPosting
+const modalSettings = (visible: boolean) => css`
+  visibility: ${visible ? "visible" : "hidden"};
+  z-index: 15;
+  animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
+  transition: visibility 0.45s ease-out;
+`;
 
-const Container = styled.form`
+const slideIn = keyframes`
+  0% {
+	opacity:0
+  }
+
+  100% {
+	opacity:1;
+  }
+`;
+
+const slideOut = keyframes`
+0% {
+	opacity:1
+  }
+
+  100% {
+	opacity:0;
+  }
+`;
+
+const Container = styled.form<{visible:boolean}>`
 	background: #fff;
 	display: flex;
 	position: absolute;
 	right: 0;
-	width: 55vw;
+	width: 35vw;
 	height: 80vh;
+	padding-top:40px;
 	border: 2px solid #efefef;
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	margin-left: auto;
@@ -192,6 +221,9 @@ const Container = styled.form`
 		height: 100%;
 		margin: 0;
 	}
+
+	${(props) => modalSettings(props.visible)}
+
 `
 
 const Wrapper = styled.div`
@@ -228,13 +260,13 @@ const PhotoContainer = styled.div`
 `
 
 const ImageLabel = styled.label`
-width:45vw;
-height:100%
+width:30vw;
+height:30vh;
 font-size: 50px;
 text-align:center;
 border: 2px solid #e8e8e8;
 border-radius:20px;
-padding: 13% 0;
+padding: 0;
 margin-right:1vw;
 &::file-selector-button{
 	display:none
@@ -242,41 +274,22 @@ margin-right:1vw;
 span{
 	font-size:100px;
 }
+img{
+	width:100%;
+	height:29.8vh;
+	border-radius:20px;
+}
 `
 
 const ImageInput = styled.input`
 	display: none;
 `
-const PhotoList = styled.ul`
-	width: 20%;
-	margin-left: 1em;
-	border: 2px solid #e8e8e8;
-	border-radius: 20px;
-	padding: 1em;
-	margin: 0 auto;
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 20%;
-		text-align: center;
-		display: flex;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 30%;
-		text-align: center;
-		display: flex;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 20%;
-		text-align: center;
-		display: flex;
-	}
-`
 
+/// STAR RATING
 const StarRatingContainer = styled.div`
-	width: 100%;
-	height: 30%;
+	width: 30vw;
+	height: 15vh;
+	margin-top:10em;
 	border: 2px solid #e8e8e8;
 	border-radius: 20px;
 	padding: 1em;
@@ -300,9 +313,9 @@ const StarRatingItem = styled.div`
 	`
 
 const TextContainer = styled.div`
-	width: 100%;
+	width: 30vw;
 	height: 30%;
-	margin-top: 20px;
+	margin-top: 10px;
 	text-align: center;
 	@media screen and (max-width: 900px) {
 		width: 100%;
@@ -335,6 +348,7 @@ const Button = styled.button`
 	border: 1px solid #fff;
 	span {
 		font-size: 2em;
+		font-weight:800;
 		color: var(--main-color);
 	}
 	@media screen and (max-width: 400px) {
