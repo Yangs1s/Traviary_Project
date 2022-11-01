@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
-import styled, { css, keyframes } from "styled-components"
-import Contents from "./Contents"
+import styled, { css, keyframes } from "styled-components";
+import Contents from './Contents';
 
 export type ModalBaseProps = {
 	traviObj: any
