@@ -74,6 +74,116 @@ const Contents = ({
 		;[setOpen((prev) => !prev)]
 	}
 
+
+  useEffect(() => {
+    if (traviObj.createdId === userObj.uid) {
+      setEditing(true);
+    } else {
+      setEditing(false);
+    }
+  });
+
+
+  return (
+    <>
+      <PostContainer visible={isPostOpen}>
+        <Wrapper>
+          <PostHeader>
+            <HeaderWrapper>
+              <Closebox>
+                <CloseBtn type="button" onClick={onClose}>
+                  <span>🆇</span>
+                </CloseBtn>
+              </Closebox>
+
+              <Icons>
+					{editing ? (
+								<>
+									<AiTwotoneDelete
+										className="icons"
+										role="button"
+										onClick={onDeleteClick}
+									/>
+									<BiPencil
+										className="icons"
+										role="button"
+										onClick={toggleEditing}
+									/>
+									{editData ? (
+										<>
+											<form onSubmit={onSubmit}>
+												<input
+													type="textarea"
+													value={traviObj.text}
+													onChange={onChangeText}
+													required
+												/>
+												<input
+													type="file"
+													accept="image/*"
+													onChange={onChangeFile}
+													required
+												/>
+												<input type="submit" value="update" />
+											</form>
+										</>
+									) : (
+										<></>
+									)}
+								</>
+							) : (
+								<></>
+							)}
+						</Icons>
+            </HeaderWrapper>
+          </PostHeader>
+
+          <ContentContainer>
+            <ImageContainer>
+              <ImageWrapper>
+              <Image src={traviObj.fileAttachURL} id={traviObj.id} />
+              </ImageWrapper>
+            </ImageContainer>
+
+            <TextStatContainer>
+              <StatContainer>
+              <SubTitle>
+                  <Star/>
+                  <Name> RATING </Name>
+                </SubTitle>
+                <StatWrapper>
+                  <li>
+                    Taste:&nbsp;
+                    <ReadStar ratingLength={traviObj.ratings.tasterating}/>
+                  </li>
+                  <li>
+                    Visual:&nbsp;
+                    <ReadStar ratingLength={traviObj.ratings.visualrating}/>
+                  </li>
+                  <li>
+                    Price:&nbsp;
+                    <ReadStar ratingLength={traviObj.ratings.pricerating}/>
+                  </li>
+                </StatWrapper>
+              </StatContainer>
+
+              <TextContainer>
+                <SubTitle>
+                  <Note/>
+                  <Name> POST </Name>
+                </SubTitle>
+
+                <TextContent>{traviObj.text}</TextContent>
+              </TextContainer>
+            </TextStatContainer>
+          </ContentContainer>
+        </Wrapper>
+      </PostContainer>
+    </>
+  );
+};
+
+=======
 	useEffect(() => {
 		if (traviObj.createdId === userObj.uid) {
 			setEditing(true)
@@ -82,102 +192,6 @@ const Contents = ({
 		}
 	})
 
-	return (
-		<>
-			<PostContainer visible={isPostOpen}>
-				<Wrapper>
-					<PostHeader>
-						<HeaderWrapper>
-							<Closebox>
-								<CloseBtn type="button" onClick={onClose}>
-									<span>🆇</span>
-								</CloseBtn>
-							</Closebox>
-
-							<Icons>
-								{editing ? (
-									<>
-										<AiTwotoneDelete
-											className="icons"
-											role="button"
-											onClick={onDeleteClick}
-										/>
-										<BiPencil
-											className="icons"
-											role="button"
-											onClick={toggleEditing}
-										/>
-										{editData ? (
-											<>
-												<form onSubmit={onSubmit}>
-													<input
-														type="textarea"
-														value={traviObj.text}
-														onChange={onChangeText}
-														required
-													/>
-													<input
-														type="file"
-														accept="image/*"
-														onChange={onChangeFile}
-														required
-													/>
-													<input type="submit" value="update" />
-												</form>
-											</>
-										) : (
-											<></>
-										)}
-									</>
-								) : (
-									<></>
-								)}
-							</Icons>
-						</HeaderWrapper>
-					</PostHeader>
-
-					<ContentContainer>
-						<ImageContainer>
-							<Image src={traviObj.fileAttachURL} id={traviObj.id} />
-						</ImageContainer>
-
-						<TextStatContainer>
-							<StatContainer>
-								<SubTitle>
-									<Star />
-									<Name> RATING </Name>
-								</SubTitle>
-								<StatWrapper>
-									<li>
-										Taste:&nbsp;
-										<ReadStar ratingLength={traviObj.ratings.tasterating} />
-									</li>
-									<li>
-										Visual:&nbsp;
-										<ReadStar ratingLength={traviObj.ratings.visualrating} />
-									</li>
-									<li>
-										Price:&nbsp;
-										<ReadStar ratingLength={traviObj.ratings.pricerating} />
-									</li>
-								</StatWrapper>
-							</StatContainer>
-
-							<TextContainer>
-								<SubTitle>
-									<Note />
-									<Name> POST </Name>
-								</SubTitle>
-
-								<TextContent>{traviObj.text}</TextContent>
-							</TextContainer>
-						</TextStatContainer>
-					</ContentContainer>
-				</Wrapper>
-			</PostContainer>
-		</>
-	)
-}
 
 export default Contents
 
@@ -261,10 +275,14 @@ const HeaderWrapper = styled.div`
 	display: flex;
 `
 const Closebox = styled.div`
-	width: 100%;
-	height: 100%;
-	display: flex;
-`
+
+  width: 100%;
+  height: 100%;
+  padding-left:5px;
+  display: flex;
+`;
+
+
 
 const CloseBtn = styled.button`
 	width: 10%;
@@ -319,41 +337,53 @@ const ContentContainer = styled.div`
 
 // CONTENT --- Image////////
 const ImageContainer = styled.div`
-	width: 30vw;
-	height: 70%;
 
-	border-top: 2px solid #fff;
-	border-bottom: 2px solid #fc80ef;
+  width: 30vw;
+  height: 60vh;
+  
+  border-top:2px solid #fff;
+  border-bottom:2px solid rgba(0,0,0,0.2);
+  box-shadow:2px 0 0 rgba(0,0,0,0.2);
+  margin-bottom: 20px;
 
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
+  display: flex;
+  flex-direction: column;
 
-	display: flex;
-	flex-direction: column;
-	background: rgba(255, 70, 150, 0.2);
+
+  @media screen and (max-width: 770px) {
+    width: 100%;
+    height: 51vh;
+
 
 	@media screen and (max-width: 770px) {
 		width: 100%;
 		height: 52vh;
 		margin: 0;
 
-		display: flex;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+`;
 
-		border-bottom-left-radius: 10px;
-		border-bottom-right-radius: 10px;
-	}
-`
+const ImageWrapper = styled.div`
+  width:auto;
+  height:400px;
+  display: flex;
+  border-radius:10px;
+  `
 const Image = styled.img`
-	width: 25vw;
-	height: 35vh;
-	padding: 1em;
-	text-align: center;
-	margin: auto;
-	@media screen and (max-width: 770px) {
-		width: 47vw;
-		height: 30vh;
-	}
-`
+  width: 100%;
+  height:auto;
+  max-height:400px;
+  padding: 1em;
+  text-align: center;
+  margin: auto;
+  @media screen and (max-width: 770px) {
+    width: 47vw;
+    height: 30vh;
+  }
+`;
+
 
 //CONTETN -  TEXT//
 const TextStatContainer = styled.div`
@@ -396,18 +426,18 @@ const TextContent = styled.span`
 
 // CONTENT - Stat //
 const StatContainer = styled.div`
-	width: 13vw;
-	height: 30vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 10px;
+  width: 13vw;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px ;
+  @media screen and (max-width: 770px) {
+    font-size: 0.5em;
+    height: 20vh;
+  }
 
-	@media screen and (max-width: 770px) {
-		font-size: 0.5em;
-		height: 20vh;
-	}
-`
+`;
 const StatWrapper = styled.ul`
 	width: 13vw;
 	height: 90%;
