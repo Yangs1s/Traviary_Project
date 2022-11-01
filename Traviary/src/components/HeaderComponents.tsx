@@ -21,7 +21,7 @@ export default function HeaderComponents() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [userObj, setUserObj] = useState<any>(null)
 	const [isModalOpen, setIsModalOpen] = useState(false)
-	const [showPostClose,setShowPostClose] = useState(true)
+	const [showPostClose, setShowPostClose] = useState(true)
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -41,7 +41,7 @@ export default function HeaderComponents() {
 	}
 	const toggleAddPost = () => {
 		setIsModalOpen((prev) => !prev)
-		setShowPostClose(prev => !prev)
+		setShowPostClose((prev) => !prev)
 	}
 
 	return (

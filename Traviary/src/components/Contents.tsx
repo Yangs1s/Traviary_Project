@@ -6,28 +6,27 @@ import React, {
 	ChangeEvent,
 	FormEvent,
 } from "react"
-import styled,{keyframes,css} from "styled-components"
+import styled, { keyframes, css } from "styled-components"
 import { doc, deleteDoc, updateDoc } from "firebase/firestore"
 import { AiTwotoneDelete } from "react-icons/ai"
 import { BiPencil } from "react-icons/bi"
 import { dbService, storageService } from "../fbase"
 import { deleteObject, ref } from "firebase/storage"
-import {ImStarFull} from 'react-icons/im'
-import {TbNotes} from 'react-icons/tb'
-import {BsStars} from 'react-icons/bs'
+import { ImStarFull } from "react-icons/im"
+import { TbNotes } from "react-icons/tb"
+import { BsStars } from "react-icons/bs"
 import ReadStar from "./ReadStar"
 const Contents = ({
-
-    traviObj,
-    userObj,
-    isPostOpen,
-      onClose
-  }: {
-    traviObj: any;
-    userObj: any;
-    isPostOpen:boolean
-      onClose:(e:any)=>void
-  }) => {
+	traviObj,
+	userObj,
+	isPostOpen,
+	onClose,
+}: {
+	traviObj: any
+	userObj: any
+	isPostOpen: boolean
+	onClose: (e: any) => void
+}) => {
 	// console.log(traviObj.id)
 	const [open, setOpen] = useState(false)
 	const [editing, setEditing] = useState(false)
@@ -40,7 +39,7 @@ const Contents = ({
 
 	const onDeleteClick = async () => {
 		const Ok = window.confirm("삭제하시겠습니까???")
-        if (Ok) {
+		if (Ok) {
 			await deleteDoc(TraviRef)
 			await deleteObject(urlRef)
 		}
@@ -184,15 +183,24 @@ const Contents = ({
   );
 };
 
+=======
+	useEffect(() => {
+		if (traviObj.createdId === userObj.uid) {
+			setEditing(true)
+		} else {
+			setEditing(false)
+		}
+	})
+
 
 export default Contents
 
 const modalSettings = (visible: boolean) => css`
-  visibility: ${visible ? "visible" : "hidden"};
-  z-index: 15;
-  animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
-  transition: visibility 0.45s ease-out;
-`;
+	visibility: ${visible ? "visible" : "hidden"};
+	z-index: 15;
+	animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
+	transition: visibility 0.45s ease-out;
+`
 
 const slideIn = keyframes`
   0% {
@@ -202,7 +210,7 @@ const slideIn = keyframes`
   100% {
 	opacity:1;
   }
-`;
+`
 
 const slideOut = keyframes`
 0% {
@@ -212,64 +220,62 @@ const slideOut = keyframes`
   100% {
 	opacity:0;
   }
-`;
+`
 
 const PostContainer = styled.div<{ visible: boolean }>`
-  border-radius: 10px;
+	border-radius: 10px;
 
-  width: 30vw;
-  height: 70vh;
-  background: #fff;
+	width: 30vw;
+	height: 70vh;
+	background: #fff;
 
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  top: 150px;
-  left: 35%;
+	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+	position: absolute;
+	top: 150px;
+	left: 35%;
 
+	${(props) => modalSettings(props.visible)}
 
-  ${(props) => modalSettings(props.visible)}
-
-  @media screen and (max-width: 750px) {
-    height: 60vh;
-    margin: 0;
-  }
-`;
-
-
+	@media screen and (max-width: 750px) {
+		height: 60vh;
+		margin: 0;
+	}
+`
 
 const Wrapper = styled.div`
-  width: 30vw;
-  height: 64vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
+	width: 30vw;
+	height: 64vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
 
-  @media screen and (max-width: 770px) {
-    width: 100%;
-    height: 70vh;
-    margin: 0;
+	@media screen and (max-width: 770px) {
+		width: 100%;
+		height: 70vh;
+		margin: 0;
 
-    display: flex;
-  }
-`;
+		display: flex;
+	}
+`
 
 /// HEADER --- HEADER
 const PostHeader = styled.header`
-  width: 30vw;
-  height: 5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background: var(--tab-bgcolor);
-`;
+	width: 30vw;
+	height: 5rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background: var(--tab-bgcolor);
+`
 const HeaderWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-`;
+	width: 100%;
+	height: 100%;
+	display: flex;
+`
 const Closebox = styled.div`
+
   width: 100%;
   height: 100%;
   padding-left:5px;
@@ -277,23 +283,24 @@ const Closebox = styled.div`
 `;
 
 
+
 const CloseBtn = styled.button`
-  width: 10%;
-  outline: none;
-  border: none;
-  margin: 0;
-  background: transparent;
-  span {
-    font-size: 3em;
-    color: var(--main-color);
-  }
-  @media screen and (max-width: 770px) {
-    span {
-      font-size: 2em;
-      color: var(--main-color);
-    }
-  }
-`;
+	width: 10%;
+	outline: none;
+	border: none;
+	margin: 0;
+	background: transparent;
+	span {
+		font-size: 3em;
+		color: var(--main-color);
+	}
+	@media screen and (max-width: 770px) {
+		span {
+			font-size: 2em;
+			color: var(--main-color);
+		}
+	}
+`
 
 const Icons = styled.div`
     width:100%
@@ -313,31 +320,30 @@ const Icons = styled.div`
 
 // CONTENT //
 const ContentContainer = styled.div`
-  width: 30vw;
-  height: 60vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  @media screen and (max-width: 770px) {
-    width: 100%;
-    height: 70vh;
-    margin: 0;
+	width: 30vw;
+	height: 60vh;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	@media screen and (max-width: 770px) {
+		width: 100%;
+		height: 70vh;
+		margin: 0;
 
-    display: flex;
-    flex-direction: column;
-  }
-`;
+		display: flex;
+		flex-direction: column;
+	}
+`
 
 // CONTENT --- Image////////
 const ImageContainer = styled.div`
+
   width: 30vw;
   height: 60vh;
   
   border-top:2px solid #fff;
   border-bottom:2px solid rgba(0,0,0,0.2);
   box-shadow:2px 0 0 rgba(0,0,0,0.2);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
   margin-bottom: 20px;
 
   display: flex;
@@ -348,7 +354,11 @@ const ImageContainer = styled.div`
     width: 100%;
     height: 51vh;
 
-    display: flex;
+
+	@media screen and (max-width: 770px) {
+		width: 100%;
+		height: 52vh;
+		margin: 0;
 
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -374,44 +384,45 @@ const Image = styled.img`
   }
 `;
 
+
 //CONTETN -  TEXT//
 const TextStatContainer = styled.div`
-  width: 30vw;
-  height: 29vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  @media screen and (max-width: 770px) {
-    width: 100%;
-    height: 70vh;
-  }
-`;
+	width: 30vw;
+	height: 29vh;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+	@media screen and (max-width: 770px) {
+		width: 100%;
+		height: 70vh;
+	}
+`
 const TextContainer = styled.div`
-  width: 10vw;
-  height: 30vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 10px;
-  margin:10px 20px;
+	width: 10vw;
+	height: 30vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 10px;
+	margin: 10px 20px;
 
-  @media screen and (max-width: 770px) {
-    font-size: 0.5em;
-    height: 10vh;
-  }
-`;
+	@media screen and (max-width: 770px) {
+		font-size: 0.5em;
+		height: 10vh;
+	}
+`
 const TextContent = styled.span`
-width: 11vw;
-padding: 1em;
-height: 100%;
-font-size: 1.5em;
-text-align:left;
-  border: solid 1px var(--color-gray0);
-  border-radius: 10px;
-  display: flex;
-  margin: 10px;
-`;
+	width: 11vw;
+	padding: 1em;
+	height: 100%;
+	font-size: 1.5em;
+	text-align: left;
+	border: solid 1px var(--color-gray0);
+	border-radius: 10px;
+	display: flex;
+	margin: 10px;
+`
 
 // CONTENT - Stat //
 const StatContainer = styled.div`
@@ -428,63 +439,60 @@ const StatContainer = styled.div`
 
 `;
 const StatWrapper = styled.ul`
-  width: 13vw;
-  height: 90%;
-  border: solid 1px var(--color-gray0);
-  border-radius: 10px;
-  display: flex;
-  padding: 10px;
-  flex-direction: column;
-  margin: 10px;
+	width: 13vw;
+	height: 90%;
+	border: solid 1px var(--color-gray0);
+	border-radius: 10px;
+	display: flex;
+	padding: 10px;
+	flex-direction: column;
+	margin: 10px;
 
-  font-family: "Gill Sans", sans-serif;
-  font-weight:600;
-  li {
-    font-size: 2rem;
-    text-align: left;
-    margin: 20px 0;
-  }
-`;
+	font-family: "Gill Sans", sans-serif;
+	font-weight: 600;
+	li {
+		font-size: 2rem;
+		text-align: left;
+		margin: 20px 0;
+	}
+`
 
 // TITLE
 
-const SubTitle =styled.div`
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  jutify-content:center;
-  width:max-content;
-  background: var(--tab-bgcolor);
-  border-radius: 10px;
-  padding:3px;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+const SubTitle = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	jutify-content: center;
+	width: max-content;
+	background: var(--tab-bgcolor);
+	border-radius: 10px;
+	padding: 3px;
+	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 `
 const Star = styled(BsStars)`
-  color:var(--main-color);
-  width:30px;
-  font-size:20px;
+	color: var(--main-color);
+	width: 30px;
+	font-size: 20px;
 `
 const Note = styled(TbNotes)`
-  color:var(--main-color);
-  font-size:20px;
-  width:30px;
-  margin:0;
-  
+	color: var(--main-color);
+	font-size: 20px;
+	width: 30px;
+	margin: 0;
 `
 
 const Name = styled.div`
-  width:max-content;
-  font-size: 1.7em;
-  font-weight: 900;
-  padding-right:4px;
-  vertical-align:middle;
+	width: max-content;
+	font-size: 1.7em;
+	font-weight: 900;
+	padding-right: 4px;
+	vertical-align: middle;
 
-  text-align: center;
-  color: var(--main-color);
+	text-align: center;
+	color: var(--main-color);
 
-
-  @media screen and (max-width: 770px) {
-    font-size: 1.5em;
-  }
-`;
-
+	@media screen and (max-width: 770px) {
+		font-size: 1.5em;
+	}
+`

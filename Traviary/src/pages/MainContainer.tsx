@@ -11,7 +11,7 @@ interface NameProp {
 export default function MainContainer() {
 	return (
 		<>
-			<MainContainerComponents/>
+			<MainContainerComponents />
 		</>
 	)
 }

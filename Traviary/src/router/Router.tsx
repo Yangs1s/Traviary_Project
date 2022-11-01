@@ -6,22 +6,22 @@ import MainContainer from "../pages/MainContainer"
 import { useState } from "react"
 
 export default function Router() {
-	const [showed, setShowed ]= useState(true)
+	const [showed, setShowed] = useState(true)
 
-	const onClick = () =>{
-		setShowed(prev=>!prev)
+	const onClick = () => {
+		setShowed((prev) => !prev)
 	}
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Header isShowed={showed} />}>
-						<Route path="main" element={<MainContainer isClose={showed}/>} />
+						<Route path="main" element={<MainContainer isClose={showed} />} />
 						<Route path="auth" element={<Auth />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
-			<Footer/>
+			<Footer />
 		</>
 	)
 }

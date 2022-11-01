@@ -18,7 +18,7 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 				: (document.body.style.overflow = "scroll")
 		}
 	})
-	
+
 	const onClose = (e: any) => {
 		if (modalRef.current === e.target) {
 			setIsModalOpen((prev: any) => !prev)
