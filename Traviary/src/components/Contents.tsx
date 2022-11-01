@@ -1,21 +1,16 @@
 /** @format */
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  ChangeEvent,
-  FormEvent,
-} from "react";
-import styled, { keyframes, css } from "styled-components";
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { AiTwotoneDelete } from "react-icons/ai";
-import { BiPencil } from "react-icons/bi";
-import { dbService, storageService } from "../fbase";
-import { deleteObject, ref } from "firebase/storage";
-import { ImStarFull } from "react-icons/im";
-import { TbNotes } from "react-icons/tb";
-import { BsStars } from "react-icons/bs";
-import ReadStar from "./ReadStar";
+
+import React, { useEffect, useState } from "react"
+import EditData from "./EditData"
+import styled, { keyframes, css } from "styled-components"
+import { doc, deleteDoc, updateDoc } from "firebase/firestore"
+import { AiTwotoneDelete } from "react-icons/ai"
+import { BiPencil } from "react-icons/bi"
+import { dbService } from "../fbase"
+import { TbNotes } from "react-icons/tb"
+import { BsStars } from "react-icons/bs"
+import ReadStar from "./ReadStar"
+
 const Contents = ({
   traviObj,
   userObj,
@@ -27,161 +22,121 @@ const Contents = ({
   isPostOpen: boolean;
   onClose: (e: any) => void;
 }) => {
-  // console.log(traviObj.id)
-  const [open, setOpen] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [editData, setEditData] = useState(false);
-  const [editText, setEditText] = useState(traviObj.text);
-  const [editFile, setEditFile] = useState(traviObj.fileAttachURL);
 
-  const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`);
-  const urlRef = ref(storageService, traviObj.fileAttachURL);
+	// console.log(traviObj.id)
+	const [open, setOpen] = useState(false)
+	const [editing, setEditing] = useState(false)
+	const [editData, setEditData] = useState(false)
 
-  const onDeleteClick = async () => {
-    const Ok = window.confirm("삭제하시겠습니까???");
-    if (Ok) {
-      await deleteDoc(TraviRef);
-      await deleteObject(urlRef);
-    }
-  };
+	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
 
-  const toggleEditing = () => {
-    setEditData((prev) => !prev);
-  };
+	const onDeleteClick = async () => {
+		const Ok = window.confirm("삭제하시겠습니까???")
+		if (Ok) {
+			await deleteDoc(TraviRef)
+		}
+	}
 
-  const onChangeText = (
-    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    const {
-      target: { value },
-    } = event;
-    setEditText(value);
-  };
-  const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { files },
-    } = event as any;
-    setEditFile(files);
-  };
+	const toggleEditing = () => {
+		setEditData((prev) => !prev)
+	}
 
-  const onSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    await updateDoc(TraviRef, { text: editText, fileAttachUrl: editFile });
-    setEditData(false);
-  };
+	const handleClose = () => {
+		;[setOpen((prev) => !prev)]
+	}
 
-  const handleClose = () => {
-    [setOpen((prev) => !prev)];
-  };
+	useEffect(() => {
+		if (traviObj.createdId === userObj.uid) {
+			setEditing(true)
+		} else {
+			setEditing(false)
+		}
+	})
 
-  useEffect(() => {
-    if (traviObj.createdId === userObj.uid) {
-      setEditing(true);
-    } else {
-      setEditing(false);
-    }
-  });
+	return (
+		<>
+			<PostContainer visible={isPostOpen}>
+				<Wrapper>
+					<PostHeader>
+						<HeaderWrapper>
+							<Closebox>
+								<CloseBtn type="button" onClick={onClose}>
+									<span>🆇</span>
+								</CloseBtn>
+							</Closebox>
 
-  return (
-    <>
-      <PostContainer visible={isPostOpen}>
-        <Wrapper>
-          <PostHeader>
-            <HeaderWrapper>
-              <Closebox>
-                <CloseBtn type="button" onClick={onClose}>
-                  <span>🆇</span>
-                </CloseBtn>
-              </Closebox>
+							<Icons>
+								{editing ? (
+									<>
+										<AiTwotoneDelete
+											className="icons"
+											role="button"
+											onClick={onDeleteClick}
+										/>
+										<BiPencil
+											className="icons"
+											role="button"
+											onClick={toggleEditing}
+										/>
+										{editData ? (
+											<>
+												<EditData traviObj={traviObj} />
+											</>
+										) : (
+											<></>
+										)}
+									</>
+								) : (
+									<></>
+								)}
+							</Icons>
+						</HeaderWrapper>
+					</PostHeader>
 
-              <Icons>
-                {editing ? (
-                  <>
-                    <AiTwotoneDelete
-                      className="icons"
-                      role="button"
-                      onClick={onDeleteClick}
-                    />
-                    <BiPencil
-                      className="icons"
-                      role="button"
-                      onClick={toggleEditing}
-                    />
-                    {editData ? (
-                      <>
-                        <form onSubmit={onSubmit}>
-                          <input
-                            type="textarea"
-                            value={traviObj.text}
-                            onChange={onChangeText}
-                            required
-                          />
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={onChangeFile}
-                            required
-                          />
-                          <input type="submit" value="update" />
-                        </form>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                ) : (
-                  <></>
-                )}
-              </Icons>
-            </HeaderWrapper>
-          </PostHeader>
+					<ContentContainer>
+						<ImageContainer>
+							<Image src={traviObj.fileAttachURL} id={traviObj.id} />
+						</ImageContainer>
 
-          <ContentContainer>
-            <ImageContainer>
-              <ImageWrapper>
-                <Image src={traviObj.fileAttachURL} id={traviObj.id} />
-              </ImageWrapper>
-            </ImageContainer>
+						<TextStatContainer>
+							<StatContainer>
+								<SubTitle>
+									<Star />
+									<Name> RATING </Name>
+								</SubTitle>
+								<StatWrapper>
+									<li>
+										Taste:&nbsp;
+										<ReadStar ratingLength={traviObj.ratings.tasterating} />
+									</li>
+									<li>
+										Visual:&nbsp;
+										<ReadStar ratingLength={traviObj.ratings.visualrating} />
+									</li>
+									<li>
+										Price:&nbsp;
+										<ReadStar ratingLength={traviObj.ratings.pricerating} />
+									</li>
+								</StatWrapper>
+							</StatContainer>
 
-            <TextStatContainer>
-              <StatContainer>
-                <SubTitle>
-                  <Star />
-                  <Name> RATING </Name>
-                </SubTitle>
-                <StatWrapper>
-                  <li>
-                    Taste:&nbsp;
-                    <ReadStar ratingLength={traviObj.ratings.tasterating} />
-                  </li>
-                  <li>
-                    Visual:&nbsp;
-                    <ReadStar ratingLength={traviObj.ratings.visualrating} />
-                  </li>
-                  <li>
-                    Price:&nbsp;
-                    <ReadStar ratingLength={traviObj.ratings.pricerating} />
-                  </li>
-                </StatWrapper>
-              </StatContainer>
+							<TextContainer>
+								<SubTitle>
+									<Note />
+									<Name> POST </Name>
+								</SubTitle>
 
-              <TextContainer>
-                <SubTitle>
-                  <Note />
-                  <Name> POST </Name>
-                </SubTitle>
+								<TextContent>{traviObj.text}</TextContent>
+							</TextContainer>
+						</TextStatContainer>
+					</ContentContainer>
+				</Wrapper>
+			</PostContainer>
+		</>
+	)
+}
 
-                <TextContent>{traviObj.text}</TextContent>
-              </TextContainer>
-            </TextStatContainer>
-          </ContentContainer>
-        </Wrapper>
-      </PostContainer>
-    </>
-  );
-};
-
-export default Contents;
+export default Contents
 
 const modalSettings = (visible: boolean) => css`
   visibility: ${visible ? "visible" : "hidden"};
