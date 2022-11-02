@@ -293,18 +293,6 @@ const TextContainer = styled.div`
 	height:100px;
 
 	text-align: center;
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 40%;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 40%;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 20%;
-	}
 `
 const TextArea = styled.textarea`
 	width: 100%;
@@ -312,7 +300,6 @@ const TextArea = styled.textarea`
 	resize: none;
 	padding: 10px;
 	border: 2px solid #e8e8e8;
-
 	border-radius: 20px;
 `
 
@@ -326,9 +313,5 @@ const Button = styled.button`
 		font-size: 2em;
 		font-weight: 800;
 		color: var(--main-color);
-	}
-	@media screen and (max-width: 400px) {
-		width: 50%;
-		height: 20%;
 	}
 `
