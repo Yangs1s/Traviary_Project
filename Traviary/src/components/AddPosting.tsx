@@ -115,14 +115,12 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 							<ImageLabel htmlFor="files">
 								{fileAttach ? (
 									<>
-										<img src={fileAttach} className="addImg"/>
+										<img src={fileAttach} className="addImg" />
 									</>
-								)
-								:<span>⨁</span>
-								}
+								) : (
+									<span>⨁</span>
+								)}
 							</ImageLabel>
-					
-
 						</PhotoContainer>
 						<StarRatingContainer>
 							<StarRatingItem>
@@ -164,11 +162,11 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 
 export default AddPosting
 const modalSettings = (visible: boolean) => css`
-  visibility: ${visible ? "visible" : "hidden"};
-  z-index: 15;
-  animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
-  transition: visibility 0.45s ease-out;
-`;
+	visibility: ${visible ? "visible" : "hidden"};
+	z-index: 15;
+	animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
+	transition: visibility 0.45s ease-out;
+`
 
 const slideIn = keyframes`
   0% {
@@ -178,7 +176,7 @@ const slideIn = keyframes`
   100% {
 	opacity:1;
   }
-`;
+`
 
 const slideOut = keyframes`
 0% {
@@ -188,16 +186,16 @@ const slideOut = keyframes`
   100% {
 	opacity:0;
   }
-`;
+`
 
-const Container = styled.form<{visible:boolean}>`
+const Container = styled.form<{ visible: boolean }>`
 	background: #fff;
 	display: flex;
 	position: absolute;
 	right: 0;
 	width: 35vw;
 	height: 80vh;
-	padding-top:40px;
+	padding-top: 40px;
 	border: 2px solid #efefef;
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	margin-left: auto;
@@ -221,7 +219,6 @@ const Container = styled.form<{visible:boolean}>`
 	}
 
 	${(props) => modalSettings(props.visible)}
-
 `
 
 const Wrapper = styled.div`
@@ -256,25 +253,25 @@ const PhotoContainer = styled.div`
 `
 
 const ImageLabel = styled.label`
-width:30vw;
-height:30vh;
-font-size: 50px;
-text-align:center;
-border: 2px solid #e8e8e8;
-border-radius:20px;
-padding: 0;
-margin-right:1vw;
-&::file-selector-button{
-	display:none
-}
-span{
-	font-size:100px;
-}
-img{
-	width:100%;
-	height:29.8vh;
-	border-radius:20px;
-}
+	width: 30vw;
+	height: 30vh;
+	font-size: 50px;
+	text-align: center;
+	border: 2px solid #e8e8e8;
+	border-radius: 20px;
+	padding: 0;
+	margin-right: 1vw;
+	&::file-selector-button {
+		display: none;
+	}
+	span {
+		font-size: 100px;
+	}
+	img {
+		width: 100%;
+		height: 29.8vh;
+		border-radius: 20px;
+	}
 `
 
 const ImageInput = styled.input`
@@ -285,7 +282,7 @@ const ImageInput = styled.input`
 const StarRatingContainer = styled.div`
 	width: 30vw;
 	height: 15vh;
-	margin-top:10em;
+	margin-top: 10em;
 	border: 2px solid #e8e8e8;
 	border-radius: 20px;
 	padding: 1em;
@@ -343,7 +340,7 @@ const Button = styled.button`
 	border: 1px solid #fff;
 	span {
 		font-size: 2em;
-		font-weight:800;
+		font-weight: 800;
 		color: var(--main-color);
 	}
 	@media screen and (max-width: 400px) {
