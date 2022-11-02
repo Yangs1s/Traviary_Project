@@ -15,7 +15,7 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 		{
 			isModalOpen
 				? (document.body.style.overflow = "hidden")
-				: (document.body.style.overflow = "scroll")
+				: (document.body.style.overflow= "scroll")
 		}
 	})
 
@@ -76,6 +76,6 @@ const Background = styled.div<{visible:boolean}>`
 	position: fixed;
 	display: flex;
 	top: 100px;
-
+  	overflow:scroll;
 	${(props) => modalSettings(props.visible)}
 `

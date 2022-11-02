@@ -122,7 +122,8 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 								)}
 							</ImageLabel>
 						</PhotoContainer>
-						<StarRatingContainer>
+						<StarTextContainer>
+							<StarRatingContainer>
 							<StarRatingItem>
 								<span>TASTE :</span>
 								<StraRating ratingIndex={taste} setRatingIndex={setTaste} />
@@ -152,7 +153,9 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 									<span>POST</span>
 								</Button>
 							)}
-						</TextContainer>
+						</TextContainer>		
+						</StarTextContainer>
+					
 					</Wrapper>
 				</Container>
 			) : null}
@@ -191,15 +194,16 @@ const slideOut = keyframes`
 const Container = styled.form<{ visible: boolean }>`
 	background: #fff;
 	display: flex;
-	
-	width: 450px;
-	height: 800px;
-	padding-top: 20px;
+
+	width: 700px;
+	height:100%;
+	max-height: 450px;
+
 	border: 2px solid #efefef;
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	position:absolute;
-	top:8%;
-  	left:40%;
+	top:100px;
+  	left:30%;
 	border-radius: 20px;
 	z-index: 1;
 
@@ -209,7 +213,11 @@ const Container = styled.form<{ visible: boolean }>`
 `
 
 const Wrapper = styled.div`
-	flex:1;	
+	flex:1;
+	display:flex;
+	flex-direction:row;
+	height:100%;
+	max-height: 750px;
 	padding: 10px;
 	margin: 10px 30px;
 	border-radius: 20px;
@@ -218,12 +226,14 @@ const Wrapper = styled.div`
 `
 const PhotoContainer = styled.div`
 	flex:1;
-	height: 300px;
+	height: 400px;
 	display: flex;
+	margin:5px;
 `
 
 const ImageLabel = styled.label`
 	flex:1;
+	height:100%;
 	border: 2px solid #e8e8e8;
 	border-radius: 20px;
 	position:relative;
@@ -250,12 +260,16 @@ const ImageLabel = styled.label`
 const ImageInput = styled.input`
 	display: none;
 `
-
+const StarTextContainer = styled.div`
+	display:flex;
+	flex-direction:column;
+	margin:5px;
+`
 /// STAR RATING
 const StarRatingContainer = styled.div`
 	flex:1;
 	height: 180px;
-	margin-top: 10px;
+	margin-bottom:10px;
 	border: 2px solid #e8e8e8;
 	border-radius: 20px;
 	padding: 1em;
@@ -276,8 +290,8 @@ const StarRatingItem = styled.div`
 
 const TextContainer = styled.div`
 	flex:1;
-	height: 30%;
-	margin-top: 10px;
+	height:100px;
+
 	text-align: center;
 	@media screen and (max-width: 900px) {
 		width: 100%;
@@ -294,7 +308,7 @@ const TextContainer = styled.div`
 `
 const TextArea = styled.textarea`
 	width: 100%;
-	height: 90%;
+	height:150px;
 	resize: none;
 	padding: 10px;
 	border: 2px solid #e8e8e8;

@@ -102,6 +102,7 @@ const Container = styled.div`
 		height: 100%;
 		margin: 0;
 	}
+
 `
 
 const GridContainer = styled.div`
