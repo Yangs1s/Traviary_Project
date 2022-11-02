@@ -191,85 +191,58 @@ const slideOut = keyframes`
 const Container = styled.form<{ visible: boolean }>`
 	background: #fff;
 	display: flex;
-	position: absolute;
-	right: 0;
-	width: 35vw;
-	height: 80vh;
-	padding-top: 40px;
+	
+	width: 450px;
+	height: 800px;
+	padding-top: 20px;
 	border: 2px solid #efefef;
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-	margin-left: auto;
+	position:absolute;
+	top:8%;
+  	left:40%;
 	border-radius: 20px;
 	z-index: 1;
-	overflow: scroll;
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 80%;
-		margin: 0;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 70%;
-		margin: 0;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 100%;
-		margin: 0;
-	}
+
+
 
 	${(props) => modalSettings(props.visible)}
 `
 
 const Wrapper = styled.div`
-	width: 100%;
-	height: 100%;
+	flex:1;	
 	padding: 10px;
 	margin: 10px 30px;
 	border-radius: 20px;
 	z-index: 9999;
+
 `
 const PhotoContainer = styled.div`
-	width: 100%;
-	height: 30%;
+	flex:1;
+	height: 300px;
 	display: flex;
-	flex-direction: row;
-	margin-bottom: 20px;
-	@media screen and (max-width: 900px) {
-		width: 100%;
-		height: 40%;
-		display: block;
-	}
-	@media screen and (max-width: 530px) {
-		width: 100%;
-		height: 40%;
-		display: block;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		height: 40%;
-		display: block;
-	}
 `
 
 const ImageLabel = styled.label`
-	width: 30vw;
-	height: 30vh;
-	font-size: 50px;
-	text-align: center;
+	flex:1;
 	border: 2px solid #e8e8e8;
 	border-radius: 20px;
-	padding: 0;
-	margin-right: 1vw;
+	position:relative;
+	display:flex;
+	align-items:center;
+	jutify-content:center;
+  	
+	
 	&::file-selector-button {
 		display: none;
 	}
 	span {
+		position:absolute;
 		font-size: 100px;
+		left:40%
 	}
 	img {
 		width: 100%;
-		height: 29.8vh;
+		height: 23vh;
 		border-radius: 20px;
 	}
 `
@@ -280,16 +253,13 @@ const ImageInput = styled.input`
 
 /// STAR RATING
 const StarRatingContainer = styled.div`
-	width: 30vw;
-	height: 15vh;
-	margin-top: 10em;
+	flex:1;
+	height: 180px;
+	margin-top: 10px;
 	border: 2px solid #e8e8e8;
 	border-radius: 20px;
 	padding: 1em;
-	@media screen and (max-width: 400px) {
-		width: 100%;
-		text-align: center;
-	}
+
 `
 const StarRatingItem = styled.div`
 	display: flex;
@@ -305,7 +275,7 @@ const StarRatingItem = styled.div`
 `
 
 const TextContainer = styled.div`
-	width: 30vw;
+	flex:1;
 	height: 30%;
 	margin-top: 10px;
 	text-align: center;

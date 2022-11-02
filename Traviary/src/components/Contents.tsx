@@ -40,9 +40,6 @@ const Contents = ({
 		setEditData((prev) => !prev)
 	}
 
-	const handleClose = () => {
-		;[setOpen((prev) => !prev)]
-	}
 
 	useEffect(() => {
 		if (traviObj.createdId === userObj.uid) {
@@ -79,7 +76,7 @@ const Contents = ({
 										/>
 										{editData ? (
 											<>
-												<EditData traviObj={traviObj} />
+												<EditData traviObj={traviObj} isOpen={open}/>
 											</>
 										) : (
 											<></>
@@ -166,26 +163,28 @@ const slideOut = keyframes`
 
 const PostContainer = styled.div<{ visible: boolean }>`
 	border-radius: 10px;
+	width: 100%;
+  max-width:450px;
+  height:100%;
+	max-height: 750px;
 
-	width: 30vw;
-	height: 70vh;
+
 	background: #fff;
 
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	position: absolute;
-	top: 150px;
+	top: 140px;
 	left: 35%;
 
 	${(props) => modalSettings(props.visible)}
 
-	@media screen and (max-width: 750px) {
-		height: 60vh;
-		margin: 0;
-	}
+
 `
 
 const Wrapper = styled.div`
-	width: 30vw;
+	width: 100%;
+  max-width:450px;
+  max-height: 750px;
 	height: 64vh;
 	display: flex;
 	flex-direction: column;
@@ -193,18 +192,13 @@ const Wrapper = styled.div`
 	align-items: center;
 	z-index: 1;
 
-	@media screen and (max-width: 770px) {
-		width: 100%;
-		height: 70vh;
-		margin: 0;
 
-		display: flex;
-	}
 `
 
 /// HEADER --- HEADER
 const PostHeader = styled.header`
-	width: 30vw;
+	width: 100%;
+  max-width:450px;
 	height: 5rem;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 	border-top-left-radius: 10px;
@@ -212,7 +206,8 @@ const PostHeader = styled.header`
 	background: var(--tab-bgcolor);
 `
 const HeaderWrapper = styled.div`
-	width: 100%;
+  width: 100%;
+  max-width:450px;
 	height: 100%;
 	display: flex;
 `
@@ -232,12 +227,6 @@ const CloseBtn = styled.button`
 	span {
 		font-size: 3em;
 		color: var(--main-color);
-	}
-	@media screen and (max-width: 770px) {
-		span {
-			font-size: 2em;
-			color: var(--main-color);
-		}
 	}
 `
 
@@ -259,91 +248,68 @@ const Icons = styled.div`
 
 // CONTENT //
 const ContentContainer = styled.div`
-	width: 30vw;
+  width: 100%;
+  max-width:450px;
 	height: 60vh;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	@media screen and (max-width: 770px) {
-		width: 100%;
-		height: 70vh;
-		margin: 0;
 
-		display: flex;
-		flex-direction: column;
-	}
 `
 
 // CONTENT --- Image////////
 const ImageContainer = styled.div`
+  width: 100%;
+  max-width:450px;
 
-  width: 30vw;
-  height: 60vh;
+  height: auto;
+  max-height:400px;
   
   border-top:2px solid #fff;
   border-bottom:2px solid rgba(0,0,0,0.2);
   box-shadow:2px 0 0 rgba(0,0,0,0.2);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   display: flex;
   flex-direction: column;
 
 
-  @media screen and (max-width: 770px) {
-    width: 100%;
-    height: 51vh;
 
-
-	@media screen and (max-width: 770px) {
-		width: 100%;
-		height: 52vh;
-		margin: 0;
-
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
 `
 
-const ImageWrapper = styled.div`
-	width: auto;
-	height: 400px;
-	display: flex;
-	border-radius: 10px;
-`
 const Image = styled.img`
 	width: 100%;
+  max-width:450px;
 	height: auto;
 	max-height: 400px;
 	padding: 1em;
 	text-align: center;
 	margin: auto;
-	@media screen and (max-width: 770px) {
-		width: 47vw;
-		height: 30vh;
-	}
+
 `
 
 //CONTETN -  TEXT//
 const TextStatContainer = styled.div`
-	width: 30vw;
-	height: 29vh;
+  width: 100%;
+  max-width:450px;
+	height:100%;
+  max-height: 350px;
 	display: flex;
+
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-around;
-	@media screen and (max-width: 770px) {
-		width: 100%;
-		height: 70vh;
-	}
+
 `
 const TextContainer = styled.div`
-	width: 10vw;
-	height: 30vh;
+	width: 200px;
+  height:100%;
+  max-height: 350px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	border-radius: 10px;
-	margin: 10px 20px;
+	margin: 10px;
 
 	@media screen and (max-width: 770px) {
 		font-size: 0.5em;
@@ -351,39 +317,42 @@ const TextContainer = styled.div`
 	}
 `
 const TextContent = styled.span`
-	width: 11vw;
-	padding: 1em;
+	width: 200px;
+	padding: 15px;
 	height: 100%;
-	font-size: 1.5em;
+  max-height: 350px;
+	font-size: 1.3em;
 	text-align: left;
 	border: solid 1px var(--color-gray0);
 	border-radius: 10px;
 	display: flex;
 	margin: 10px;
+  overflow-wrap: break-word;
+	word-break: break-all;
+	white-space: pre-wrap;
 `
 
 // CONTENT - Stat //
 const StatContainer = styled.div`
-	width: 13vw;
-	height: 30vh;
+	width: 200px;
+  height:100%;
+  max-height: 350px;
+  max-height: 350px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin: 10px;
-	@media screen and (max-width: 770px) {
-		font-size: 0.5em;
-		height: 20vh;
-	}
+
 `
 const StatWrapper = styled.ul`
-	width: 13vw;
+	width: 200px;
 	height: 90%;
 	border: solid 1px var(--color-gray0);
 	border-radius: 10px;
 	display: flex;
 	padding: 10px;
 	flex-direction: column;
-	margin: 10px;
+	margin: 10px 15px; 
 
 	font-family: "Gill Sans", sans-serif;
 	font-weight: 600;
@@ -429,7 +398,4 @@ const Name = styled.div`
 	text-align: center;
 	color: var(--main-color);
 
-	@media screen and (max-width: 770px) {
-		font-size: 1.5em;
-	}
 `

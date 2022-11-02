@@ -10,7 +10,6 @@ const EditData = ({ traviObj }: any) => {
 	const [price, setPrice] = useState(traviObj.ratings.pricerating)
 	const [taste, setTaste] = useState(traviObj.ratings.tasterating)
 	const [visual, setVisual] = useState(traviObj.ratings.visualrating)
-
 	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
 
 	const onSubmit = async (event: FormEvent) => {
@@ -35,34 +34,16 @@ const EditData = ({ traviObj }: any) => {
 		setEditText(value)
 	}
 
-	const onChagnePriceRate = (event: ChangeEvent<HTMLInputElement>) => {
-		const {
-			target: { value },
-		} = event
-		setPrice(value)
-	}
-	const onChagneTasteRate = (event: ChangeEvent<HTMLInputElement>) => {
-		const {
-			target: { value },
-		} = event
-
-		setTaste(value)
-	}
-	const onChagneVisualRate = (event: ChangeEvent<HTMLInputElement>) => {
-		const {
-			target: { value },
-		} = event
-
-		setVisual(value)
-	}
-
-	console.log(traviObj)
 
 	return (
 		<>
 			<Container>
 				<form onSubmit={onSubmit}>
-					<InputText type="textarea" value={editText} onChange={onChangeText} />
+					<InputText  
+
+							value={editText} 
+							onChange={onChangeText} 
+							autoComplete="off"/>
 					<StarRatingContainer>
 						<StarRatingItem>
 							<span>TASTE :</span>
@@ -90,19 +71,20 @@ export default EditData
 
 const Container = styled.div`
 	background: #fff;
-	width: 300px;
-	height: 300px;
+	width: 21vw;
+	height: 33vh;
 	position: absolute;
-	left: 435px;
-	top: 200px;
+	left:100%;
+	top: 50%;
 	border: 3px solid #e8e8e8;
 	border-radius: 20px;
-	@media screen and (max-width: 770px) {
-		left: 300px;
-	}
+	overflow-wrap: break-word;
+	word-break: break-all;
+	white-space: pre-wrap;
+
 `
 
-const InputText = styled.input`
+const InputText = styled.textarea`
 	width: 100%;
 	height: 90%;
 	resize: none;
