@@ -252,7 +252,8 @@ const ImageLabel = styled.label`
 	}
 	img {
 		width: 100%;
-		height: 23vh;
+		height: auto;
+		max-height:400px;
 		border-radius: 20px;
 	}
 `
