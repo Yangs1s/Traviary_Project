@@ -1,13 +1,12 @@
 /** @format */
 
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 import GlobalStyle from "../assets/Globalstyles"
 import SocialLogin from "./SocialLogin"
 
 // react-icons
 import { GiPalmTree } from "react-icons/gi"
-import { GiArchiveRegister } from "react-icons/gi"
 import { BiLogIn } from "react-icons/bi"
 import { BiLogOut } from "react-icons/bi"
 import { MdPostAdd } from "react-icons/md"
@@ -17,7 +16,6 @@ import { authService } from "../fbase"
 import PostModal from "./PostModal"
 
 export default function HeaderComponents() {
-	// const [init, setInit] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [userObj, setUserObj] = useState<any>(null)
 	const [isModalOpen, setIsModalOpen] = useState(false)
@@ -103,7 +101,7 @@ const LogoWrapper = styled.div`
 	.logo {
 		font-size: 50px;
 		margin-right: 5px;
-		color:var(--main-color);
+		color: var(--main-color);
 	}
 	padding: 20px;
 	@media screen and (min-width: 900px) {

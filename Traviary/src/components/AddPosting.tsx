@@ -99,7 +99,7 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 		}
 		reader.readAsDataURL(theFile)
 	}
-	console.log(visual)
+
 	return (
 		<>
 			{isModalOpen === isModal ? (
@@ -124,38 +124,37 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 						</PhotoContainer>
 						<StarTextContainer>
 							<StarRatingContainer>
-							<StarRatingItem>
-								<span>TASTE :</span>
-								<StraRating ratingIndex={taste} setRatingIndex={setTaste} />
-							</StarRatingItem>
-							<StarRatingItem>
-								<span>PRICE :</span>
-								<StraRating ratingIndex={price} setRatingIndex={setPrice} />
-							</StarRatingItem>
-							<StarRatingItem>
-								<span>VISUAL :</span>
-								<StraRating ratingIndex={visual} setRatingIndex={setVisual} />
-							</StarRatingItem>
-						</StarRatingContainer>
-						<TextContainer>
-							<TextArea
-								value={postText}
-								onChange={onChange}
-								name="text"
-								placeholder="Write Your Post!!"
-							></TextArea>
-							{postText ? (
-								<Button type="submit">
-									<span>POST</span>
-								</Button>
-							) : (
-								<Button type="submit" disabled>
-									<span>POST</span>
-								</Button>
-							)}
-						</TextContainer>		
+								<StarRatingItem>
+									<span>TASTE :</span>
+									<StraRating ratingIndex={taste} setRatingIndex={setTaste} />
+								</StarRatingItem>
+								<StarRatingItem>
+									<span>PRICE :</span>
+									<StraRating ratingIndex={price} setRatingIndex={setPrice} />
+								</StarRatingItem>
+								<StarRatingItem>
+									<span>VISUAL :</span>
+									<StraRating ratingIndex={visual} setRatingIndex={setVisual} />
+								</StarRatingItem>
+							</StarRatingContainer>
+							<TextContainer>
+								<TextArea
+									value={postText}
+									onChange={onChange}
+									name="text"
+									placeholder="Write Your Post!!"
+								></TextArea>
+								{postText ? (
+									<Button type="submit">
+										<span>POST</span>
+									</Button>
+								) : (
+									<Button type="submit" disabled>
+										<span>POST</span>
+									</Button>
+								)}
+							</TextContainer>
 						</StarTextContainer>
-					
 					</Wrapper>
 				</Container>
 			) : null}
@@ -196,63 +195,60 @@ const Container = styled.form<{ visible: boolean }>`
 	display: flex;
 
 	width: 700px;
-	height:100%;
+	height: 100%;
 	max-height: 450px;
 
 	border: 2px solid #efefef;
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-	position:absolute;
-	top:100px;
-  	left:30%;
+	position: absolute;
+	top: 100px;
+	left: 30%;
 	border-radius: 20px;
 	z-index: 1;
-
-
 
 	${(props) => modalSettings(props.visible)}
 `
 
 const Wrapper = styled.div`
-	flex:1;
-	display:flex;
-	flex-direction:row;
-	height:100%;
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	height: 100%;
 	max-height: 750px;
 	padding: 10px;
 	margin: 10px 30px;
 	border-radius: 20px;
 	z-index: 9999;
-
 `
 const PhotoContainer = styled.div`
-	flex:1;
+	flex: 1;
 	height: 400px;
 	display: flex;
-	margin:5px;
+	margin: 5px;
 `
 
 const ImageLabel = styled.label`
-	flex:1;
-	height:100%;
+	flex: 1;
+	height: 100%;
 	border: 2px solid #e8e8e8;
 	border-radius: 20px;
-	position:relative;
-	display:flex;
-	align-items:center;
-	jutify-content:center;
-  	
-	
+	position: relative;
+	display: flex;
+	align-items: center;
+	jutify-content: center;
+
 	&::file-selector-button {
 		display: none;
 	}
 	span {
-		position:absolute;
+		position: absolute;
 		font-size: 100px;
-		left:40%
+		left: 40%;
 	}
 	img {
 		width: 100%;
-		height: 23vh;
+		height: auto;
+		max-height: 400px;
 		border-radius: 20px;
 	}
 `
@@ -261,19 +257,18 @@ const ImageInput = styled.input`
 	display: none;
 `
 const StarTextContainer = styled.div`
-	display:flex;
-	flex-direction:column;
-	margin:5px;
+	display: flex;
+	flex-direction: column;
+	margin: 5px;
 `
 /// STAR RATING
 const StarRatingContainer = styled.div`
-	flex:1;
+	flex: 1;
 	height: 180px;
-	margin-bottom:10px;
+	margin-bottom: 10px;
 	border: 2px solid #e8e8e8;
 	border-radius: 20px;
 	padding: 1em;
-
 `
 const StarRatingItem = styled.div`
 	display: flex;
@@ -289,14 +284,14 @@ const StarRatingItem = styled.div`
 `
 
 const TextContainer = styled.div`
-	flex:1;
-	height:100px;
+	flex: 1;
+	height: 100px;
 
 	text-align: center;
 `
 const TextArea = styled.textarea`
 	width: 100%;
-	height:150px;
+	height: 150px;
 	resize: none;
 	padding: 10px;
 	border: 2px solid #e8e8e8;

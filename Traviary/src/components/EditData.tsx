@@ -1,4 +1,4 @@
-import React, { FormEvent, ChangeEvent, useState } from "react"
+import { FormEvent, ChangeEvent, useState } from "react"
 import styled from "styled-components"
 import { updateDoc, doc } from "firebase/firestore"
 import { dbService } from "../fbase"
@@ -34,16 +34,15 @@ const EditData = ({ traviObj }: any) => {
 		setEditText(value)
 	}
 
-
 	return (
 		<>
 			<Container>
 				<form onSubmit={onSubmit}>
-					<InputText  
-
-							value={editText} 
-							onChange={onChangeText} 
-							autoComplete="off"/>
+					<InputText
+						value={editText}
+						onChange={onChangeText}
+						autoComplete="off"
+					/>
 					<StarRatingContainer>
 						<StarRatingItem>
 							<span>TASTE :</span>
@@ -74,14 +73,13 @@ const Container = styled.div`
 	width: 21vw;
 	height: 33vh;
 	position: absolute;
-	left:100%;
+	left: 100%;
 	top: 50%;
 	border: 3px solid #e8e8e8;
 	border-radius: 20px;
 	overflow-wrap: break-word;
 	word-break: break-all;
 	white-space: pre-wrap;
-
 `
 
 const InputText = styled.textarea`

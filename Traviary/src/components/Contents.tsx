@@ -1,9 +1,9 @@
 /** @format */
 
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import EditData from "./EditData"
 import styled, { keyframes, css } from "styled-components"
-import { doc, deleteDoc, updateDoc } from "firebase/firestore"
+import { doc, deleteDoc } from "firebase/firestore"
 import { AiTwotoneDelete } from "react-icons/ai"
 import { BiPencil } from "react-icons/bi"
 import { dbService } from "../fbase"
@@ -22,7 +22,6 @@ const Contents = ({
 	isPostOpen: boolean
 	onClose: (e: any) => void
 }) => {
-	// console.log(traviObj.id)
 	const [open, setOpen] = useState(false)
 	const [editing, setEditing] = useState(false)
 	const [editData, setEditData] = useState(false)
@@ -39,7 +38,6 @@ const Contents = ({
 	const toggleEditing = () => {
 		setEditData((prev) => !prev)
 	}
-
 
 	useEffect(() => {
 		if (traviObj.createdId === userObj.uid) {
@@ -76,7 +74,7 @@ const Contents = ({
 										/>
 										{editData ? (
 											<>
-												<EditData traviObj={traviObj} isOpen={open}/>
+												<EditData traviObj={traviObj} isOpen={open} />
 											</>
 										) : (
 											<></>
@@ -164,10 +162,9 @@ const slideOut = keyframes`
 const PostContainer = styled.div<{ visible: boolean }>`
 	border-radius: 10px;
 	width: 100%;
-  max-width:450px;
-  height:100%;
+	max-width: 450px;
+	height: 100%;
 	max-height: 750px;
-
 
 	background: #fff;
 
@@ -177,28 +174,24 @@ const PostContainer = styled.div<{ visible: boolean }>`
 	left: 35%;
 
 	${(props) => modalSettings(props.visible)}
-
-
 `
 
 const Wrapper = styled.div`
 	width: 100%;
-  max-width:450px;
-  max-height: 750px;
+	max-width: 450px;
+	max-height: 750px;
 	height: 64vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	z-index: 1;
-
-
 `
 
 /// HEADER --- HEADER
 const PostHeader = styled.header`
 	width: 100%;
-  max-width:450px;
+	max-width: 450px;
 	height: 5rem;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 	border-top-left-radius: 10px;
@@ -206,8 +199,8 @@ const PostHeader = styled.header`
 	background: var(--tab-bgcolor);
 `
 const HeaderWrapper = styled.div`
-  width: 100%;
-  max-width:450px;
+	width: 100%;
+	max-width: 450px;
 	height: 100%;
 	display: flex;
 `
@@ -248,63 +241,56 @@ const Icons = styled.div`
 
 // CONTENT //
 const ContentContainer = styled.div`
-  width: 100%;
-  max-width:450px;
+	width: 100%;
+	max-width: 450px;
 	height: 60vh;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-
 `
 
 // CONTENT --- Image////////
 const ImageContainer = styled.div`
-  width: 100%;
-  max-width:450px;
+	width: 100%;
+	max-width: 450px;
 
-  height: auto;
-  max-height:400px;
-  
-  border-top:2px solid #fff;
-  border-bottom:2px solid rgba(0,0,0,0.2);
-  box-shadow:2px 0 0 rgba(0,0,0,0.2);
-  margin-bottom: 10px;
+	height: auto;
+	max-height: 400px;
 
-  display: flex;
-  flex-direction: column;
+	border-top: 2px solid #fff;
+	border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+	box-shadow: 2px 0 0 rgba(0, 0, 0, 0.2);
+	margin-bottom: 10px;
 
-
-
+	display: flex;
+	flex-direction: column;
 `
-
 const Image = styled.img`
 	width: 100%;
-  max-width:450px;
+	max-width: 450px;
 	height: auto;
 	max-height: 400px;
 	padding: 1em;
 	text-align: center;
 	margin: auto;
-
 `
 
 //CONTETN -  TEXT//
 const TextStatContainer = styled.div`
-  width: 100%;
-  max-width:450px;
-	height:100%;
-  max-height: 350px;
+	width: 100%;
+	max-width: 450px;
+	height: 100%;
+	max-height: 350px;
 	display: flex;
 
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-around;
-
 `
 const TextContainer = styled.div`
 	width: 200px;
-  height:100%;
-  max-height: 350px;
+	height: 100%;
+	max-height: 350px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -320,14 +306,14 @@ const TextContent = styled.span`
 	width: 200px;
 	padding: 15px;
 	height: 100%;
-  max-height: 350px;
+	max-height: 350px;
 	font-size: 1.3em;
 	text-align: left;
 	border: solid 1px var(--color-gray0);
 	border-radius: 10px;
 	display: flex;
 	margin: 10px;
-  overflow-wrap: break-word;
+	overflow-wrap: break-word;
 	word-break: break-all;
 	white-space: pre-wrap;
 `
@@ -335,14 +321,13 @@ const TextContent = styled.span`
 // CONTENT - Stat //
 const StatContainer = styled.div`
 	width: 200px;
-  height:100%;
-  max-height: 350px;
-  max-height: 350px;
+	height: 100%;
+	max-height: 350px;
+	max-height: 350px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin: 10px;
-
 `
 const StatWrapper = styled.ul`
 	width: 200px;
@@ -352,7 +337,7 @@ const StatWrapper = styled.ul`
 	display: flex;
 	padding: 10px;
 	flex-direction: column;
-	margin: 10px 15px; 
+	margin: 10px 15px;
 
 	font-family: "Gill Sans", sans-serif;
 	font-weight: 600;
@@ -362,7 +347,6 @@ const StatWrapper = styled.ul`
 		margin: 20px 0;
 	}
 `
-
 // TITLE
 
 const SubTitle = styled.div`
@@ -387,7 +371,6 @@ const Note = styled(TbNotes)`
 	width: 30px;
 	margin: 0;
 `
-
 const Name = styled.div`
 	width: max-content;
 	font-size: 1.7em;
@@ -397,5 +380,4 @@ const Name = styled.div`
 
 	text-align: center;
 	color: var(--main-color);
-
 `

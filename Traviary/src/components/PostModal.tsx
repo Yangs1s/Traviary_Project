@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react"
-import { useSpring, animated } from "react-spring"
-import styled ,{css,keyframes}from "styled-components"
+import styled, { css, keyframes } from "styled-components"
 import AddPosting from "./AddPosting"
 
 type PostType = {
@@ -15,7 +14,7 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 		{
 			isModalOpen
 				? (document.body.style.overflow = "hidden")
-				: (document.body.style.overflow= "scroll")
+				: (document.body.style.overflow = "scroll")
 		}
 	})
 
@@ -28,20 +27,17 @@ const AddPost = ({ isModalOpen, setIsModalOpen, userObj }: PostType) => {
 	// 모달 애니메이션 //
 	const modalRef: any = useRef()
 
-
-
 	return (
 		<>
 			{isModalOpen ? (
 				<Background ref={modalRef} onClick={onClose} visible={isModalOpen}>
-						<AddPosting userObj={userObj} isModalOpen={isModalOpen} />
+					<AddPosting userObj={userObj} isModalOpen={isModalOpen} />
 				</Background>
 			) : null}
 		</>
 	)
 }
 export default AddPost
-
 
 const slideIn = keyframes`
   0% {
@@ -70,12 +66,12 @@ const modalSettings = (visible: boolean) => css`
 	transition: visibility 0.45s ease-out;
 `
 
-const Background = styled.div<{visible:boolean}>`
+const Background = styled.div<{ visible: boolean }>`
 	width: 100%;
 	height: 100%;
 	position: fixed;
 	display: flex;
 	top: 100px;
-  	overflow:scroll;
+	overflow: scroll;
 	${(props) => modalSettings(props.visible)}
 `

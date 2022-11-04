@@ -1,4 +1,3 @@
-import React from "react"
 import styled from "styled-components"
 import { ImStarFull } from "react-icons/im"
 
@@ -7,11 +6,9 @@ type lengthProp = {
 }
 
 const RatingStar = styled(ImStarFull)`
-{
-    color:#ffe91e;
-  
-    }
-
+	 {
+		color: #ffe91e;
+	}
 `
 
 const ReadStar = ({ ratingLength }: lengthProp) => {
