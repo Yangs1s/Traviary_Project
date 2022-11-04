@@ -7,7 +7,7 @@ import SocialLogin from "./SocialLogin"
 
 // react-icons
 import { GiPalmTree } from "react-icons/gi"
-import { BiLogIn } from "react-icons/bi"
+
 import { BiLogOut } from "react-icons/bi"
 import { MdPostAdd } from "react-icons/md"
 
