@@ -50,14 +50,13 @@ const Main = () => {
     setIsOpenPost(prev => !prev);
   };
 
-  console.log(isLoading);
   return (
     <Container className="main_container">
       <GridContainer className="grid">
         {travis.map(
           (travi: TraviProp) =>
             isLoading && (
-              <ImgItem key={travi.id}>
+              <ImgItem key={`${travi.id}${travi.creatAt}ss`}>
                 <img
                   id={travi.id}
                   src={travi.fileAttachURL}
@@ -72,7 +71,7 @@ const Main = () => {
 
       {travis.map(travi => {
         return (
-          <div key={`${travi.creatAt}`}>
+          <div key={`${travi.createdId} ${travi.id}`}>
             {postId === travi.id ? (
               <Card
                 isPostOpen={!isOpenPost}

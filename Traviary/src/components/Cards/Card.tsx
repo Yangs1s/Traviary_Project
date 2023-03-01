@@ -37,10 +37,16 @@ const Card = ({ traviObj, isPostOpen, userObj, onClose }: ModalBaseProps) => {
   const handlePostClose = () => {
     setOpen(false);
   };
-  console.log(traviObj);
   return (
     <>
-      <Background ref={modalRef} visible={isPostOpen} onClick={onClose} />
+      <Background
+        ref={modalRef}
+        visible={isPostOpen}
+        onClick={handlePostClose}
+        className="back"
+      >
+        &nbsp;
+      </Background>
       <CardInfo
         traviObj={traviObj}
         userObj={userObj}
@@ -83,10 +89,10 @@ const modalSettings = (visible: boolean) => css`
 const Background = styled.div<{ visible: boolean }>`
   width: 100%;
   height: 100%;
-  position: fixed;
-  display: flex;
-  top: 100px;
-  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
 
   ${props => modalSettings(props.visible)}
 `;
