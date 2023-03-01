@@ -160,7 +160,7 @@ const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
                 </StarRatingItem>
               </StarRatingContainer>
               <TagCotainer>
-                <form>
+                <HashTags>
                   <input
                     type="text"
                     id="hashtagText"
@@ -170,9 +170,7 @@ const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
                   <button type="button" onClick={TagsSubmit} id={"tagBtn"}>
                     Tag
                   </button>
-                </form>
 
-                <HashTags>
                   {hashTags.map((item, index) => {
                     return (
                       <TagsWrap className={"wrap"}>
@@ -367,7 +365,7 @@ const TagCotainer = styled.div`
 `;
 const HashTags = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 const Tag = styled.span`
   width: auto;
