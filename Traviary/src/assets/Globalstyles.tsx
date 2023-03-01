@@ -1,5 +1,7 @@
-import { createGlobalStyle } from "styled-components"
-import reset from "styled-reset"
+/** @format */
+
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -57,6 +59,9 @@ button:disabled {
 li {
   list-style: none;
 }
-`
+&::-webkit-scrollbar {
+    width: 1px;
+  }
+`;
 
-export default GlobalStyle
+export default GlobalStyle;

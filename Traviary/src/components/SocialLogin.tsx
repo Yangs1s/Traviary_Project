@@ -20,8 +20,6 @@ const SocialLogin = () => {
     let provider: any;
     if (name === "google") {
       provider = new GoogleAuthProvider();
-    } else if (name === "github") {
-      provider = new GithubAuthProvider();
     }
     const data = await signInWithPopup(authService, provider);
     navigate("/main");
@@ -32,10 +30,7 @@ const SocialLogin = () => {
     <>
       <IconWrapper>
         <Button onClick={onSocialClick} name="google">
-          goggle
-        </Button>
-        <Button onClick={onSocialClick} name="github">
-          <AiFillGithub className="icon" />
+          GOGGLE
         </Button>
       </IconWrapper>
     </>
@@ -52,18 +47,12 @@ const IconWrapper = styled.div`
   }
 `;
 
-const Img = styled.img`
-  box-sizing: border-box;
-  width: 30px;
-  background-color: #ff0063;
-`;
 const Button = styled.button`
   outline: none;
   border: none;
   padding: 1px;
   background: transparent;
   width: 60px;
-  .icon {
-    width: 30px;
-  }
+  font-size: 20px;
+  color: #fff;
 `;

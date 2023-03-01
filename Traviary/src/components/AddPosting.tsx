@@ -2,7 +2,6 @@
 
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import styled, { css, keyframes } from "styled-components";
-
 import {
   addDoc,
   collection,
@@ -47,14 +46,12 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
         ...dosc.data(),
       }));
       setInfoTravi(traviArr);
-      console.log(isModal);
     });
   }, []);
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     let fileAttachURL = "";
-
     const attachmentRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
     const response = await uploadString(attachmentRef, fileAttach, "data_url");
     fileAttachURL = await getDownloadURL(response.ref);
@@ -74,7 +71,6 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
     setPostText("");
     setFileAttach("");
     setIsModal(prev => !prev);
-    console.log(isModal);
   };
 
   const onChange = (
@@ -84,7 +80,6 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
       target: { value },
     } = event;
     setPostText(value);
-    console.log(value);
   };
 
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -165,6 +160,7 @@ const AddPosting = ({ userObj, isModalOpen }: userObjType) => {
 };
 
 export default AddPosting;
+
 const modalSettings = (visible: boolean) => css`
   visibility: ${visible ? "visible" : "hidden"};
   z-index: 15;
@@ -184,7 +180,7 @@ const slideIn = keyframes`
 
 const slideOut = keyframes`
 0% {
-	opacity:1
+	opacity:1;
   }
 
   100% {
@@ -195,11 +191,9 @@ const slideOut = keyframes`
 const Container = styled.form<{ visible: boolean }>`
   background: #fff;
   display: flex;
-
   width: 700px;
-  height: 100%;
+  height: auto;
   max-height: 450px;
-
   border: 2px solid #efefef;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
   position: absolute;
@@ -250,9 +244,7 @@ const ImageLabel = styled.label`
   img {
     width: 100%;
     height: auto;
-
     max-height: 400px;
-
     border-radius: 20px;
   }
 `;
@@ -289,7 +281,6 @@ const StarRatingItem = styled.div`
 const TextContainer = styled.div`
   flex: 1;
   height: 100px;
-
   text-align: center;
 `;
 const TextArea = styled.textarea`
