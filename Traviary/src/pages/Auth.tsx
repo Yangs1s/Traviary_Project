@@ -1,11 +1,11 @@
-import SocialLogin from "../components/SocialLogin"
+import SocialLogin from "@components/Auth/SocialLogin";
 
 const Auth = () => {
 	return (
 		<>
 			<SocialLogin />
 		</>
-	)
-}
+	);
+};
 
-export default Auth
+export default Auth;
