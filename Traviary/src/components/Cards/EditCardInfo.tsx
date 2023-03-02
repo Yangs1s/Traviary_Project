@@ -86,16 +86,28 @@ const EditCardInfo = ({ traviObj, isToggle, userObj }: EditCardInfo) => {
 					</SubTitle>
 					<StatWrapper>
 						<li>
-							Taste:&nbsp;
-							<StraRating ratingIndex={taste} setRatingIndex={setTaste} />
+							<p>Taste:</p>
+							<StraRating
+								ratingIndex={taste}
+								setRatingIndex={setTaste}
+								starSize={15}
+							/>
 						</li>
 						<li>
-							Price:&nbsp;
-							<StraRating ratingIndex={price} setRatingIndex={setPrice} />
+							<p>Price:</p>
+							<StraRating
+								ratingIndex={price}
+								setRatingIndex={setPrice}
+								starSize={15}
+							/>
 						</li>
 						<li>
-							Visual:&nbsp;
-							<StraRating ratingIndex={visual} setRatingIndex={setVisual} />
+							<p>Visual:</p>
+							<StraRating
+								ratingIndex={visual}
+								setRatingIndex={setVisual}
+								starSize={15}
+							/>
 						</li>
 					</StatWrapper>
 					<HashTags>
@@ -207,9 +219,10 @@ const StatWrapper = styled.ul`
 	font-family: "Gill Sans", sans-serif;
 	font-weight: 600;
 	li {
-		font-size: 2rem;
+		font-size: 1.5rem;
 		text-align: left;
-		margin: 5px 0;
+		display: flex;
+		padding: 5px 0;
 	}
 	@media screen and (min-width: 280px) and (max-width: 770px) {
 		width: 70vw;
@@ -342,12 +355,10 @@ const HashTags = styled.div`
 `
 const Tag = styled.span`
 	width: auto;
-	background: green;
-	margin: 3px;
-	color: #fff;
-	font-size: 15px;
-	padding: 5px;
-	border-radius: 15px;
+	margin: 0 3px 0 0;
+	color: #313131;
+	font-size: 14px;
+	padding: 3px;
 	@media screen and (min-width: 280px) and (max-width: 770px) {
 		width: auto;
 		font-size: 11px;
