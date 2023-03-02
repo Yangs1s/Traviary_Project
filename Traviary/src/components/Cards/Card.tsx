@@ -93,6 +93,5 @@ const Background = styled.div<{ visible: boolean }>`
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.6);
-
   ${props => modalSettings(props.visible)}
 `;
