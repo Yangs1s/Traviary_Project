@@ -46,101 +46,107 @@ const CardInfo = ({
 		}
 	})
 	return (
-		<>
-			<PostContainer visible={isPostOpen}>
-				<Wrapper>
-					<PostHeader>
-						<HeaderWrapper>
-							<Closebox>
-								<CloseBtn type="button" onClick={onClose}>
-									<span>🆇</span>
-								</CloseBtn>
-							</Closebox>
-							<Icons>
-								{editing ? (
-									<>
-										<AiTwotoneDelete
-											className="icons"
-											role="button"
-											onClick={onDeleteClick}
-										/>
-										<BiPencil
-											className="icons"
-											role="button"
-											onClick={toggleEditing}
-										/>
-										{editData ? (
-											<>
-												<EditCardInfo
-													traviObj={traviObj}
-													isToggle={toggleEditing}
-												/>
-											</>
-										) : (
-											<></>
-										)}
-									</>
-								) : (
-									<></>
-								)}
-							</Icons>
-						</HeaderWrapper>
-					</PostHeader>
+		<PostContainer visible={isPostOpen}>
+			<Wrapper>
+				<PostHeader>
+					<HeaderWrapper>
+						<Closebox>
+							<CloseBtn type="button" onClick={onClose}>
+								<span>🆇</span>
+							</CloseBtn>
+						</Closebox>
+						<Icons>
+							{editing ? (
+								<>
+									<AiTwotoneDelete
+										className="icons"
+										role="button"
+										onClick={onDeleteClick}
+									/>
+									<BiPencil
+										className="icons"
+										role="button"
+										onClick={toggleEditing}
+									/>
+									{editData ? (
+										<>
+											<EditCardInfo
+												traviObj={traviObj}
+												isToggle={toggleEditing}
+											/>
+										</>
+									) : (
+										<></>
+									)}
+								</>
+							) : (
+								<></>
+							)}
+						</Icons>
+					</HeaderWrapper>
+				</PostHeader>
 
-					<ContentContainer>
-						<ImageContainer>
-							<Image src={traviObj.fileAttachURL} id={traviObj.id} />
-						</ImageContainer>
+				<ContentContainer>
+					<ImageContainer>
+						<Image src={traviObj.fileAttachURL} id={traviObj.id} />
+					</ImageContainer>
 
-						<TextStatContainer>
-							<StatContainer>
-								<SubTitle>
-									<Star />
-									<Name> RATING </Name>
-								</SubTitle>
-								<StatWrapper>
-									<li>
-										Taste:&nbsp;
-										<ReadStar ratingLength={traviObj.ratings.tasterating} />
-									</li>
-									<li>
-										Price:&nbsp;
-										<ReadStar ratingLength={traviObj.ratings.pricerating} />
-									</li>
-									<li>
-										Visual:&nbsp;
-										<ReadStar ratingLength={traviObj.ratings.visualrating} />
-									</li>
-								</StatWrapper>
-								<HashTags>
-									TAG:
-									{traviObj.hashtag.map((item: any) => {
-										return <Tag> #{item}</Tag>
-									})}
-								</HashTags>
-							</StatContainer>
+					<TextStatContainer>
+						<StatContainer>
+							<SubTitle>
+								<Star />
+								<Name> RATING </Name>
+							</SubTitle>
+							<StatWrapper>
+								<li>
+									Taste:&nbsp;
+									<ReadStar ratingLength={traviObj.ratings.tasterating} />
+								</li>
+								<li>
+									Price:&nbsp;
+									<ReadStar ratingLength={traviObj.ratings.pricerating} />
+								</li>
+								<li>
+									Visual:&nbsp;
+									<ReadStar ratingLength={traviObj.ratings.visualrating} />
+								</li>
+							</StatWrapper>
+							<HashTags>
+								<p>TAG:</p>
+								{traviObj.hashtag.map((item: any) => {
+									return <Tag>#{item}</Tag>
+								})}
+							</HashTags>
+						</StatContainer>
 
-							<TextContainer>
-								<SubTitle>
-									<Note />
-									<Name> POST </Name>
-								</SubTitle>
+						<TextContainer>
+							<SubTitle>
+								<Note />
+								<Name> POST </Name>
+							</SubTitle>
 
-								<TextContent>{traviObj.text}</TextContent>
-							</TextContainer>
-						</TextStatContainer>
-					</ContentContainer>
-				</Wrapper>
-			</PostContainer>
-		</>
+							<TextContent>{traviObj.text}</TextContent>
+						</TextContainer>
+					</TextStatContainer>
+				</ContentContainer>
+			</Wrapper>
+		</PostContainer>
 	)
 }
 
 export default CardInfo
+
 const HashTags = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		width: 70vw;
+		height: auto;
+		p {
+			display: none;
+		}
+	}
 `
 const Tag = styled.span`
 	width: auto;
@@ -148,8 +154,13 @@ const Tag = styled.span`
 	margin: 3px;
 	color: #fff;
 	font-size: 15px;
-	padding: 3px;
-	border-radius: 20px;
+	padding: 5px;
+	border-radius: 15px;
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		width: auto;
+		font-size: 11px;
+		padding: 3px;
+	}
 `
 
 const modalSettings = (visible: boolean) => css`
@@ -181,74 +192,77 @@ const slideOut = keyframes`
 
 const PostContainer = styled.div<{ visible: boolean }>`
 	border-radius: 10px;
-	width: 100%;
-	max-width: 450px;
-	height: 100%;
-	max-height: 750px;
-
+	width: 65vw;
+	height: 63vh;
 	background: #fff;
-
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	z-index: 9999;
+	z-index: 100;
 
 	${(props) => modalSettings(props.visible)}
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		width: 80vw;
+		height: 80vh;
+	}
 `
 
 const Wrapper = styled.div`
-	width: 100%;
-	max-width: 450px;
-	max-height: 750px;
-	height: 64vh;
+	width: 65vw;
+	height: 60vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	z-index: 1;
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		width: 80vw;
+	}
 `
 
 /// HEADER --- HEADER
 const PostHeader = styled.header`
 	width: 100%;
-	max-width: 450px;
-	height: 5rem;
+	height: 6vh;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	background: var(--tab-bgcolor);
 `
 const HeaderWrapper = styled.div`
-	width: 100%;
-	max-width: 450px;
-	height: 100%;
+	width: 65vw;
+	height: 6vh;
 	display: flex;
+	justify-content: center;
 `
 const Closebox = styled.div`
-	width: 100%;
-	height: 100%;
+	width: 58vw;
+	float: left;
 	padding-left: 5px;
-	display: flex;
+	display: inherit;
 `
 
 const CloseBtn = styled.button`
-	width: 10%;
+	width: 3vw;
+	height: 3vh;
 	outline: none;
 	border: none;
-	margin: 0;
+	margin-top: 0;
 	background: transparent;
 	span {
 		font-size: 3em;
 		color: var(--main-color);
 	}
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		span {
+			font-size: 2.6em;
+		}
+	}
 `
 
 const Icons = styled.div`
-	width: 100%;
-	height: 100%;
-	margin: 0 2em;
 	display: flex;
 	align-items: center;
 	.icons {
@@ -262,71 +276,88 @@ const Icons = styled.div`
 
 // CONTENT //
 const ContentContainer = styled.div`
-	width: 100%;
-	max-width: 450px;
+	width: 65vw;
 	height: 60vh;
 	display: flex;
 	align-items: center;
-	flex-direction: column;
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		flex-direction: column;
+	}
 `
 
 // CONTENT --- Image////////
 const ImageContainer = styled.div`
-	width: 100%;
-	max-width: 450px;
-
-	height: auto;
-	max-height: 400px;
-
+	width: 48vw;
 	border-top: 2px solid #fff;
 	border-bottom: 2px solid rgba(0, 0, 0, 0.2);
 	box-shadow: 2px 0 0 rgba(0, 0, 0, 0.2);
 	margin-bottom: 10px;
-
 	display: flex;
-	flex-direction: column;
+	margin: 15px 1px 1px 4px;
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		width: 60vw;
+		max-width: 350px;
+	}
 `
 const Image = styled.img`
-	width: 100%;
-	max-width: 450px;
+	width: auto;
+	max-width: 24vw;
 	height: auto;
-	max-height: 400px;
 	padding: 1em;
 	text-align: center;
 	margin: auto;
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		padding: 1px;
+		width: 60vw;
+		max-width: 350px;
+	}
 `
 
 //CONTETN -  TEXT//
 const TextStatContainer = styled.div`
-	width: 100%;
-	max-width: 450px;
-	height: 100%;
-	max-height: 350px;
+	width: 48vw;
+	height: 50vh;
 	display: flex;
-
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-around;
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		width: 70vw;
+		flex-direction: column;
+	}
 `
 const TextContainer = styled.div`
-	width: 200px;
-	height: 100%;
+	width: 15vw;
+	height: 50vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	border-radius: 10px;
-	margin: 10px;
+	margin: 5px;
 
-	@media screen and (max-width: 770px) {
-		font-size: 0.5em;
+	@media screen and (min-width: 280px) and (max-width: 480px) {
+		width: 60vw;
+		margin: 0px;
 		height: 10vh;
+		li {
+			font-size: 13px;
+			margin: 0px;
+		}
+	}
+	@media screen and (min-width: 481px) and (max-width: 770px) {
+		width: 60vw;
+		margin: 0px;
+		height: 10vh;
+		li {
+			font-size: 1.8rem;
+			margin: 0px;
+		}
 	}
 `
 const TextContent = styled.span`
-	width: 200px;
+	width: 14vw;
+	height: 48vh;
 	padding: 10px;
-	height: 80%;
-	max-height: 350px;
 	font-size: 1.3em;
 	text-align: left;
 	border: solid 1px var(--color-gray0);
@@ -336,35 +367,73 @@ const TextContent = styled.span`
 	overflow-wrap: break-word;
 	word-break: break-all;
 	white-space: pre-wrap;
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		width: 60vw;
+		margin: 0px;
+		border: 0;
+		border-top: solid 1px var(--color-gray0);
+		border-radius: 0;
+		padding: 3px;
+		margin-top: 5px;
+	}
 `
 
 // CONTENT - Stat //
 const StatContainer = styled.div`
-	width: 200px;
-	height: 100%;
-	max-height: 350px;
-	max-height: 350px;
+	width: 15vw;
+	height: 50vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 10px;
+	margin-left: 5px;
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		width: 70vw;
+		height: auto;
+		text-align: center;
+	}
 `
 const StatWrapper = styled.ul`
-	width: 200px;
+	width: 14vw;
 	height: auto;
 	border: solid 1px var(--color-gray0);
 	border-radius: 10px;
 	display: flex;
 	padding: 10px;
 	flex-direction: column;
-	margin: 10px 15px;
-
+	margin: 5px 0;
 	font-family: "Gill Sans", sans-serif;
 	font-weight: 600;
 	li {
 		font-size: 2rem;
 		text-align: left;
 		margin: 5px 0;
+	}
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		width: 70vw;
+		height: 13px;
+		margin: 0;
+		font-weight: 500;
+		flex-direction: row;
+		justify-content: center;
+		border: 0;
+		padding: 1px;
+	}
+	@media screen and (min-width: 280px) and (max-width: 480px) {
+		li {
+			font-size: 13px;
+			margin: 0px;
+		}
+	}
+	@media screen and (min-width: 481px) and (max-width: 770px) {
+		li {
+			font-size: 1.8rem;
+			margin: 0px;
+		}
+	}
+	@media screen and (min-width: 771px) and (max-width: 1150px) {
+		li {
+			font-size: 1rem;
+		}
 	}
 `
 // TITLE
@@ -379,6 +448,9 @@ const SubTitle = styled.div`
 	border-radius: 10px;
 	padding: 3px;
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+	@media screen and (min-width: 280px) and (max-width: 770px) {
+		display: none;
+	}
 `
 const Star = styled(BsStars)`
 	color: var(--main-color);
