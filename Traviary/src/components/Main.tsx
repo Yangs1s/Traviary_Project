@@ -19,6 +19,7 @@ const Main = () => {
   const [travis, setTravis] = useState<TraviProp[]>([]);
   const [postId, setPostId] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
+  const authId = authService.currentUser?.uid;
 
   useEffect(() => {
     setTimeout(() => {
@@ -53,19 +54,18 @@ const Main = () => {
   return (
     <Container className="main_container">
       <GridContainer className="grid">
-        {travis.map(
-          (travi: TraviProp) =>
-            isLoading && (
-              <ImgItem key={`${travi.id}${travi.creatAt}ss`}>
-                <img
-                  id={travi.id}
-                  src={travi.fileAttachURL}
-                  alt="게시글이미지"
-                  onClick={handleOpenPost}
-                  className="image"
-                />
-              </ImgItem>
-            )
+        {travis.map((travi: TraviProp) =>
+          authId === travi.createdId ? (
+            <ImgItem key={`${travi.id}${travi.creatAt}ss`}>
+              <img
+                id={travi.id}
+                src={travi.fileAttachURL}
+                alt="게시글이미지"
+                onClick={handleOpenPost}
+                className="image"
+              />
+            </ImgItem>
+          ) : null
         )}
       </GridContainer>
 
