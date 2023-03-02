@@ -4,8 +4,10 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { authService } from "@/fbase";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { useState } from "react";
 
 const SocialLogin = () => {
+  const [isLoggined, setIsLoggined] = useState(false);
   const navigate = useNavigate();
   const onSocialClick = async (event: any) => {
     let provider: any;
@@ -14,21 +16,18 @@ const SocialLogin = () => {
     }
     const data = await signInWithPopup(authService, provider);
     if (data) {
-      navigate("/main");
-    } else {
-      return "";
+      setIsLoggined(true);
+      navigate("main");
     }
     console.log(data);
   };
 
   return (
-    <>
-      <IconWrapper>
-        <Button onClick={onSocialClick} name="google">
-          Goggle
-        </Button>
-      </IconWrapper>
-    </>
+    <IconWrapper>
+      <Button onClick={onSocialClick} name="google">
+        Goggle
+      </Button>
+    </IconWrapper>
   );
 };
 
