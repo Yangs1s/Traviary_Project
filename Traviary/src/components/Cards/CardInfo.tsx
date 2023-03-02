@@ -1,165 +1,163 @@
 /** @format */
 
-import { useEffect, useState } from "react";
-import { doc, deleteDoc } from "firebase/firestore";
-import { dbService } from "@/fbase";
-import EditCardInfo from "./EditCardInfo";
-import ReadStar from "@components/ReadStar";
-import { AiTwotoneDelete } from "react-icons/ai";
-import { BiPencil } from "react-icons/bi";
-import { TbNotes } from "react-icons/tb";
-import { BsStars } from "react-icons/bs";
-import styled, { keyframes, css } from "styled-components";
+import { useEffect, useState } from "react"
+import { doc, deleteDoc } from "firebase/firestore"
+import { dbService } from "@/fbase"
+import EditCardInfo from "./EditCardInfo"
+import ReadStar from "@components/ReadStar"
+import { AiTwotoneDelete } from "react-icons/ai"
+import { BiPencil } from "react-icons/bi"
+import { TbNotes } from "react-icons/tb"
+import { BsStars } from "react-icons/bs"
+import styled, { keyframes, css } from "styled-components"
 
 const CardInfo = ({
-  traviObj,
-  userObj,
-  isPostOpen,
-  onClose,
+	traviObj,
+	userObj,
+	isPostOpen,
+	onClose,
 }: {
-  traviObj: any;
-  userObj: any;
-  isPostOpen: boolean;
-  onClose: (e: any) => void;
+	traviObj: any
+	userObj: any
+	isPostOpen: boolean
+	onClose: (e: any) => void
 }) => {
-  const [editing, setEditing] = useState<boolean>(false);
-  const [editData, setEditData] = useState<boolean>(false);
+	const [editing, setEditing] = useState<boolean>(false)
+	const [editData, setEditData] = useState<boolean>(false)
 
-  const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`);
+	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
 
-  const onDeleteClick = async () => {
-    const Ok = window.confirm("삭제하시겠습니까???");
-    if (Ok) {
-      await deleteDoc(TraviRef);
-    }
-  };
+	const onDeleteClick = async () => {
+		const Ok = window.confirm("삭제하시겠습니까???")
+		if (Ok) {
+			await deleteDoc(TraviRef)
+		}
+	}
 
-  const toggleEditing = () => {
-    setEditData(prev => !prev);
-  };
+	const toggleEditing = () => {
+		setEditData((prev) => !prev)
+	}
 
-  useEffect(() => {
-    if (traviObj.createdId === userObj.uid) {
-      setEditing(true);
-    } else {
-      setEditing(false);
-    }
-  });
-  return (
-    <>
-      <PostContainer visible={isPostOpen}>
-        <Wrapper>
-          <PostHeader>
-            <HeaderWrapper>
-              <Closebox>
-                <CloseBtn type="button" onClick={onClose}>
-                  <span>🆇</span>
-                </CloseBtn>
-              </Closebox>
+	useEffect(() => {
+		if (traviObj.createdId === userObj.uid) {
+			setEditing(true)
+		} else {
+			setEditing(false)
+		}
+	})
+	return (
+		<>
+			<PostContainer visible={isPostOpen}>
+				<Wrapper>
+					<PostHeader>
+						<HeaderWrapper>
+							<Closebox>
+								<CloseBtn type="button" onClick={onClose}>
+									<span>🆇</span>
+								</CloseBtn>
+							</Closebox>
+							<Icons>
+								{editing ? (
+									<>
+										<AiTwotoneDelete
+											className="icons"
+											role="button"
+											onClick={onDeleteClick}
+										/>
+										<BiPencil
+											className="icons"
+											role="button"
+											onClick={toggleEditing}
+										/>
+										{editData ? (
+											<>
+												<EditCardInfo
+													traviObj={traviObj}
+													isToggle={toggleEditing}
+												/>
+											</>
+										) : (
+											<></>
+										)}
+									</>
+								) : (
+									<></>
+								)}
+							</Icons>
+						</HeaderWrapper>
+					</PostHeader>
 
-              <Icons>
-                {editing ? (
-                  <>
-                    <AiTwotoneDelete
-                      className="icons"
-                      role="button"
-                      onClick={onDeleteClick}
-                    />
-                    <BiPencil
-                      className="icons"
-                      role="button"
-                      onClick={toggleEditing}
-                    />
-                    {editData ? (
-                      <>
-                        <EditCardInfo
-                          traviObj={traviObj}
-                          isToggle={toggleEditing}
-                        />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                ) : (
-                  <></>
-                )}
-              </Icons>
-            </HeaderWrapper>
-          </PostHeader>
+					<ContentContainer>
+						<ImageContainer>
+							<Image src={traviObj.fileAttachURL} id={traviObj.id} />
+						</ImageContainer>
 
-          <ContentContainer>
-            <ImageContainer>
-              <Image src={traviObj.fileAttachURL} id={traviObj.id} />
-            </ImageContainer>
+						<TextStatContainer>
+							<StatContainer>
+								<SubTitle>
+									<Star />
+									<Name> RATING </Name>
+								</SubTitle>
+								<StatWrapper>
+									<li>
+										Taste:&nbsp;
+										<ReadStar ratingLength={traviObj.ratings.tasterating} />
+									</li>
+									<li>
+										Price:&nbsp;
+										<ReadStar ratingLength={traviObj.ratings.pricerating} />
+									</li>
+									<li>
+										Visual:&nbsp;
+										<ReadStar ratingLength={traviObj.ratings.visualrating} />
+									</li>
+								</StatWrapper>
+								<HashTags>
+									TAG:
+									{traviObj.hashtag.map((item: any) => {
+										return <Tag> #{item}</Tag>
+									})}
+								</HashTags>
+							</StatContainer>
 
-            <TextStatContainer>
-              <StatContainer>
-                <SubTitle>
-                  <Star />
-                  <Name> RATING </Name>
-                </SubTitle>
-                <StatWrapper>
-                  <li>
-                    Taste:&nbsp;
-                    <ReadStar ratingLength={traviObj.ratings.tasterating} />
-                  </li>
-                  <li>
-                    Price:&nbsp;
-                    <ReadStar ratingLength={traviObj.ratings.pricerating} />
-                  </li>
-                  <li>
-                    Visual:&nbsp;
-                    <ReadStar ratingLength={traviObj.ratings.visualrating} />
-                  </li>
-                </StatWrapper>
-                <HashTags>
-                  TAG:
-                  {traviObj.hashtag.map((item: any) => {
-                    console.log(item);
-                    return <Tag> #{item}</Tag>;
-                  })}
-                </HashTags>
-              </StatContainer>
+							<TextContainer>
+								<SubTitle>
+									<Note />
+									<Name> POST </Name>
+								</SubTitle>
 
-              <TextContainer>
-                <SubTitle>
-                  <Note />
-                  <Name> POST </Name>
-                </SubTitle>
+								<TextContent>{traviObj.text}</TextContent>
+							</TextContainer>
+						</TextStatContainer>
+					</ContentContainer>
+				</Wrapper>
+			</PostContainer>
+		</>
+	)
+}
 
-                <TextContent>{traviObj.text}</TextContent>
-              </TextContainer>
-            </TextStatContainer>
-          </ContentContainer>
-        </Wrapper>
-      </PostContainer>
-    </>
-  );
-};
-
-export default CardInfo;
+export default CardInfo
 const HashTags = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+`
 const Tag = styled.span`
-  width: auto;
-  background: green;
-  margin: 3px;
-  color: #fff;
-  font-size: 15px;
-  padding: 3px;
-  border-radius: 20px;
-`;
+	width: auto;
+	background: green;
+	margin: 3px;
+	color: #fff;
+	font-size: 15px;
+	padding: 3px;
+	border-radius: 20px;
+`
 
 const modalSettings = (visible: boolean) => css`
-  visibility: ${visible ? "visible" : "hidden"};
-  z-index: 15;
-  animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
-  transition: visibility 0.45s ease-out;
-`;
+	visibility: ${visible ? "visible" : "hidden"};
+	z-index: 15;
+	animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
+	transition: visibility 0.45s ease-out;
+`
 
 const slideIn = keyframes`
   0% {
@@ -169,7 +167,7 @@ const slideIn = keyframes`
   100% {
 	opacity:1;
   }
-`;
+`
 
 const slideOut = keyframes`
 0% {
@@ -179,225 +177,227 @@ const slideOut = keyframes`
   100% {
 	opacity:0;
   }
-`;
+`
 
 const PostContainer = styled.div<{ visible: boolean }>`
-  border-radius: 10px;
-  width: 100%;
-  max-width: 450px;
-  height: 100%;
-  max-height: 750px;
+	border-radius: 10px;
+	width: 100%;
+	max-width: 450px;
+	height: 100%;
+	max-height: 750px;
 
-  background: #fff;
+	background: #fff;
 
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  top: 140px;
-  left: 35%;
+	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999;
 
-  ${props => modalSettings(props.visible)}
-`;
+	${(props) => modalSettings(props.visible)}
+`
 
 const Wrapper = styled.div`
-  width: 100%;
-  max-width: 450px;
-  max-height: 750px;
-  height: 64vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-`;
+	width: 100%;
+	max-width: 450px;
+	max-height: 750px;
+	height: 64vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+`
 
 /// HEADER --- HEADER
 const PostHeader = styled.header`
-  width: 100%;
-  max-width: 450px;
-  height: 5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background: var(--tab-bgcolor);
-`;
+	width: 100%;
+	max-width: 450px;
+	height: 5rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background: var(--tab-bgcolor);
+`
 const HeaderWrapper = styled.div`
-  width: 100%;
-  max-width: 450px;
-  height: 100%;
-  display: flex;
-`;
+	width: 100%;
+	max-width: 450px;
+	height: 100%;
+	display: flex;
+`
 const Closebox = styled.div`
-  width: 100%;
-  height: 100%;
-  padding-left: 5px;
-  display: flex;
-`;
+	width: 100%;
+	height: 100%;
+	padding-left: 5px;
+	display: flex;
+`
 
 const CloseBtn = styled.button`
-  width: 10%;
-  outline: none;
-  border: none;
-  margin: 0;
-  background: transparent;
-  span {
-    font-size: 3em;
-    color: var(--main-color);
-  }
-`;
+	width: 10%;
+	outline: none;
+	border: none;
+	margin: 0;
+	background: transparent;
+	span {
+		font-size: 3em;
+		color: var(--main-color);
+	}
+`
 
 const Icons = styled.div`
-  width: 100%;
-  height: 100%;
-  margin: 0 2em;
-  display: flex;
-  align-items: center;
-  .icons {
-    font-size: 3.5em;
-    color: var(--main-color);
-    text-align: center;
-    margin-right: 5px;
-    padding: 0 5px;
-  }
-`;
+	width: 100%;
+	height: 100%;
+	margin: 0 2em;
+	display: flex;
+	align-items: center;
+	.icons {
+		font-size: 3.5em;
+		color: var(--main-color);
+		text-align: center;
+		margin-right: 5px;
+		padding: 0 5px;
+	}
+`
 
 // CONTENT //
 const ContentContainer = styled.div`
-  width: 100%;
-  max-width: 450px;
-  height: 60vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
+	width: 100%;
+	max-width: 450px;
+	height: 60vh;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+`
 
 // CONTENT --- Image////////
 const ImageContainer = styled.div`
-  width: 100%;
-  max-width: 450px;
+	width: 100%;
+	max-width: 450px;
 
-  height: auto;
-  max-height: 400px;
+	height: auto;
+	max-height: 400px;
 
-  border-top: 2px solid #fff;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 2px 0 0 rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
+	border-top: 2px solid #fff;
+	border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+	box-shadow: 2px 0 0 rgba(0, 0, 0, 0.2);
+	margin-bottom: 10px;
 
-  display: flex;
-  flex-direction: column;
-`;
+	display: flex;
+	flex-direction: column;
+`
 const Image = styled.img`
-  width: 100%;
-  max-width: 450px;
-  height: auto;
-  max-height: 400px;
-  padding: 1em;
-  text-align: center;
-  margin: auto;
-`;
+	width: 100%;
+	max-width: 450px;
+	height: auto;
+	max-height: 400px;
+	padding: 1em;
+	text-align: center;
+	margin: auto;
+`
 
 //CONTETN -  TEXT//
 const TextStatContainer = styled.div`
-  width: 100%;
-  max-width: 450px;
-  height: 100%;
-  max-height: 350px;
-  display: flex;
+	width: 100%;
+	max-width: 450px;
+	height: 100%;
+	max-height: 350px;
+	display: flex;
 
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-`;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+`
 const TextContainer = styled.div`
-  width: 200px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 10px;
-  margin: 10px;
+	width: 200px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 10px;
+	margin: 10px;
 
-  @media screen and (max-width: 770px) {
-    font-size: 0.5em;
-    height: 10vh;
-  }
-`;
+	@media screen and (max-width: 770px) {
+		font-size: 0.5em;
+		height: 10vh;
+	}
+`
 const TextContent = styled.span`
-  width: 200px;
-  padding: 10px;
-  height: 80%;
-  max-height: 350px;
-  font-size: 1.3em;
-  text-align: left;
-  border: solid 1px var(--color-gray0);
-  border-radius: 10px;
-  display: flex;
-  margin: 5px;
-  overflow-wrap: break-word;
-  word-break: break-all;
-  white-space: pre-wrap;
-`;
+	width: 200px;
+	padding: 10px;
+	height: 80%;
+	max-height: 350px;
+	font-size: 1.3em;
+	text-align: left;
+	border: solid 1px var(--color-gray0);
+	border-radius: 10px;
+	display: flex;
+	margin: 5px;
+	overflow-wrap: break-word;
+	word-break: break-all;
+	white-space: pre-wrap;
+`
 
 // CONTENT - Stat //
 const StatContainer = styled.div`
-  width: 200px;
-  height: 100%;
-  max-height: 350px;
-  max-height: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
-`;
+	width: 200px;
+	height: 100%;
+	max-height: 350px;
+	max-height: 350px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 10px;
+`
 const StatWrapper = styled.ul`
-  width: 200px;
-  height: auto;
-  border: solid 1px var(--color-gray0);
-  border-radius: 10px;
-  display: flex;
-  padding: 10px;
-  flex-direction: column;
-  margin: 10px 15px;
+	width: 200px;
+	height: auto;
+	border: solid 1px var(--color-gray0);
+	border-radius: 10px;
+	display: flex;
+	padding: 10px;
+	flex-direction: column;
+	margin: 10px 15px;
 
-  font-family: "Gill Sans", sans-serif;
-  font-weight: 600;
-  li {
-    font-size: 2rem;
-    text-align: left;
-    margin: 5px 0;
-  }
-`;
+	font-family: "Gill Sans", sans-serif;
+	font-weight: 600;
+	li {
+		font-size: 2rem;
+		text-align: left;
+		margin: 5px 0;
+	}
+`
 // TITLE
 
 const SubTitle = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: max-content;
-  background: var(--tab-bgcolor);
-  border-radius: 10px;
-  padding: 3px;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-`;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: max-content;
+	background: var(--tab-bgcolor);
+	border-radius: 10px;
+	padding: 3px;
+	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+`
 const Star = styled(BsStars)`
-  color: var(--main-color);
-  width: 30px;
-  font-size: 20px;
-`;
+	color: var(--main-color);
+	width: 30px;
+	font-size: 20px;
+`
 const Note = styled(TbNotes)`
-  color: var(--main-color);
-  font-size: 20px;
-  width: 30px;
-  margin: 0;
-`;
+	color: var(--main-color);
+	font-size: 20px;
+	width: 30px;
+	margin: 0;
+`
 const Name = styled.div`
-  width: max-content;
-  font-size: 1.7em;
-  font-weight: 900;
-  padding-right: 4px;
-  vertical-align: middle;
+	width: max-content;
+	font-size: 1.7em;
+	font-weight: 900;
+	padding-right: 4px;
+	vertical-align: middle;
 
-  text-align: center;
-  color: var(--main-color);
-`;
+	text-align: center;
+	color: var(--main-color);
+`

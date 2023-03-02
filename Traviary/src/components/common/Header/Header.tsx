@@ -1,45 +1,45 @@
 /** @format */
 
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import GlobalStyle from "@/assets/Globalstyles";
-import SocialLogin from "@components/Auth/SocialLogin";
+import { useEffect, useState } from "react"
+import styled from "styled-components"
+import GlobalStyle from "@/assets/Globalstyles"
+import SocialLogin from "@components/Auth/SocialLogin"
 
 // react-icons
-import { GiPalmTree } from "react-icons/gi";
-import { BiLogOut } from "react-icons/bi";
-import { MdPostAdd } from "react-icons/md";
+import { GiPalmTree } from "react-icons/gi"
+import { BiLogOut } from "react-icons/bi"
+import { MdPostAdd } from "react-icons/md"
 
-import { Link, useNavigate } from "react-router-dom";
-import { authService } from "@/fbase";
-import OpenCreateModal from "@components/CreateCard/OpenCreateModal";
+import { Link, useNavigate } from "react-router-dom"
+import { authService } from "@/fbase"
+import OpenCreateModal from "@components/CreateCard/OpenCreateModal"
 
 export default function Header() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [userObj, setUserObj] = useState<any>(null);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [showPostClose, setShowPostClose] = useState(true);
-	const navigate = useNavigate();
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [userObj, setUserObj] = useState<any>(null)
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [showPostClose, setShowPostClose] = useState(true)
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		authService.onAuthStateChanged((user) => {
 			if (user) {
-				setIsLoggedIn(true);
-				setUserObj(user);
+				setIsLoggedIn(true)
+				setUserObj(user)
 			} else {
-				setIsLoggedIn(false);
+				setIsLoggedIn(false)
 			}
 			// setInit(true)
-		});
-	}, []);
+		})
+	}, [])
 	const Logout = () => {
-		authService.signOut();
-		navigate("/");
-	};
+		authService.signOut()
+		navigate("/")
+	}
 	const toggleAddPost = () => {
-		setIsModalOpen((prev) => !prev);
-		setShowPostClose((prev) => !prev);
-	};
+		setIsModalOpen((prev) => !prev)
+		setShowPostClose((prev) => !prev)
+	}
 
 	return (
 		<>
@@ -76,7 +76,7 @@ export default function Header() {
 				userObj={userObj}
 			/>
 		</>
-	);
+	)
 }
 
 const Headers = styled.header`
@@ -87,8 +87,8 @@ const Headers = styled.header`
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: 100;
-`;
+	z-index: 10;
+`
 
 const LogoWrapper = styled.div`
 	width: 100%;
@@ -104,7 +104,7 @@ const LogoWrapper = styled.div`
 	@media screen and (min-width: 900px) {
 		width: 100%;
 	}
-`;
+`
 const Title = styled.h1`
 	font-size: 50px;
 	color: var(--main-color);
@@ -114,7 +114,7 @@ const Title = styled.h1`
 	@media screen and (min-width: 400px) {
 		font-size: calc(var(--base-size) * 3);
 	}
-`;
+`
 const IconWrapper = styled.div`
 	width: 20%;
 	display: flex;
@@ -149,7 +149,7 @@ const IconWrapper = styled.div`
 			cursor: pointer;
 		}
 	}
-`;
+`
 
 const ModalContainer = styled.div`
 	/* width: 1020px;
@@ -175,4 +175,4 @@ const ModalContainer = styled.div`
 		width: 92%;
 		height: 500px;
 	}
-`;
+`
