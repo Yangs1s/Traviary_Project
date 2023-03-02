@@ -45,6 +45,7 @@ const CardInfo = ({
 			setEditing(false)
 		}
 	})
+
 	return (
 		<PostContainer visible={isPostOpen}>
 			<Wrapper>
@@ -68,16 +69,6 @@ const CardInfo = ({
 										role="button"
 										onClick={toggleEditing}
 									/>
-									{editData ? (
-										<>
-											<EditCardInfo
-												traviObj={traviObj}
-												isToggle={toggleEditing}
-											/>
-										</>
-									) : (
-										<></>
-									)}
 								</>
 							) : (
 								<></>
@@ -86,49 +77,59 @@ const CardInfo = ({
 					</HeaderWrapper>
 				</PostHeader>
 
-				<ContentContainer>
-					<ImageContainer>
-						<Image src={traviObj.fileAttachURL} id={traviObj.id} />
-					</ImageContainer>
+				{!editData ? (
+					<ContentContainer>
+						<ImageContainer>
+							<Image src={traviObj.fileAttachURL} id={traviObj.id} />
+						</ImageContainer>
 
-					<TextStatContainer>
-						<StatContainer>
-							<SubTitle>
-								<Star />
-								<Name> RATING </Name>
-							</SubTitle>
-							<StatWrapper>
-								<li>
-									Taste:&nbsp;
-									<ReadStar ratingLength={traviObj.ratings.tasterating} />
-								</li>
-								<li>
-									Price:&nbsp;
-									<ReadStar ratingLength={traviObj.ratings.pricerating} />
-								</li>
-								<li>
-									Visual:&nbsp;
-									<ReadStar ratingLength={traviObj.ratings.visualrating} />
-								</li>
-							</StatWrapper>
-							<HashTags>
-								<p>TAG:</p>
-								{traviObj.hashtag.map((item: any) => {
-									return <Tag>#{item}</Tag>
-								})}
-							</HashTags>
-						</StatContainer>
+						<TextStatContainer>
+							<StatContainer>
+								<SubTitle>
+									<Star />
+									<Name> RATING </Name>
+								</SubTitle>
+								<StatWrapper>
+									<li>
+										Taste:&nbsp;
+										<ReadStar ratingLength={traviObj.ratings.tasterating} />
+									</li>
+									<li>
+										Price:&nbsp;
+										<ReadStar ratingLength={traviObj.ratings.pricerating} />
+									</li>
+									<li>
+										Visual:&nbsp;
+										<ReadStar ratingLength={traviObj.ratings.visualrating} />
+									</li>
+								</StatWrapper>
+								<HashTags>
+									<p>TAG:</p>
+									{traviObj.hashtag.map((item: any) => {
+										return <Tag>#{item}</Tag>
+									})}
+								</HashTags>
+							</StatContainer>
 
-						<TextContainer>
-							<SubTitle>
-								<Note />
-								<Name> POST </Name>
-							</SubTitle>
+							<TextContainer>
+								<SubTitle>
+									<Note />
+									<Name> POST </Name>
+								</SubTitle>
 
-							<TextContent>{traviObj.text}</TextContent>
-						</TextContainer>
-					</TextStatContainer>
-				</ContentContainer>
+								<TextContent>{traviObj.text}</TextContent>
+							</TextContainer>
+						</TextStatContainer>
+					</ContentContainer>
+				) : (
+					<>
+						<EditCardInfo
+							traviObj={traviObj}
+							isToggle={toggleEditing}
+							userObj={userObj}
+						/>
+					</>
+				)}
 			</Wrapper>
 		</PostContainer>
 	)
@@ -288,6 +289,7 @@ const ContentContainer = styled.div`
 // CONTENT --- Image////////
 const ImageContainer = styled.div`
 	width: 48vw;
+	height: auto;
 	border-top: 2px solid #fff;
 	border-bottom: 2px solid rgba(0, 0, 0, 0.2);
 	box-shadow: 2px 0 0 rgba(0, 0, 0, 0.2);
@@ -303,6 +305,7 @@ const Image = styled.img`
 	width: auto;
 	max-width: 24vw;
 	height: auto;
+	max-height: 56vh;
 	padding: 1em;
 	text-align: center;
 	margin: auto;
