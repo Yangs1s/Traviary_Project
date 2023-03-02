@@ -409,12 +409,10 @@ const HashTags = styled.div`
 
 const Tag = styled.span`
   width: auto;
-  background: green;
   margin: 1px;
-  color: #fff;
+  color: #000;
   font-size: 10px;
   padding: 5px;
-  border-radius: 20px;
 `;
 
 const TagsWrap = styled.div`
