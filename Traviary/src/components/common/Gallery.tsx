@@ -1,17 +1,17 @@
 /** @format */
 
-import React from "react";
-import styled from "styled-components";
-import { GalleryProp } from "@/types/GalleryType";
+import React from "react"
+import styled from "styled-components"
+import { GalleryPropType } from "@/types/TraviType"
 
 const Gallery = ({
 	traviObj,
 	onClick,
 	isLoading,
 }: {
-	traviObj: GalleryProp;
-	isLoading: boolean;
-	onClick: (event: React.MouseEvent<HTMLImageElement>) => void;
+	traviObj: GalleryPropType
+	isLoading: boolean
+	onClick: (event: React.MouseEvent<HTMLImageElement>) => void
 }) => {
 	return (
 		<>
@@ -29,11 +29,11 @@ const Gallery = ({
 				<div>Loading...</div>
 			)}
 		</>
-	);
-};
-console.log("갤러리");
+	)
+}
+console.log("갤러리")
 
-export default Gallery;
+export default Gallery
 
 const ImgItem = styled.div`
 	-webkit-transition: all 350ms ease;
@@ -51,4 +51,4 @@ const ImgItem = styled.div`
 		height: 100%;
 		border-radius: 10px;
 	}
-`;
+`

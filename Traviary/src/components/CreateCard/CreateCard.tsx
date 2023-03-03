@@ -1,37 +1,21 @@
 /** @format */
 
-import { useState, useEffect, FormEvent, ChangeEvent } from "react"
+import { useState, FormEvent, ChangeEvent } from "react"
 import styled, { css, keyframes } from "styled-components"
-import {
-	addDoc,
-	collection,
-	onSnapshot,
-	orderBy,
-	query,
-	Timestamp,
-} from "firebase/firestore"
+import { addDoc, collection } from "firebase/firestore"
 import { ref, uploadString, getDownloadURL } from "firebase/storage"
 import { dbService, storageService } from "@/fbase"
 import { uuidv4 } from "@firebase/util"
-
 import StraRating from "@components/common/StraRating"
+import { UserObjType } from "@/types/UserType"
 
 type userObjType = {
 	isModalOpen: boolean
-	userObj: any
-}
-interface TraviType {
-	id?: string
-	text?: string
-	creatAt?: Timestamp
-	createdId?: string
-}
-interface Tags {
-	hashTag: string
+	userObj: UserObjType
 }
 const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
 	const [postText, setPostText] = useState<string>("")
-	const [fileAttach, setFileAttach] = useState<any>("")
+	const [fileAttach, setFileAttach] = useState<string>("")
 	const [isModal, setIsModal] = useState<boolean>(isModalOpen)
 	const [taste, setTaste] = useState<number>(0)
 	const [price, setPrice] = useState<number>(0)
@@ -39,20 +23,6 @@ const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
 
 	const [hashTags, setHashTags] = useState<string[]>([])
 	const [hashTag, setHashTag] = useState<string>("")
-	const [infoTravi, setInfoTravi] = useState<TraviType[]>([])
-	useEffect(() => {
-		const queries = query(
-			collection(dbService, "TraviDB"),
-			orderBy("createdAt", "desc")
-		)
-		onSnapshot(queries, (snapshot) => {
-			const traviArr = snapshot.docs.map((dosc) => ({
-				id: dosc.id,
-				...dosc.data(),
-			}))
-			setInfoTravi(traviArr)
-		})
-	}, [])
 
 	const onSubmit = async (event: FormEvent) => {
 		event.preventDefault()
@@ -186,6 +156,7 @@ const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
 											value={hashTag}
 											onChange={tagChange}
 											className="tag_input"
+											maxLength={8}
 										/>
 										<button
 											type="button"
@@ -419,14 +390,12 @@ const HashTags = styled.div`
 `
 
 const Tag = styled.span`
-
-  width: auto;
-  margin: 1px;
-  color: #000;
-  font-size: 10px;
-  padding: 5px;
-`;
-
+	width: auto;
+	margin: 1px;
+	color: #000;
+	font-size: 10px;
+	padding: 5px;
+`
 
 const TagsWrap = styled.div`
 	display: flex;

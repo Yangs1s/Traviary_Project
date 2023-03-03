@@ -3,33 +3,27 @@
 import { FormEvent, ChangeEvent, useState } from "react"
 import styled from "styled-components"
 import { updateDoc, doc } from "firebase/firestore"
-import { dbService, storageService } from "@/fbase"
+import { dbService } from "@/fbase"
 import StraRating from "@components/common/StraRating"
 import { BsStars } from "react-icons/bs"
 import { TbNotes } from "react-icons/tb"
-import { getDownloadURL, ref, uploadString } from "firebase/storage"
-import { uuidv4 } from "@firebase/util"
+import { CardTraviObjType } from "@/types/TraviType"
 
 interface EditCardInfo {
-	traviObj: any
-	userObj: any
+	traviObj: CardTraviObjType
 	isToggle: () => void
 }
 
-const EditCardInfo = ({ traviObj, isToggle, userObj }: EditCardInfo) => {
-	const [editText, setEditText] = useState(traviObj.text)
-	const [price, setPrice] = useState(traviObj.ratings.pricerating)
-	const [taste, setTaste] = useState(traviObj.ratings.tasterating)
-	const [visual, setVisual] = useState(traviObj.ratings.visualrating)
-	const [fileAttach, setFileAttach] = useState<any>(traviObj.fileAttachURL)
+const EditCardInfo = ({ traviObj, isToggle }: EditCardInfo) => {
+	const [editText, setEditText] = useState<string>(traviObj.text)
+	const [price, setPrice] = useState<number>(traviObj.ratings.pricerating)
+	const [taste, setTaste] = useState<number>(traviObj.ratings.tasterating)
+	const [visual, setVisual] = useState<number>(traviObj.ratings.visualrating)
+	const [fileAttach, setFileAttach] = useState<string>(traviObj.fileAttachURL)
 	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
 
 	const onSubmit = async (event: FormEvent) => {
 		event.preventDefault()
-		let fileAttachURL = `${traviObj.fileAttachURL}`
-		const attachmentRef = ref(storageService, `${userObj.uid}/${uuidv4()}`)
-		const response = await uploadString(attachmentRef, fileAttach, "data_url")
-		fileAttachURL = await getDownloadURL(response.ref)
 
 		await updateDoc(TraviRef, {
 			text: editText,

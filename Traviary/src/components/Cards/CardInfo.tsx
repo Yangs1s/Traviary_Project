@@ -10,6 +10,8 @@ import { BiPencil } from "react-icons/bi"
 import { TbNotes } from "react-icons/tb"
 import { BsStars } from "react-icons/bs"
 import styled, { keyframes, css } from "styled-components"
+import { CardTraviObjType } from "@/types/TraviType"
+import { UserObjType } from "@/types/UserType"
 
 const CardInfo = ({
 	traviObj,
@@ -17,8 +19,8 @@ const CardInfo = ({
 	isPostOpen,
 	onClose,
 }: {
-	traviObj: any
-	userObj: any
+	traviObj: CardTraviObjType
+	userObj: UserObjType
 	isPostOpen: boolean
 	onClose: (e: any) => void
 }) => {
@@ -103,12 +105,14 @@ const CardInfo = ({
 										<ReadStar ratingLength={traviObj.ratings.visualrating} />
 									</li>
 								</StatWrapper>
-								<HashTags>
+								<div>
 									<p>TAG:</p>
-									{traviObj.hashtag.map((item: any) => {
-										return <Tag>#{item}</Tag>
-									})}
-								</HashTags>
+									<HashTags>
+										{traviObj.hashtag.map((item: string, idx: number) => {
+											return <Tag key={`${item}${idx}`}>#{item}</Tag>
+										})}
+									</HashTags>
+								</div>
 							</StatContainer>
 
 							<TextContainer>
@@ -123,11 +127,7 @@ const CardInfo = ({
 					</ContentContainer>
 				) : (
 					<>
-						<EditCardInfo
-							traviObj={traviObj}
-							isToggle={toggleEditing}
-							userObj={userObj}
-						/>
+						<EditCardInfo traviObj={traviObj} isToggle={toggleEditing} />
 					</>
 				)}
 			</Wrapper>
@@ -138,8 +138,10 @@ const CardInfo = ({
 export default CardInfo
 
 const HashTags = styled.div`
-	display: flex;
-	flex-direction: row;
+	width: 15vw;
+	display: grid;
+	grid-template-rows: auto auto;
+	grid-template-columns: auto auto auto;
 	align-items: center;
 	@media screen and (min-width: 280px) and (max-width: 770px) {
 		width: 70vw;
@@ -154,7 +156,7 @@ const Tag = styled.span`
 	margin: 0 3px 0 0;
 	color: #313131;
 	font-size: 14px;
-	padding: 3px;
+	padding: 2px;
 	@media screen and (min-width: 280px) and (max-width: 770px) {
 		width: auto;
 		font-size: 11px;
