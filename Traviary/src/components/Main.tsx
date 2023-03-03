@@ -19,6 +19,7 @@ const Main = () => {
   const [travis, setTravis] = useState<TraviProp[]>([]);
   const [postId, setPostId] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
+  const authId = authService.currentUser?.uid;
 
   useEffect(() => {
     setTimeout(() => {
@@ -53,19 +54,18 @@ const Main = () => {
   return (
     <Container className="main_container">
       <GridContainer className="grid">
-        {travis.map(
-          (travi: TraviProp) =>
-            isLoading && (
-              <ImgItem key={`${travi.id}${travi.creatAt}ss`}>
-                <img
-                  id={travi.id}
-                  src={travi.fileAttachURL}
-                  alt="게시글이미지"
-                  onClick={handleOpenPost}
-                  className="image"
-                />
-              </ImgItem>
-            )
+        {travis.map((travi: TraviProp) =>
+          authId === travi.createdId ? (
+            <ImgItem key={`${travi.id}${travi.creatAt}ss`}>
+              <img
+                id={travi.id}
+                src={travi.fileAttachURL}
+                alt="게시글이미지"
+                onClick={handleOpenPost}
+                className="image"
+              />
+            </ImgItem>
+          ) : null
         )}
       </GridContainer>
 
@@ -91,7 +91,6 @@ export default Main;
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  display: flex;
   overflow-y: scroll;
   @media screen and (max-width: 900px) {
     width: 100%;
@@ -106,13 +105,12 @@ const Container = styled.div`
 `;
 
 const GridContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  /* display: grid;
+  grid-template-columns: repeat(3, minmax(300px, auto)); */
+  gap: 10px;
   background: #fff;
   border: 2px solid #c71967;
-  -webkit-column-count: 4;
   column-count: 4;
-  -webkit-column-width: 25%;
   column-width: 25%;
   padding: 20px 20px;
   margin: 130px 30px;

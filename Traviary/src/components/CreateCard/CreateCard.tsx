@@ -419,14 +419,14 @@ const HashTags = styled.div`
 `
 
 const Tag = styled.span`
-	width: auto;
-	background: green;
-	margin: 1px;
-	color: #fff;
-	font-size: 10px;
-	padding: 5px;
-	border-radius: 20px;
-`
+
+  width: auto;
+  margin: 1px;
+  color: #000;
+  font-size: 10px;
+  padding: 5px;
+`;
+
 
 const TagsWrap = styled.div`
 	display: flex;
