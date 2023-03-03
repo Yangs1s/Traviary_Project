@@ -12,7 +12,7 @@ const Main = () => {
 	const [travis, setTravis] = useState<CardTraviObjType[]>([])
 	const [postId, setPostId] = useState<string>("")
 	const [userId, setUserId] = useState<string>("")
-	const authId = authService.currentUser?.uid
+	const authId = authService.currentUser?.uid as string
 
 	useEffect(() => {
 		setTimeout(() => {

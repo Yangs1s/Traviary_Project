@@ -104,12 +104,14 @@ const EditCardInfo = ({ traviObj, isToggle }: EditCardInfo) => {
 							/>
 						</li>
 					</StatWrapper>
-					<HashTags>
+					<div>
 						<p>TAG:</p>
-						{traviObj.hashtag.map((item: any) => {
-							return <Tag>#{item}</Tag>
-						})}
-					</HashTags>
+						<HashTags>
+							{traviObj.hashtag.map((item: string) => {
+								return <Tag>#{item}</Tag>
+							})}
+						</HashTags>
+					</div>
 				</StatContainer>
 
 				<TextContainer>
@@ -336,8 +338,10 @@ const Name = styled.div`
 `
 
 const HashTags = styled.div`
-	display: flex;
-	flex-direction: row;
+	width: 15vw;
+	display: grid;
+	grid-template-rows: auto auto;
+	grid-template-columns: auto auto auto;
 	align-items: center;
 	@media screen and (min-width: 280px) and (max-width: 770px) {
 		width: 70vw;
@@ -352,7 +356,7 @@ const Tag = styled.span`
 	margin: 0 3px 0 0;
 	color: #313131;
 	font-size: 14px;
-	padding: 3px;
+	padding: 2px;
 	@media screen and (min-width: 280px) and (max-width: 770px) {
 		width: auto;
 		font-size: 11px;
