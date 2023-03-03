@@ -151,12 +151,10 @@ const HashTags = styled.div`
 `
 const Tag = styled.span`
 	width: auto;
-	background: green;
-	margin: 3px;
-	color: #fff;
-	font-size: 15px;
-	padding: 5px;
-	border-radius: 15px;
+	margin: 0 3px 0 0;
+	color: #313131;
+	font-size: 14px;
+	padding: 3px;
 	@media screen and (min-width: 280px) and (max-width: 770px) {
 		width: auto;
 		font-size: 11px;
