@@ -1,11 +1,21 @@
 /** @format */
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import styled from "styled-components"
 import Card from "@components/Cards/Card"
 import { dbService, authService } from "@/fbase"
-import { collection, query, onSnapshot, Timestamp } from "firebase/firestore"
+import {
+	collection,
+	query,
+	onSnapshot,
+	Timestamp,
+	orderBy,
+	limit,
+	getDocs,
+	startAfter,
+} from "firebase/firestore"
 import { CardTraviObjType } from "@/types/TraviType"
+import { useInView } from "react-intersection-observer"
 
 const Main = () => {
 	const [isOpenPost, setIsOpenPost] = useState<boolean>(false)
@@ -14,24 +24,74 @@ const Main = () => {
 	const [userId, setUserId] = useState<string>("")
 	const authId = authService.currentUser?.uid as string
 
-	useEffect(() => {
-		setTimeout(() => {
-			const q = query(collection(dbService, "TraviDB"))
-			onSnapshot(q, (querySnapshot) => {
+	const [key, setKey] = useState<any>(null)
+	const [more, setMore] = useState(false)
+	const [loading, setLoading] = useState(false)
+
+	const { ref, entry, inView } = useInView({ threshold: 0.8 })
+
+	const storeColName = "TraviDB" as string
+	const limitCount = 100 as number
+
+	const getDbData = async () => {
+		const queryRef = query(
+			collection(dbService, storeColName),
+			orderBy("createAt", "desc"),
+			limit(limitCount)
+		)
+		try {
+			setLoading(true)
+			onSnapshot(queryRef, async (querySnapshot) => {
 				const Travi: any = querySnapshot.docs.map((docs) => ({
 					id: docs.id,
 					...docs.data(),
 				}))
 				setTravis(Travi)
+				const snap = await getDocs(queryRef)
+				setKey(snap.docs[snap.docs.length - 1])
 			})
-		}, 1000)
-	}, [])
+		} catch (err) {
+			console.error(err)
+		}
+	}
+
+	const onNextData = async () => {
+		const queryRef = query(
+			collection(dbService, storeColName),
+			orderBy("createAt", "desc"),
+			startAfter(key),
+			limit(limitCount)
+		)
+		try {
+			const snap = await getDocs(queryRef)
+			snap.empty ? setMore(true) : setKey(snap.docs[snap.docs.length - 1])
+
+			const docsArr: any = snap.docs.map((docs) => ({
+				id: docs.id,
+				...docs.data(),
+			}))
+			setTravis([...travis, ...docsArr])
+		} catch (err) {
+			console.error(err)
+		}
+	}
 
 	useEffect(() => {
 		authService.onAuthStateChanged((user: any) => {
 			setUserId(user)
 		})
 	})
+
+	useEffect(() => {
+		getDbData()
+		setLoading(false)
+	}, [])
+
+	useEffect(() => {
+		if (inView) {
+			onNextData()
+		}
+	}, [inView])
 
 	const handleOpenPost = (event: React.MouseEvent<HTMLImageElement>) => {
 		event.preventDefault()
@@ -42,6 +102,9 @@ const Main = () => {
 	const handlePostClose = () => {
 		setIsOpenPost((prev) => !prev)
 	}
+
+	// console.log(more)
+	// console.log(loading)
 
 	return (
 		<Container className="main_container">
@@ -75,10 +138,33 @@ const Main = () => {
 					</div>
 				)
 			})}
+			<div ref={ref} />
+			{travis.length > 0 ? (
+				<>
+					{loading ? (
+						<div>
+							<h1>Loading...</h1>
+						</div>
+					) : (
+						<div>{more ? <DivMore>안녕하세요</DivMore> : ""}</div>
+					)}
+				</>
+			) : (
+				""
+			)}
 		</Container>
 	)
 }
 export default Main
+
+const DivMore = styled.div`
+	display: flex;
+	justify-content: center;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px 0;
+	background-color: #525252;
+`
 
 const Container = styled.div`
 	width: 100%;

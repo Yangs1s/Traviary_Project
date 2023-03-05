@@ -27,7 +27,7 @@ export default function Router() {
 							<Route path={"/aboutus"} element={<AboutUs />} />
 						</>
 					)}
-					<Route path={"/*"} element={<NotFound />} />
+					{/* <Route path={"/*"} element={<NotFound />} /> */}
 				</Routes>
 			</Layout>
 		</BrowserRouter>
