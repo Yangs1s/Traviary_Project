@@ -11,6 +11,7 @@ import { login } from "@/Store/login"
 import { useRecoilState } from "recoil"
 
 export default function Router() {
+
 	const isLoggin = useRecoilState(login)
 	return (
 		<BrowserRouter>
@@ -32,4 +33,5 @@ export default function Router() {
 			</Layout>
 		</BrowserRouter>
 	)
+
 }
