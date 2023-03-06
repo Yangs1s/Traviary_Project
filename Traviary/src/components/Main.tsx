@@ -31,9 +31,9 @@ const Main = () => {
 	const { ref, entry, inView } = useInView({ threshold: 0.8 })
 
 	const storeColName = "TraviDB" as string
-	const limitCount = 100 as number
+	const limitCount = 10 as number
 
-	const getDbData = async () => {
+	const getDbData = useCallback(async () => {
 		const queryRef = query(
 			collection(dbService, storeColName),
 			orderBy("createAt", "desc"),
@@ -53,9 +53,9 @@ const Main = () => {
 		} catch (err) {
 			console.error(err)
 		}
-	}
+	}, [])
 
-	const onNextData = async () => {
+	const onNextData = useCallback(async () => {
 		const queryRef = query(
 			collection(dbService, storeColName),
 			orderBy("createAt", "desc"),
@@ -74,7 +74,7 @@ const Main = () => {
 		} catch (err) {
 			console.error(err)
 		}
-	}
+	}, [])
 
 	useEffect(() => {
 		authService.onAuthStateChanged((user: any) => {
@@ -103,9 +103,6 @@ const Main = () => {
 		setIsOpenPost((prev) => !prev)
 	}
 
-	// console.log(more)
-	// console.log(loading)
-
 	return (
 		<Container className="main_container">
 			<GridContainer className="grid">
@@ -123,6 +120,20 @@ const Main = () => {
 					) : null
 				)}
 			</GridContainer>
+			<div ref={ref} />
+			{travis.length > 0 ? (
+				<>
+					{loading ? (
+						<div>
+							<h1>Loading...</h1>
+						</div>
+					) : (
+						<div>{!more ? <DivMore>안녕하세요</DivMore> : ""}</div>
+					)}
+				</>
+			) : (
+				""
+			)}
 
 			{travis.map((travi) => {
 				return (
@@ -138,20 +149,6 @@ const Main = () => {
 					</div>
 				)
 			})}
-			<div ref={ref} />
-			{travis.length > 0 ? (
-				<>
-					{loading ? (
-						<div>
-							<h1>Loading...</h1>
-						</div>
-					) : (
-						<div>{more ? <DivMore>안녕하세요</DivMore> : ""}</div>
-					)}
-				</>
-			) : (
-				""
-			)}
 		</Container>
 	)
 }
