@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { doc, deleteDoc } from "firebase/firestore";
-import { authService, dbService, uuid } from "@/fbase";
+import { authService, dbService } from "@/fbase";
 import EditCardInfo from "./EditCardInfo";
 import ReadStar from "@components/ReadStar";
 import { AiTwotoneDelete } from "react-icons/ai";
@@ -22,7 +22,7 @@ const CardInfo = ({
   isPostOpen: boolean;
   onClose: (e: any) => void;
 }) => {
-  const auth = authService.currentUser;
+  const uid = authService.currentUser?.uid;
   const [editing, setEditing] = useState<boolean>(false);
   const [editData, setEditData] = useState<boolean>(false);
 
@@ -40,7 +40,7 @@ const CardInfo = ({
   };
 
   useEffect(() => {
-    if (traviObj.createdId === uuid) {
+    if (traviObj.createdId === uid) {
       setEditing(true);
     } else {
       setEditing(false);

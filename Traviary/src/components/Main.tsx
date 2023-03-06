@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import Card from "@components/Cards/Card";
-import { dbService, authService, uuid } from "@/fbase";
+import { dbService, authService } from "@/fbase";
 import {
   collection,
   query,
@@ -33,6 +33,7 @@ const Main = () => {
   const storeColName = "TraviDB" as string;
   const limitCount = 10 as number;
 
+  const uid = authService.currentUser?.uid;
   const getDbData = useCallback(async () => {
     const queryRef = query(
       collection(dbService, storeColName),
@@ -94,7 +95,6 @@ const Main = () => {
       onNextData();
     }
   }, [inView]);
-
   const handleOpenPost = (event: React.MouseEvent<HTMLImageElement>) => {
     event.preventDefault();
     setIsOpenPost(prev => !prev);
@@ -109,7 +109,7 @@ const Main = () => {
       {!isLoading ? (
         <GridContainer className="grid">
           {travis.map((travi: CardTraviObjType) =>
-            uuid === travi.createdId ? (
+            uid === travi.createdId ? (
               <ImgItem key={`${travi.id}${travi.creatAt}`} className="Item">
                 <img
                   id={travi.id}
