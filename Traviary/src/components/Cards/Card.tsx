@@ -7,12 +7,11 @@ import { CardTraviObjType } from "@/types/TraviType";
 
 export type ModalBaseProps = {
   traviObj: CardTraviObjType;
-  userObj: any;
   isPostOpen: boolean;
   onClose: () => void;
 };
 
-const Card = ({ traviObj, isPostOpen, userObj, onClose }: ModalBaseProps) => {
+const Card = ({ traviObj, isPostOpen, onClose }: ModalBaseProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const modalRef: any = useRef();
 
@@ -38,6 +37,7 @@ const Card = ({ traviObj, isPostOpen, userObj, onClose }: ModalBaseProps) => {
   const handlePostClose = () => {
     setOpen(false);
   };
+
   return (
     <div className="wrapper">
       <Background
@@ -50,7 +50,6 @@ const Card = ({ traviObj, isPostOpen, userObj, onClose }: ModalBaseProps) => {
       </Background>
       <CardInfo
         traviObj={traviObj}
-        userObj={userObj}
         isPostOpen={isPostOpen}
         onClose={handlePostClose}
       />
