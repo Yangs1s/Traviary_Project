@@ -1,6 +1,6 @@
 /** @format */
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { doc, deleteDoc } from "firebase/firestore"
 import { dbService } from "@/fbase"
 import EditCardInfo from "./EditCardInfo"
@@ -65,11 +65,13 @@ const CardInfo = ({
 										className="icons"
 										role="button"
 										onClick={onDeleteClick}
+										style={{ cursor: "pointer" }}
 									/>
 									<BiPencil
 										className="icons"
 										role="button"
 										onClick={toggleEditing}
+										style={{ cursor: "pointer" }}
 									/>
 								</>
 							) : (

@@ -1,54 +1,108 @@
 /** @format */
 
-import React, { useState, useEffect, useCallback } from "react";
-import styled from "styled-components";
-import Card from "@components/Cards/Card";
-import { dbService, authService } from "@/fbase";
+import React, { useState, useEffect, useCallback } from "react"
+import styled from "styled-components"
+import Card from "@components/Cards/Card"
+import { dbService, authService } from "@/fbase"
 import {
-  collection,
-  query,
-  onSnapshot,
-  Timestamp,
-  orderBy,
-} from "firebase/firestore";
-import { CardTraviObjType } from "@/types/TraviType";
-import Spinner from "./common/Spinner";
+	collection,
+	query,
+	onSnapshot,
+	Timestamp,
+	orderBy,
+	limit,
+	getDocs,
+	startAfter,
+} from "firebase/firestore"
+import { CardTraviObjType } from "@/types/TraviType"
+import { useInView } from "react-intersection-observer"
 
 const Main = () => {
-  const [isOpenPost, setIsOpenPost] = useState<boolean>(false);
-  const [travis, setTravis] = useState<CardTraviObjType[]>([]);
-  const [postId, setPostId] = useState<string>("");
-  const [userId, setUserId] = useState<string>("");
+	const [isOpenPost, setIsOpenPost] = useState<boolean>(false)
+	const [travis, setTravis] = useState<CardTraviObjType[]>([])
+	const [postId, setPostId] = useState<string>("")
+	const [userId, setUserId] = useState<string>("")
   const [isLoading, setIsLoding] = useState<boolean>(true);
-  const authId = authService.currentUser?.uid;
+	const authId = authService.currentUser?.uid as string
 
-  const fetchData = useCallback(() => {
-    const q = query(
-      collection(dbService, "TraviDB"),
-      orderBy("createAt", "desc")
-    );
-    onSnapshot(q, querySnapshot => {
-      const Travi: any = querySnapshot.docs.map(docs => ({
-        id: docs.id,
-        ...docs.data(),
-      }));
-      setTravis(Travi);
-    });
-  }, []);
+	const [key, setKey] = useState<any>(null)
+	const [more, setMore] = useState(false)
+	const [loading, setLoading] = useState(false)
+
+	const { ref, entry, inView } = useInView({ threshold: 0.8 })
+
+	const storeColName = "TraviDB" as string
+	const limitCount = 10 as number
+
+	const getDbData = useCallback(async () => {
+		const queryRef = query(
+			collection(dbService, storeColName),
+			orderBy("createAt", "desc"),
+			limit(limitCount)
+		)
+		try {
+			setLoading(true)
+			onSnapshot(queryRef, async (querySnapshot) => {
+				const Travi: any = querySnapshot.docs.map((docs) => ({
+					id: docs.id,
+					...docs.data(),
+				}))
+				setTravis(Travi)
+				const snap = await getDocs(queryRef)
+				setKey(snap.docs[snap.docs.length - 1])
+			})
+		} catch (err) {
+			console.error(err)
+		}
+	}, [])
+
+	const onNextData = useCallback(async () => {
+		const queryRef = query(
+			collection(dbService, storeColName),
+			orderBy("createAt", "desc"),
+			startAfter(key),
+			limit(limitCount)
+		)
+		try {
+			const snap = await getDocs(queryRef)
+			snap.empty ? setMore(true) : setKey(snap.docs[snap.docs.length - 1])
+
+			const docsArr: any = snap.docs.map((docs) => ({
+				id: docs.id,
+				...docs.data(),
+			}))
+			setTravis([...travis, ...docsArr])
+		} catch (err) {
+			console.error(err)
+		}
+	}, [])
 
   useEffect(() => {
     setIsLoding(true);
-    fetchData();
+    getDbData();
     setTimeout(() => {
       setIsLoding(false);
     }, 1600);
   }, []);
 
-  useEffect(() => {
-    authService.onAuthStateChanged((user: any) => {
-      setUserId(user);
-    });
-  });
+
+	useEffect(() => {
+		getDbData()
+		setLoading(false)
+	}, [])
+
+	useEffect(() => {
+		if (inView) {
+			onNextData()
+		}
+	}, [inView])
+
+	const handleOpenPost = (event: React.MouseEvent<HTMLImageElement>) => {
+		event.preventDefault()
+		setIsOpenPost((prev) => !prev)
+		setPostId(event.currentTarget.id)
+	}
+
 
   const handleOpenPost = (event: React.MouseEvent<HTMLImageElement>) => {
     event.preventDefault();
@@ -56,13 +110,10 @@ const Main = () => {
     setPostId(event.currentTarget.id);
   };
 
-  const handlePostClose = () => {
-    setIsOpenPost(prev => !prev);
-  };
-  console.log(travis);
-  return (
-    <Container className="main_container">
-      {!isLoading ? (
+
+	return (
+		<Container className="main_container">
+			{!isLoading ? (
         <GridContainer className="grid">
           {travis.map((travi: CardTraviObjType) =>
             authId === travi.createdId ? (
@@ -86,27 +137,48 @@ const Main = () => {
           </div>
         </Skeleton>
       )}
-      {travis.map(travi => {
-        return (
-          <div
-            key={`${travi.createdId} ${travi.id}`}
-            className="card_container"
-          >
-            {postId === travi.id ? (
-              <Card
-                isPostOpen={!isOpenPost}
-                traviObj={travi}
-                userObj={userId}
-                onClose={handlePostClose}
-              />
-            ) : null}
-          </div>
-        );
-      })}
-    </Container>
-  );
-};
-export default Main;
+			<div ref={ref} />
+			{travis.length > 0 ? (
+				<>
+					{loading ? (
+						<div>
+							<h1>Loading...</h1>
+						</div>
+					) : (
+						<div>{!more ? <DivMore>안녕하세요</DivMore> : ""}</div>
+					)}
+				</>
+			) : (
+				""
+			)}
+
+			{travis.map((travi) => {
+				return (
+					<div key={`${travi.createdId} ${travi.id}`}>
+						{postId === travi.id ? (
+							<Card
+								isPostOpen={!isOpenPost}
+								traviObj={travi}
+								userObj={userId}
+								onClose={handlePostClose}
+							/>
+						) : null}
+					</div>
+				)
+			})}
+		</Container>
+	)
+}
+export default Main
+
+const DivMore = styled.div`
+	display: flex;
+	justify-content: center;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px 0;
+	background-color: #525252;
+`
 
 const Container = styled.div`
   width: 100%;

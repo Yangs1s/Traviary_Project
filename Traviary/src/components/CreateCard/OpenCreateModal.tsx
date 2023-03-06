@@ -1,14 +1,14 @@
 /** @format */
 
-import { useRef, useEffect } from "react";
-import styled, { css, keyframes } from "styled-components";
-import CreateCard from "./CreateCard";
+import { useRef, useEffect } from "react"
+import styled, { css, keyframes } from "styled-components"
+import CreateCard from "./CreateCard"
 
 type PostType = {
-	isModalOpen: boolean;
-	setIsModalOpen: any;
-	userObj: any;
-};
+	isModalOpen: boolean
+	setIsModalOpen: any
+	userObj: any
+}
 
 const OpenCreateModal = ({
 	isModalOpen,
@@ -20,20 +20,20 @@ const OpenCreateModal = ({
 		{
 			isModalOpen
 				? (document.body.style.overflowY = "scroll")
-				: (document.body.style.overflowY = "hidden");
+				: (document.body.style.overflowY = "hidden")
 		}
-	});
+	})
 
-	console.log(isModalOpen);
+	// console.log(isModalOpen);
 
 	const onClose = (e: any) => {
 		if (modalRef.current === e.target) {
-			setIsModalOpen((prev: any) => !prev);
+			setIsModalOpen((prev: any) => !prev)
 		}
-	};
+	}
 
 	// 모달 애니메이션 //
-	const modalRef: any = useRef();
+	const modalRef: any = useRef()
 
 	return (
 		<>
@@ -43,9 +43,9 @@ const OpenCreateModal = ({
 				</Background>
 			) : null}
 		</>
-	);
-};
-export default OpenCreateModal;
+	)
+}
+export default OpenCreateModal
 
 const slideIn = keyframes`
   0% {
@@ -55,7 +55,7 @@ const slideIn = keyframes`
   100% {
 	opacity:1;
   }
-`;
+`
 
 const slideOut = keyframes`
 0% {
@@ -65,14 +65,14 @@ const slideOut = keyframes`
   100% {
 	opacity:0;
   }
-`;
+`
 
 const modalSettings = (visible: boolean) => css`
 	visibility: ${visible ? "visible" : "visible"};
 	z-index: 15;
 	animation: ${visible ? slideIn : slideOut} 0.6s ease-out;
 	transition: visibility 0.45s ease-out;
-`;
+`
 
 const Background = styled.div<{ visible: boolean }>`
 	width: 100%;
@@ -81,4 +81,4 @@ const Background = styled.div<{ visible: boolean }>`
 	display: flex;
 	top: 100px;
 	${(props) => modalSettings(props.visible)}
-`;
+`
