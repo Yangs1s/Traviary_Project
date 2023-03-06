@@ -17,7 +17,7 @@ export default function Router() {
     <BrowserRouter>
       <Layout>
         <Routes>
-          {isLoggin[0] === false ? (
+          {!isLoggin[0] ? (
             <>
               <Route path={"/"} element={<NotLoginPage />} />
               <Route path={"/auth"} element={<Auth />} />
