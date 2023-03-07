@@ -15,26 +15,26 @@ type userObjType = {
 };
 const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
   const [postText, setPostText] = useState<string>("");
-  const [fileAttach, setFileAttach] = useState<string>("");
   const [isModal, setIsModal] = useState<boolean>(isModalOpen);
   const [taste, setTaste] = useState<number>(0);
   const [price, setPrice] = useState<number>(0);
   const [visual, setVisual] = useState<number>(0);
+
+  const [filesAttach, setFilesAttach] = useState<string[]>([]);
 
   const [hashTags, setHashTags] = useState<string[]>([]);
   const [hashTag, setHashTag] = useState<string>("");
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    let fileAttachURL = "";
+    let fileAttachURL = [];
     const attachmentRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
-    // 파일을 저장할 위치를 만드는것
-    const response = await uploadString(attachmentRef, fileAttach, "data_url");
-    // 파일을 업로드 하기
-    fileAttachURL = (await getDownloadURL(response.ref)) as string;
-    // setPictures(() => {
-    //   return { ...fileAttachURL };
-    // });
+    for (let i = 0; i < filesAttach.length; i++) {
+      const res = await uploadString(attachmentRef, filesAttach[i], "data_url");
+      console.log(res);
+      fileAttachURL = [getDownloadURL(res.ref)];
+    }
+
     const TraviObj = {
       text: postText,
       ratings: {
@@ -45,11 +45,11 @@ const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
       hashtag: hashTags,
       createAt: Date.now(),
       createdId: userObj.uid,
-      fileAttachURL,
+      fileAttachURL: filesAttach,
     };
     await addDoc(collection(dbService, "TraviDB"), TraviObj);
     setPostText("");
-    setFileAttach("");
+
     setIsModal(prev => !prev);
   };
 
@@ -69,7 +69,7 @@ const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
       const {
         currentTarget: { result },
       } = finishedEvent;
-      setFileAttach(result);
+      setFilesAttach(prev => [...prev, result]); // ...result로 하면 글자 하나하나 배열로 나옴
     };
     reader.readAsDataURL(theFile);
   };
@@ -115,9 +115,13 @@ const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
                 onChange={onFileChange}
               />
               <ImageLabel htmlFor="files">
-                {fileAttach ? (
+                {filesAttach[0] ? (
                   <>
-                    <img src={fileAttach} className="addImg" />
+                    <img
+                      src={filesAttach[0]}
+                      className="addImg"
+                      alt="추가이미지"
+                    />
                   </>
                 ) : (
                   <span>⨁</span>
