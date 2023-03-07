@@ -28,9 +28,13 @@ const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
     event.preventDefault();
     let fileAttachURL = "";
     const attachmentRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+    // 파일을 저장할 위치를 만드는것
     const response = await uploadString(attachmentRef, fileAttach, "data_url");
-    fileAttachURL = await getDownloadURL(response.ref);
-
+    // 파일을 업로드 하기
+    fileAttachURL = (await getDownloadURL(response.ref)) as string;
+    // setPictures(() => {
+    //   return { ...fileAttachURL };
+    // });
     const TraviObj = {
       text: postText,
       ratings: {

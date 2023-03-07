@@ -1,0 +1,31 @@
+{
+  "name": "TraviaryApp",
+  "short_name": "Traviary",
+  "start_url": "",
+  "display": "standalone",
+  "background_color": "#F8F7DA",
+  "theme_color": "#8C383A",
+  "description": "PWA with Vite.js, React.js and TypeScript",
+  "icons": [
+    {
+      "src": "icons/palm-tree.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "icons/palm-tree(256x256).png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "icons/palm-tree(512x512).png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "icons/palm-tree(512x512).png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
