@@ -27,14 +27,14 @@ const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
 
 	const onSubmit = async (event: FormEvent) => {
 		event.preventDefault()
-		let fileAttachURL = []
+		let fileAttachURL: string[] = []
 		for (let i = 0; i < filesAttach.length; i++) {
 			const attachmentRef = ref(
 				storageService,
 				`${userObj.uid}/${uuidv4()}${i}`
 			)
 			const res = await uploadString(attachmentRef, filesAttach[i], "data_url")
-			fileAttachURL = [...(await getDownloadURL(res.ref))]
+			fileAttachURL.push(await getDownloadURL(res.ref))
 		}
 
 		const TraviObj = {
@@ -47,7 +47,7 @@ const CreateCard = ({ userObj, isModalOpen }: userObjType) => {
 			hashtag: hashTags,
 			createAt: Date.now(),
 			createdId: userObj.uid,
-			fileAttachURL: filesAttach,
+			fileAttachURL,
 		}
 		await addDoc(collection(dbService, "TraviDB"), TraviObj)
 		setPostText("")
