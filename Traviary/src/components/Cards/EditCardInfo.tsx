@@ -19,7 +19,7 @@ const EditCardInfo = ({ traviObj, isToggle }: EditCardInfo) => {
 	const [price, setPrice] = useState<number>(traviObj.ratings.pricerating)
 	const [taste, setTaste] = useState<number>(traviObj.ratings.tasterating)
 	const [visual, setVisual] = useState<number>(traviObj.ratings.visualrating)
-	const [fileAttach, setFileAttach] = useState<string>(traviObj.fileAttachURL)
+	const [fileAttach, setFileAttach] = useState<string[]>(traviObj.fileAttachURL)
 	const TraviRef = doc(dbService, "TraviDB", `${traviObj.id}`)
 
 	const onSubmit = async (event: FormEvent) => {
@@ -53,7 +53,7 @@ const EditCardInfo = ({ traviObj, isToggle }: EditCardInfo) => {
 			const {
 				currentTarget: { result },
 			} = finishedEvent
-			setFileAttach(result)
+			setFileAttach((prev) => [...prev, result])
 		}
 		reader.readAsDataURL(theFile)
 	}
@@ -68,7 +68,7 @@ const EditCardInfo = ({ traviObj, isToggle }: EditCardInfo) => {
 					onChange={onFileChange}
 				/>
 				<ImageLabel htmlFor="files">
-					<Image src={fileAttach} className="addImg" />
+					<Image src={fileAttach[0]} className="addImg" />
 				</ImageLabel>
 			</ImageContainer>
 

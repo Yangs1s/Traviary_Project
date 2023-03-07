@@ -17,6 +17,6 @@ export type CardTraviObjType = {
 		tasterating: number
 		visualrating: number
 	}
-	fileAttachURL: string
+	fileAttachURL: string[]
 	hashtag: string[]
 }
