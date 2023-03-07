@@ -1,8 +1,11 @@
 /** @format */
+@import url("https://fonts.googleapis.com/css2?family=Single+Day&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap");
 #root {
   max-width: 100vw;
   min-height: 100vh;
   margin: 0 auto;
   padding: 0;
   text-align: center;
+  font-family: "Dongle", sans-serif;
 }

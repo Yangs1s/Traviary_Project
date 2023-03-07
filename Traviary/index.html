@@ -20,11 +20,12 @@
   <script type="module" src="/src/main.tsx"></script>
   <script>
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").then((register) => {
-        console.log("Service worker registration succeeded:", registration)
-      }).then((err) => {
-        console.log("Service worker registration failed:", error);
-      })
+      navigator.serviceWorker
+        .register("/sw.js").then((registeration) => {
+          console.log("Service worker registration succeeded:", registeration)
+        }).then((error) => {
+          console.log("Service worker registration failed:", error);
+        })
     } else {
       console.log("Service workers are not supported.")
     }

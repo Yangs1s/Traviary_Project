@@ -5,6 +5,7 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
+
 :root {
   /* Color styles */
 
@@ -21,6 +22,7 @@ ${reset}
 --base-size: 10px;
 --font-main: "Gill Sans", sans-serif;
 --font-lobster:Lobster;
+--kor-font: 'Dongle', sans-serif;
 
 }
 html {
