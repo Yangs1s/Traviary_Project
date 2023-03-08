@@ -20,7 +20,7 @@ export default function GoToGalleryPage() {
           <LogoWrapper>
             <GiPalmTree className="logo" />
             <Title>
-              <Link to="/main">
+              <Link to="main">
                 <span className="title">Traviary</span>
               </Link>
             </Title>
