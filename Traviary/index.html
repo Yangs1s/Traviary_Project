@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="theme-color" content="#8C383A" />
-		<link rel="icon" href="icons/palm-tree(256x256).png" type="image/png" />
-		<link rel="alternate icon" href="/palm-tree.ico" type="ico" sizes="16x16" />
-		<link
-			rel="apple-touch-icon"
-			href="icons/palm-tree(256x256).png"
-			sizes="256x256"
-		/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="manifest" href="/manifest.json" />
-		<title>Traviary</title>
-	</head>
 
-	<body>
-		<div id="root"></div>
-		<script type="module" src="/src/main.tsx"></script>
-		<script>
-			if ("serviceWorker" in navigator) {
-				navigator.serviceWorker
-					.register("/sw.js")
-					.then((registeration) => {
-						console.log("Service worker registration succeeded:", registeration)
-					})
-					.then((error) => {
-						console.log("Service worker registration failed:", error)
-					})
-			} else {
-				console.log("Service workers are not supported.")
-			}
-		</script>
-	</body>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="theme-color" content="#8C383A" />
+	<link rel="icon" href="icons/palm-tree(256x256).png" type="image/png" />
+	<link rel="alternate icon" href="/palm-tree.ico" type="ico" sizes="16x16" />
+	<link rel="apple-touch-icon" href="icons/palm-tree(256x256).png" sizes="256x256" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="manifest" href="/manifest.json" />
+	<title>Traviary</title>
+</head>
+
+<body>
+	<div id="root"></div>
+	<script type="module" src="/src/main.tsx"></script>
+	<script>
+		if ("serviceWorker" in navigator) {
+			navigator.serviceWorker
+				.register("sw.js")
+				.then((registeration) => {
+					console.log("Service worker registration succeeded:", registeration)
+				})
+				.then((error) => {
+					console.log("Service worker registration failed:", error)
+				})
+		} else {
+			console.log("Service workers are not supported.")
+		}
+	</script>
+</body>
+
 </html>
