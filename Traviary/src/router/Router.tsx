@@ -20,13 +20,13 @@ export default function Router() {
           {isLoggin[0] === false ? (
             <>
               <Route path={"/"} element={<NotLoginPage />} />
-              <Route path={"/auth"} element={<Auth />} />
+              <Route path={"auth"} element={<Auth />} />
             </>
           ) : (
             <>
-              <Route path={"/"} element={<GoToGalleryPage />} />
-              <Route path={"/main"} element={<Main />} />
-              <Route path={"/aboutus"} element={<AboutUs />} />
+              <Route path="/" element={<GoToGalleryPage />} />
+              <Route path="main" element={<Main />} />
+              <Route path="aboutus" element={<AboutUs />} />
             </>
           )}
           {/* <Route path={"/*"} element={<NotFound />} /> */}

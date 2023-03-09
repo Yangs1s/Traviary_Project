@@ -58,7 +58,7 @@ const Logo = styled.div`
     font-size: 50px;
     color: var(--main-color);
     font-weight: 700;
-    font-family: var(--font-lobster);
+    font-family: "Lobster", cursive;
   }
   .logo {
     font-size: 50px;
