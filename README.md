@@ -58,5 +58,6 @@ yarn add slick-carousel
 │   ├── types
 │   ├── fbase.ts
 │   ├── main.tsx
-│   └── vite-env.d.ts
+└── └── vite-env.d.ts
+└── index.html
 ```
