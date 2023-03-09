@@ -41,6 +41,7 @@ yarn add slick-carousel
 ### Rule
 <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white">
 
+- webpack을 사용하는 CRA보다 더 빠른 esbuild를 사용하는 Vite를 사용하기로 했습니다.
 - 
 
 ## 폴더구조
