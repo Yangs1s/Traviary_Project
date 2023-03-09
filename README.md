@@ -22,7 +22,7 @@ yarn add slick-carousel
 
 ## 구현 요구 사항 목록
 - 파이어베이스와의 연동 (소셜로그인, 파이어스토어, 스토리지)
-- 해당 Auth에만 해당 데이터를 볼 수 있게
+- 해당 Auth에만 해당 데이터를 볼 수 있게 고도화 시키기
 - 파이어스토어와 스토리지에 한 번에 여러 파일을 올리기
 - CSS-in-JS를 얼마나 잘 활용할지
 - PWA
@@ -42,7 +42,7 @@ yarn add slick-carousel
 <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white">
 
 - webpack을 사용하는 CRA보다 더 빠른 esbuild를 사용하는 Vite를 사용하기로 했습니다.
-- 
+- 손 쉽게 백엔드 서버를 구축하고자 Firebase를 사용했습니다. 스토어 구성을 하고 해당 코드로 불러오기까지 매우 편해서 선택을 했습니다.
 
 ## 폴더구조
 ```
@@ -80,9 +80,10 @@ yarn add slick-carousel
 3. type에 선택 사용을 위해 types 폴더에 분리
 
 ## 주안점
-1.
-2.
+1. 파이어베이스에 문자열만 다중으로 올려도 괜찮은데 여러 이미지 파일 -> 문서화 -> 스토리지에 올리는 시간 -> 컬렉션에 올리는 시간 + 클라이언트에 확인 까지 시간이 걸립니다.
+-- 
 3.
+4.
 
 ## 한계점 및 개선사항
 1.
