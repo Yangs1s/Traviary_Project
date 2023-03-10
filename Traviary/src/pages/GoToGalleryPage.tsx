@@ -4,31 +4,33 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 export default function GoToGalleryPage() {
-	return (
-		<Container>
-			<div className="wrapper">
-				<div className="slogun">
-					<Title>
-						<GiPalmTree className="logo" />
-						<span className="title">Traviary</span>
-					</Title>
-					<p className="desc">
-						<strong>Traviary</strong>와 함께 당신의 일상을 기록하세요!
-					</p>
-				</div>
-				<div className="content">
-					<LogoWrapper>
-						<GiPalmTree className="logo" />
-						<Title>
-							<Link to="/main">
-								<span className="title">Traviary</span>
-							</Link>
-						</Title>
-					</LogoWrapper>
-				</div>
-			</div>
-		</Container>
-	)
+
+  return (
+    <Container>
+      <div className="wrapper">
+        <div className="slogun">
+          <Title>
+            <GiPalmTree className="logo" />
+            <span className="title">Traviary</span>
+          </Title>
+          <p className="desc">
+            <strong>Traviary</strong>와 함께 당신의 일상을 기록하세요!
+          </p>
+        </div>
+        <div className="content">
+          <LogoWrapper>
+            <GiPalmTree className="logo" />
+            <Title>
+              <Link to="main">
+                <span className="title">Traviary</span>
+              </Link>
+            </Title>
+          </LogoWrapper>
+        </div>
+      </div>
+    </Container>
+  );
+
 }
 
 const Container = styled.section`
