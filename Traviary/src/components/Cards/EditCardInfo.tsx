@@ -107,8 +107,8 @@ const EditCardInfo = ({ traviObj, isToggle }: EditCardInfo) => {
 					<div>
 						<p>TAG:</p>
 						<HashTags>
-							{traviObj.hashtag.map((item: string) => {
-								return <Tag>#{item}</Tag>
+							{traviObj.hashtag.map((item: string, idx: number) => {
+								return <Tag key={idx}>#{item}</Tag>
 							})}
 						</HashTags>
 					</div>
