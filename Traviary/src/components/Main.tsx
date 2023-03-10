@@ -201,14 +201,14 @@ const GridContainer = styled.div`
   margin: 130px 30px;
   border-radius: 15px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-  @media screen and(min-width:481px) and (max-width: 901px) {
+  @media only screen and(min-width:481px) and (max-width: 901px) {
     min-height: 100%;
     -webkit-column-count: 3;
     column-count: 3;
     column-width: 25%;
   }
-  @media screen and (min-width: 280px) and (max-width: 480px) {
-    min-height: 100%;
+  @media only screen and (min-width: 280px) and (max-width: 480px) {
+    min-height: 600px;
     -webkit-column-count: 2;
     column-count: 2;
     -webkit-column-width: 33%;
@@ -237,7 +237,6 @@ const Skeleton = styled.div`
     }
   }
   @media screen and(min-width:481px) and (max-width: 901px) {
-    margin: auto;
     margin: 30% auto;
   }
   @media screen and (min-width: 280px) and (max-width: 480px) {
@@ -262,5 +261,12 @@ const ImgItem = styled.div`
     width: 100%;
     min-height: max-content;
     border-radius: 10px;
+  }
+  @media screen and(min-width:481px) and (max-width: 901px) {
+    height: 100%;
+    margin: auto;
+  }
+  @media screen and (min-width: 280px) and (max-width: 480px) {
+    height: auto;
   }
 `;
