@@ -264,13 +264,13 @@ const Container = styled.form<{ visible: boolean }>`
 
 	@media screen and (max-width: 380px) {
 		width: 88vw;
-		height: 99vh;
+		height: 90vh;
 		top: 35%;
 	}
 
-	@media screen and (min-width: 381px) and (max-width: 440px) {
+	@media screen and (min-width: 381px) and (max-width: 580px) {
 		width: 90vw;
-		height: 96vh;
+		height: 80vh;
 		top: 39%;
 	}
 `
@@ -295,7 +295,15 @@ const Wrapper = styled.div`
 
 	@media screen and (min-width: 381px) and (max-width: 440px) {
 		width: 90vw;
-		height: 80vh;
+		height: 79vh;
+		flex-direction: column;
+		margin: 0;
+		padding: 0;
+	}
+
+	@media screen and (min-width: 441px) and (max-width: 580px) {
+		width: 90vw;
+		height: 95%;
 		flex-direction: column;
 		margin: 0;
 		padding: 0;
@@ -313,6 +321,11 @@ const PhotoContainer = styled.div`
 	@media screen and (min-width: 381px) and (max-width: 440px) {
 		width: 87vw;
 		height: 85vw;
+	}
+
+	@media screen and (min-width: 441px) and (max-width: 580px) {
+		width: 87vw;
+		height: 50vw;
 	}
 `
 
@@ -346,11 +359,12 @@ const ImageLabel = styled.label`
 		width: 85vw;
 		height: 73vw;
 	}
-	@media screen and (min-width: 381px) and (max-width: 440px) {
+	@media screen and (min-width: 381px) and (max-width: 580px) {
 		width: 85vw;
-		height: 85vw;
+		height: 100%;
 		img {
-			max-height: 0;
+			width: auto;
+			height: 100%;
 		}
 	}
 `
@@ -379,6 +393,10 @@ const StarRatingContainer = styled.div`
 		max-height: 110px;
 		margin: 0;
 	}
+	@media screen and (min-width: 441px) and (max-width: 580px) {
+		max-height: 110px;
+		margin: 0;
+	}
 `
 const StarRatingItem = styled.div`
 	display: flex;
@@ -394,28 +412,45 @@ const StarRatingItem = styled.div`
 	@media screen and (max-width: 440px) {
 		padding: 5px 0;
 	}
+
+	@media screen and (min-width: 441px) and (max-width: 580px) {
+		padding: 5px 0;
+	}
 `
 
 const TextContainer = styled.div`
 	flex: 1;
-	height: 100px;
+	height: 100%;
 	text-align: center;
+	@media screen and (max-width: 380px) {
+		height: 16vh;
+	}
+	@media screen and (min-width: 381px) and(max-width: 440px) {
+		height: 5vh;
+	}
 `
 const TextArea = styled.textarea`
 	width: 100%;
-	height: 150px;
+	height: 100%;
 	resize: none;
 	padding: 10px;
 	border: 2px solid #e8e8e8;
 	border-radius: 20px;
-	@media screen and (max-width: 440px) {
-		height: 18vh;
+	@media screen and (max-width: 380px) {
+		height: 110px;
+	}
+	@media screen and (min-width: 381px) and (max-width: 440px) {
+		height: 9vh;
+	}
+
+	@media screen and (min-width: 441px) and (max-width: 580px) {
+		height: 100%;
 	}
 `
 
 const Button = styled.button`
 	width: 30%;
-	height: 15%;
+	height: 27%;
 	background: var(--tab-bgcolor);
 	border-radius: 10px;
 	border: 1px solid #fff;
@@ -423,6 +458,13 @@ const Button = styled.button`
 		font-size: 2em;
 		font-weight: 800;
 		color: var(--main-color);
+	}
+	@media screen and (max-width: 440px) {
+		height: 23%;
+	}
+
+	@media screen and (min-width: 441px) and (max-width: 580px) {
+		height: 25%;
 	}
 `
 
