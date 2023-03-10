@@ -78,12 +78,18 @@ const RightWrapper = styled.div`
     }
   }
 
-  @media screen and (min-width: 240px) and (max-width: 504px) {
+  @media screen and (min-width: 240px) and (max-width: 540px) {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
+    .copyright_wrapper {
+      font-size: 5px;
+      margin-top: 17px;
+      .copyright {
+      }
+    }
   }
 `;
 const Icons = styled.div`
