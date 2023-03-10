@@ -273,6 +273,10 @@ const Container = styled.form<{ visible: boolean }>`
 		height: 80vh;
 		top: 39%;
 	}
+	@media screen and (min-width: 581px) and (max-width: 720px) {
+		width: 90vw;
+		height: 65vh;
+	}
 `
 
 const Wrapper = styled.div`
@@ -307,6 +311,10 @@ const Wrapper = styled.div`
 		flex-direction: column;
 		margin: 0;
 		padding: 0;
+	}
+	@media screen and (min-width: 581px) and (max-width: 720px) {
+		width: 90vw;
+		height: 65vh;
 	}
 `
 const PhotoContainer = styled.div`
@@ -446,6 +454,10 @@ const TextArea = styled.textarea`
 	@media screen and (min-width: 441px) and (max-width: 580px) {
 		height: 100%;
 	}
+
+	@media screen and (min-width: 581px) and (max-width: 720px) {
+		height: 80%;
+	}
 `
 
 const Button = styled.button`
@@ -465,6 +477,10 @@ const Button = styled.button`
 
 	@media screen and (min-width: 441px) and (max-width: 580px) {
 		height: 25%;
+	}
+
+	@media screen and (min-width: 581px) and (max-width: 720px) {
+		height: 20%;
 	}
 `
 
@@ -496,6 +512,13 @@ const HashTags = styled.div`
 			border-top-right-radius: 3px;
 			border-bottom-right-radius: 3px;
 			background: var(--tab-bgcolor);
+		}
+	}
+	@media screen and (max-width: 720px) {
+		.add_tag {
+			.tag_input {
+				width: 100%;
+			}
 		}
 	}
 `
