@@ -208,7 +208,7 @@ const GridContainer = styled.div`
     column-width: 25%;
   }
   @media only screen and (min-width: 280px) and (max-width: 480px) {
-    min-height: 600px;
+    min-height: 400px;
     -webkit-column-count: 2;
     column-count: 2;
     -webkit-column-width: 33%;
