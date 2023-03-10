@@ -261,6 +261,18 @@ const Container = styled.form<{ visible: boolean }>`
 	border-radius: 20px;
 
 	${(props) => modalSettings(props.visible)}
+
+	@media screen and (max-width: 380px) {
+		width: 88vw;
+		height: 99vh;
+		top: 35%;
+	}
+
+	@media screen and (min-width: 381px) and (max-width: 440px) {
+		width: 90vw;
+		height: 96vh;
+		top: 39%;
+	}
 `
 
 const Wrapper = styled.div`
@@ -272,13 +284,36 @@ const Wrapper = styled.div`
 	margin: 10px 30px;
 	border-radius: 20px;
 	z-index: 9999;
+
+	@media screen and (max-width: 380px) {
+		width: 90vw;
+		height: 80vh;
+		flex-direction: column;
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	@media screen and (min-width: 381px) and (max-width: 440px) {
+		width: 90vw;
+		height: 80vh;
+		flex-direction: column;
+		margin: 0;
+		padding: 0;
+	}
 `
 const PhotoContainer = styled.div`
 	flex: 1;
-	min-width: 400px;
-	min-height: 400px;
 	display: flex;
 	margin: 5px;
+	@media screen and (max-width: 380px) {
+		width: 80vw;
+		height: 80vw;
+		margin: auto;
+	}
+	@media screen and (min-width: 381px) and (max-width: 440px) {
+		width: 87vw;
+		height: 85vw;
+	}
 `
 
 const ImageLabel = styled.label`
@@ -297,13 +332,26 @@ const ImageLabel = styled.label`
 	span {
 		position: absolute;
 		font-size: 100px;
-		left: 40%;
 	}
 	img {
 		width: 100%;
 		height: auto;
 		max-height: 400px;
 		border-radius: 20px;
+	}
+	@media screen and (max-width: 380px) {
+		span {
+			font-size: 60px;
+		}
+		width: 85vw;
+		height: 73vw;
+	}
+	@media screen and (min-width: 381px) and (max-width: 440px) {
+		width: 85vw;
+		height: 85vw;
+		img {
+			max-height: 0;
+		}
 	}
 `
 
@@ -327,6 +375,10 @@ const StarRatingContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	@media screen and (max-width: 440px) {
+		max-height: 110px;
+		margin: 0;
+	}
 `
 const StarRatingItem = styled.div`
 	display: flex;
@@ -338,6 +390,9 @@ const StarRatingItem = styled.div`
 		font-size: 14px;
 		font-weight: 700;
 		white-space: no-wrap;
+	}
+	@media screen and (max-width: 440px) {
+		padding: 5px 0;
 	}
 `
 
@@ -353,6 +408,9 @@ const TextArea = styled.textarea`
 	padding: 10px;
 	border: 2px solid #e8e8e8;
 	border-radius: 20px;
+	@media screen and (max-width: 440px) {
+		height: 18vh;
+	}
 `
 
 const Button = styled.button`
