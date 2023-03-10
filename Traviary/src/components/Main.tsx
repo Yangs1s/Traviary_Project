@@ -259,14 +259,19 @@ const ImgItem = styled.div`
   }
   .image {
     width: 100%;
-    min-height: max-content;
     border-radius: 10px;
   }
   @media screen and(min-width:481px) and (max-width: 901px) {
     height: 100%;
     margin: auto;
+    .image {
+      height: 10%;
+    }
   }
   @media screen and (min-width: 280px) and (max-width: 480px) {
     height: auto;
+    .image {
+      height: 10%;
+    }
   }
 `;
