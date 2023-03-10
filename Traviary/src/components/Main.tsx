@@ -177,12 +177,12 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   overflow-y: scroll;
-  @media screen and (max-width: 900px) {
+  @media screen and(min-width:481px) and (max-width: 901px) {
     width: 100%;
     height: 100%;
     margin: 0;
   }
-  @media screen and (max-width: 400px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -201,14 +201,16 @@ const GridContainer = styled.div`
   margin: 130px 30px;
   border-radius: 15px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-  @media screen and (max-width: 901px) {
+  @media screen and(min-width:481px) and (max-width: 901px) {
+    min-height: 100%;
     -webkit-column-count: 3;
     column-count: 3;
     column-width: 25%;
   }
-  @media screen and (max-width: 530px) {
-    -webkit-column-count: 3;
-    column-count: 3;
+  @media screen and (min-width: 280px) and (max-width: 480px) {
+    min-height: 100%;
+    -webkit-column-count: 2;
+    column-count: 2;
     -webkit-column-width: 33%;
     column-width: 33%;
   }
@@ -234,6 +236,14 @@ const Skeleton = styled.div`
       align-items: center;
     }
   }
+  @media screen and(min-width:481px) and (max-width: 901px) {
+    margin: auto;
+    margin: 30% auto;
+  }
+  @media screen and (min-width: 280px) and (max-width: 480px) {
+    height: 100%;
+    margin: 30% auto;
+  }
 `;
 
 const ImgItem = styled.div`
@@ -242,7 +252,7 @@ const ImgItem = styled.div`
   cursor: pointer;
   margin-bottom: 12px;
   border-radius: 10px;
-  min-height: auto;
+  height: auto;
   box-shadow: 1px 2px 5px 2px rgba(0, 0, 0, 0.2);
   :hover {
     -webkit-filter: brightness(0.5);

@@ -58,7 +58,7 @@ const CardInfo = ({
   };
 
   return (
-    <PostContainer visible={isPostOpen}>
+    <PostContainer visible={isPostOpen} className="post_container">
       <Wrapper>
         <PostHeader>
           <HeaderWrapper>
@@ -111,7 +111,7 @@ const CardInfo = ({
                   <Name> POST </Name>
                 </SubTitle>
 
-                <TextContent>
+                <TextContent className="text">
                   <span className="content">{traviObj.text}</span>
 
                   <div className="tag_container">
@@ -123,7 +123,7 @@ const CardInfo = ({
                   </div>
                 </TextContent>
               </TextContainer>
-              <StatContainer>
+              <StatContainer className="stats">
                 <SubTitle>
                   <Star />
                   <Name> RATING </Name>
@@ -197,9 +197,9 @@ const PostContainer = styled.div<{ visible: boolean }>`
   z-index: 100;
 
   ${props => modalSettings(props.visible)}
-  @media screen and (min-width: 280px) and (max-width: 540px) {
-    max-width: 450px;
-    max-height: 100%;
+  @media screen and (min-width: 280px) and (max-width: 480px) {
+    width: 80%;
+    height: 580px;
   }
 `;
 
@@ -211,8 +211,9 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1;
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     width: 100%;
+    height: 100%;
   }
 `;
 
@@ -250,7 +251,7 @@ const CloseBtn = styled.button`
     font-size: 3em;
     color: var(--main-color);
   }
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     span {
       font-size: 2em;
     }
@@ -275,7 +276,7 @@ const ContentContainer = styled.div`
   height: 60vh;
   display: flex;
   align-items: center;
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     flex-direction: column;
     height: 100%;
     width: 100%;
@@ -283,18 +284,7 @@ const ContentContainer = styled.div`
 `;
 
 // CONTENT --- Image////////
-const ImageContainer = styled.div`
-  width: 100%;
-  height: 90%;
-  display: flex;
-  margin: 6px;
-  border: solid 2px var(--color-gray0);
-  border-radius: 10px;
-  @media screen and (min-width: 280px) and (max-width: 540px) {
-    width: 95%;
-    max-height: 50%;
-  }
-`;
+
 const SliderBar = styled(Slider)`
   width: 30vw;
   height: 90%;
@@ -320,7 +310,7 @@ const SliderBar = styled(Slider)`
     display: none;
   }
 
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     width: 100%;
     margin: 20px 0;
     .slick-slide div {
@@ -328,10 +318,23 @@ const SliderBar = styled(Slider)`
     }
   }
 `;
+
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 90%;
+  display: flex;
+  margin: 6px;
+  border: solid 2px var(--color-gray0);
+  border-radius: 10px;
+  @media screen and (min-width: 280px) and (max-width: 480px) {
+    width: 95%;
+    height: 40%;
+  }
+`;
 const Figure = styled.figure`
   width: 100%;
   height: auto;
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     width: 100%;
   }
 `;
@@ -340,8 +343,9 @@ const Image = styled.img`
   max-height: 500px;
   padding: 0px 15px;
   margin: 0;
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     width: 100%;
+    height: 160px;
   }
 `;
 
@@ -356,7 +360,7 @@ const TextStatContainer = styled.div`
   justify-content: space-around;
   font-family: "Dongle", sans-serif;
   font-size: 1.5em;
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     width: 100%;
     flex-direction: column;
     padding: 0;
@@ -370,9 +374,8 @@ const TextContainer = styled.div`
   align-items: center;
   border-radius: 10px;
   margin: 5px;
-
-  @media screen and (min-width: 280px) and (max-width: 540px) {
-    width: auto;
+  @media screen and (min-width: 280px) and (max-width: 480px) {
+    width: 95%;
     margin: 0px;
     height: 15vh;
 
@@ -391,6 +394,7 @@ const TextContent = styled.div`
   display: flex;
   flex-direction: column;
   margin: 5px;
+  border-radius: 10px;
   .content {
     font-size: 2em;
     font-family: "Dongle", sans-serif;
@@ -406,13 +410,17 @@ const TextContent = styled.div`
       font-weight: bold;
     }
   }
-  @media screen and (min-width: 280px) and (max-width: 540px) {
-    width: 60vw;
+  @media screen and (min-width: 280px) and (max-width: 480px) {
+    width: 100%;
+    min-height: 19vh;
     margin: 0px;
-    border: solid 1px var(--color-gray0);
-    border-radius: 0;
+    border: solid 2px var(--color-gray0);
+    border-radius: 10px;
     padding: 3px;
     margin-top: 5px;
+    .content {
+      height: 100%;
+    }
   }
 `;
 
@@ -420,7 +428,7 @@ const HashTags = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     width: 70vw;
     height: auto;
     p {
@@ -436,7 +444,7 @@ const Tag = styled.span`
   background: #eaeaea;
   border-radius: 5px;
   margin: 2px;
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     width: auto;
     font-size: 11px;
     padding: 3px;
@@ -451,10 +459,12 @@ const StatContainer = styled.div`
   align-items: center;
   margin-left: 5px;
   border: solid 1px var(--color-gray0);
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     width: 93%;
     height: auto;
     margin: auto;
+    border: 2px solid var(--color-gray0);
+    border-radius: 10px;
   }
 `;
 const StatWrapper = styled.ul`
@@ -472,7 +482,7 @@ const StatWrapper = styled.ul`
     text-align: left;
     margin: 5px 0;
   }
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     width: 100%;
     margin: 0;
     border: solid 1px #eaeaea;
@@ -497,7 +507,7 @@ const SubTitle = styled.div`
   border-radius: 10px;
   padding: 3px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-  @media screen and (min-width: 280px) and (max-width: 540px) {
+  @media screen and (min-width: 280px) and (max-width: 480px) {
     display: none;
   }
 `;
