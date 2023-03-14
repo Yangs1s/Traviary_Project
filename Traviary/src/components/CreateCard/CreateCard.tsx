@@ -366,6 +366,10 @@ const ImageLabel = styled.label`
 		}
 		width: 85vw;
 		height: 73vw;
+		img {
+			width: auto;
+			height: 100%;
+		}
 	}
 	@media screen and (min-width: 381px) and (max-width: 580px) {
 		width: 85vw;
