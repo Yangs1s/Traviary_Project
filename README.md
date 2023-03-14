@@ -2,10 +2,81 @@
 여행을 떠난 당신을 위한 다이어리 웹/앱
 
 ## 최종 구현
-- 소셜 로그인
-- 다이어리 올리기
-- 다이어리 확인하기
-- 다이어리 수정 및 삭제
+<table align="center">
+<thead>
+<tr margin-bottom=3px>
+<td width="300" align="center">
+<b style="color:#8fe3d9">소셜 로그인<b>
+</td>
+<td width="300" align="center">
+<b>
+카드 생성
+</b>
+  
+</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td width="300" align="center">
+<img src="https://user-images.githubusercontent.com/97148877/224933428-f1cda08a-418a-4b8b-9f08-ff4abe06f816.gif" width="350" />
+</td>
+
+<td width="300" align="center">
+<img src="https://user-images.githubusercontent.com/97148877/224933548-2fefda9a-e93f-47ed-b6c0-31467fca90ee.gif" width="350" />
+</td>
+</tr>
+<tr>
+<td width="300" align="center">
+
+<b>
+카드 정보
+</b>
+</td>
+<td width="300" align="center">
+
+<b>
+카드 수정
+</b>
+</td>
+</tr>
+<tr>
+<td width="300" align="center">
+<img src= "https://user-images.githubusercontent.com/97148877/224933720-e5676969-0c06-4d40-9057-7b0bd2651543.gif" width="350" />
+
+</td>
+<td width="300" align="center">
+<img src ="https://user-images.githubusercontent.com/97148877/224934084-d0f89b85-3d2d-4710-b9ea-c54d71e4754e.gif" width="350" />
+
+</td>
+</tr>
+<tr>
+<td width="300" align="center">
+
+<b>
+카드 삭제
+</b>
+</td>
+<td width="300" align="center">
+
+<b>
+그외 추가기능
+</b>
+</td>
+</tr>
+<tr>
+<td width="300" align="center">
+<img src="https://user-images.githubusercontent.com/97148877/224934265-f6a52848-91d2-4da2-bc51-16932355025f.gif" width="350" />
+
+
+</td>
+<td width="300" align="center">
+<img src="https://user-images.githubusercontent.com/97148877/224934344-2aed78f8-5c43-41f5-9fe6-fb00694c745e.gif" width="350" />
+
+</td>
+</tr>
+</tbody>
+</table>
 
 ## 설치 및 환경설정
 ```
