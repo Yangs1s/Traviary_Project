@@ -1,5 +1,8 @@
-# Traviary
+
+## Traviary
 여행을 떠난 당신을 위한 다이어리 웹/앱
+
+<a href="https://elegant-syrniki-a5072c.netlify.app">베포</a>
 
 ## 최종 구현
 <table align="center">
@@ -155,4 +158,4 @@ yarn add slick-carousel
 1. 파이어베이스에 문자열만 다중으로 올려도 괜찮은데 여러 _이미지 파일 -> 문서화 -> 스토리지에 올리는 시간 -> 컬렉션에 올리는 시간 + 클라이언트에 확인_ 까지 시간이 걸립니다.
 
 ## 한계점 및 개선사항
-1. 
+1.
