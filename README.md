@@ -2,7 +2,7 @@
 ## Traviary
 여행을 떠난 당신을 위한 다이어리 웹/앱
 
-<a href="https://elegant-syrniki-a5072c.netlify.app">베포</a>
+<a href="https://elegant-syrniki-a5072c.netlify.app">배포</a>
 
 ## 최종 구현
 <table align="center">
